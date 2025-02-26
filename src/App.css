@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: "Inter", sans-serif; 
+    /* font-family: "Poppins", sans-serif; */
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+.hide-scrollbar {
+    overflow-x: scroll;  /* Allow horizontal scroll */
+    scrollbar-width: none;  /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer */
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;  /* For Chrome, Safari, and Opera */
+  }
+  
+.test {
+    color: #e0e0e0;
+}
+
+.printable {
+    display: hidden;
+}
+
+@layer components {
+    input:focus, select:focus, textarea:focus {
+      @apply focus:ring-primary focus:border-primary;
+    }
+  }
+
+.btn {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+}
