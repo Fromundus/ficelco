@@ -33,11 +33,11 @@
     display: hidden;
 }
 
-@layer components {
+/* @layer components {
     input:focus, select:focus, textarea:focus {
       @apply focus:ring-primary focus:border-primary;
     }
-  }
+  } */
 
 .btn {
     height: 44px;

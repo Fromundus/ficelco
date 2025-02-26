@@ -16,6 +16,11 @@ import UserLayout from './layouts/UserLayout';
 import AdminLayout from './layouts/AdminLayout';
 import Unauthorized from './pages/Unauthorized';
 import NotFound from './pages/NotFound';
+import BillInquiry from './pages/BillInquiry';
+import Bidings from './pages/Bidings';
+import ConsumerServices from './pages/ConsumerServices';
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 const roles = {
     superAdmin: "U2FsdGVkX1+z9Nk1=",
@@ -29,6 +34,11 @@ const router = createBrowserRouter(createRoutesFromElements(
             <Route index element={<Landing />} />
             <Route path='login' element={<Login />} />
             <Route path="signup" element={<Signup />} />
+            <Route path='bill-inquiry' element={<BillInquiry />} />
+            <Route path='biddings' element={<Bidings />} />
+            <Route path='consumer-services' element={<ConsumerServices />} />
+            <Route path='about' element={<About />} />
+            <Route path='contact' element={<Contact />} />
         </Route>
 
         <Route element={<RequireAuthentication allowedRoles={roles.superAdmin} />}>
