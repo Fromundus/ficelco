@@ -5,6 +5,7 @@ import Logo from '../components/Logo';
 import ThemeToggleButton from '../components/ThemeToggleButton';
 import { AiOutlineMenu } from "react-icons/ai";
 import { motion } from 'framer-motion';
+import { RiMenu3Fill } from "react-icons/ri";
 import Footer from '../components/Footer';
 
 function GuestLayout() {
@@ -15,6 +16,15 @@ function GuestLayout() {
         return <Navigate to={`${role}`} />
     }
 
+    const handleDropDownToggle = () => {
+        setDropDown(prev => !prev);
+        window.scrollTo(0, 0);
+    }
+
+    const handleCloseDropDown = () => {
+        setDropDown(false);
+        window.scrollTo(0, 0);
+    }
 
     return (
         <>
@@ -27,61 +37,61 @@ function GuestLayout() {
                         to={'/'}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Home</span>
+                            <span className='text-secondary dark:text-primary'>Home</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Home</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Home</span>
                         )}
                     </NavLink>
                     <NavLink
                         to={'/bill-inquiry'}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Bill Inquiry</span>
+                            <span className='text-secondary dark:text-primary'>Bill Inquiry</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Bill Inquiry</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Bill Inquiry</span>
                         )}
                     </NavLink>
                     <NavLink
                         to={'/biddings'}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Biddings</span>
+                            <span className='text-secondary dark:text-primary'>Biddings</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Biddings</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
                         )}
                     </NavLink>
                     <NavLink
                         to={'/consumer-services'}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Consumer Services</span>
+                            <span className='text-secondary dark:text-primary'>Consumer Services</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Consumer Services</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Consumer Services</span>
                         )}
                     </NavLink>
                     <NavLink
                         to={'/about'}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>About</span>
+                            <span className='text-secondary dark:text-primary'>About</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>About</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>About</span>
                         )}
                     </NavLink>
                     <NavLink
                         to={'/contact'}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Contact</span>
+                            <span className='text-secondary dark:text-primary'>Contact</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Contact</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Contact</span>
                         )}
                     </NavLink>
                 </div>
                 <div className='flex items-center gap-4'>
                     <ThemeToggleButton />
-                    <button className='md:hidden lg:hidden' onClick={() => setDropDown(prev => !prev)}>
-                        <AiOutlineMenu className='text-xl' />
+                    <button className='md:hidden lg:hidden' onClick={handleDropDownToggle}>
+                        <RiMenu3Fill className='text-xl' />
                     </button>
                 </div>
             </nav>
@@ -92,67 +102,67 @@ function GuestLayout() {
                     <NavLink
                         className='p-4 flex'
                         to={'/'}
-                        onClick={() => setDropDown(false)}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Home</span>
+                            <span className='text-secondary dark:text-primary'>Home</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Home</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Home</span>
                         )}
                     </NavLink>
                     <NavLink
                         className='p-4 flex'
                         to={'/bill-inquiry'}
-                        onClick={() => setDropDown(false)}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Bill Inquiry</span>
+                            <span className='text-secondary dark:text-primary'>Bill Inquiry</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Bill Inquiry</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Bill Inquiry</span>
                         )}
                     </NavLink>
                     <NavLink
                         className='p-4 flex'
                         to={'/biddings'}
-                        onClick={() => setDropDown(false)}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Biddings</span>
+                            <span className='text-secondary dark:text-primary'>Biddings</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Biddings</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
                         )}
                     </NavLink>
                     <NavLink
                         className='p-4 flex'
                         to={'/consumer-services'}
-                        onClick={() => setDropDown(false)}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Consumer Services</span>
+                            <span className='text-secondary dark:text-primary'>Consumer Services</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Consumer Services</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Consumer Services</span>
                         )}
                     </NavLink>
                     <NavLink
                         className='p-4 flex'
                         to={'/about'}
-                        onClick={() => setDropDown(false)}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>About</span>
+                            <span className='text-secondary dark:text-primary'>About</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>About</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>About</span>
                         )}
                     </NavLink>
                     <NavLink
                         className='p-4 flex'
                         to={'/contact'}
-                        onClick={() => setDropDown(false)}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
-                            <span className='text-blue-700 dark:text-primary'>Contact</span>
+                            <span className='text-secondary dark:text-primary'>Contact</span>
                             :
-                            <span className='hover:text-blue-700 hover:dark:text-primary'>Contact</span>
+                            <span className='hover:text-secondary hover:dark:text-primary'>Contact</span>
                         )}
                     </NavLink>
                 </div>}

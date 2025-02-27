@@ -6,6 +6,9 @@ module.exports = {
     extend: {
         colors: {
             "primary": "#eab308",
+            "primary-darker": "#ca8a04",
+            "secondary": "#1d4ed8",
+            "secondary-darker": "#1e40af",
 
             // Light Mode Colors (Neutral)
             light: {
