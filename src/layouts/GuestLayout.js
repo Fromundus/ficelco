@@ -91,7 +91,7 @@ function GuestLayout() {
                 <div className='flex items-center gap-4'>
                     <ThemeToggleButton />
                     <button className='md:hidden lg:hidden' onClick={handleDropDownToggle}>
-                        <RiMenu3Fill className='text-xl' />
+                        <RiMenu3Fill className='text-2xl' />
                     </button>
                 </div>
             </nav>
