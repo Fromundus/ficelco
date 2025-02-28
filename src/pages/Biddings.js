@@ -3,11 +3,11 @@ import PageHeader from '../components/PageHeader'
 import { IoIosArrowBack, IoIosArrowForward  } from "react-icons/io";
 import BreadCrumbs from '../components/BreadCrumbs';
 
-function InvitationToBid() {
+function Biddings() {
     const links = [
         {
-            title: "Invitation to Bid",
-            href: "/biddings/invitation-to-bid"
+            title: "Biddings",
+            href: "/biddings"
         }
     ];
 
@@ -15,7 +15,7 @@ function InvitationToBid() {
         <>
             <BreadCrumbs links={links} />
             <div className='px-4'>
-                <PageHeader title={"Invitation to Bid"} />
+                <PageHeader title={"Biddings"} />
             </div>
             <div className="overflow-x-auto rounded-lg">
                 <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700 bg-light-background dark:bg-dark-background text-sm">
@@ -35,7 +35,7 @@ function InvitationToBid() {
                             <td className="p-3 whitespace-nowrap flex justify-center">
                             <a
                                 href="#"
-                                className="inline-block rounded-sm bg-primary p-3 text-xs font-medium text-white hover:bg-primary-darker"
+                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
                             >
                                 View
                             </a>
@@ -48,7 +48,7 @@ function InvitationToBid() {
                             <td className="p-3 whitespace-nowrap flex justify-center">
                             <a
                                 href="#"
-                                className="inline-block rounded-sm bg-primary p-3 text-xs font-medium text-white hover:bg-primary-darker"
+                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
                             >
                                 View
                             </a>
@@ -61,7 +61,33 @@ function InvitationToBid() {
                             <td className="p-3 whitespace-nowrap flex justify-center">
                             <a
                                 href="#"
-                                className="inline-block rounded-sm bg-primary p-3 text-xs font-medium text-white hover:bg-primary-darker"
+                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
+                            >
+                                View
+                            </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="p-3 font-medium whitespace-nowrap text-center">RPH-SBB-No.-24-15-for-Region-5</td>
+                            <td className="p-3 whitespace-nowrap text-center">Steel-Pole-Requirements_PB-ITB-R</td>
+                            <td className="p-3 whitespace-nowrap text-center">5-3-2024</td>
+                            <td className="p-3 whitespace-nowrap flex justify-center">
+                            <a
+                                href="#"
+                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
+                            >
+                                View
+                            </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="p-3 font-medium whitespace-nowrap text-center">RPH-SBB-No.-24-15-for-Region-5</td>
+                            <td className="p-3 whitespace-nowrap text-center">Steel-Pole-Requirements_PB-ITB-R</td>
+                            <td className="p-3 whitespace-nowrap text-center">5-3-2024</td>
+                            <td className="p-3 whitespace-nowrap flex justify-center">
+                            <a
+                                href="#"
+                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
                             >
                                 View
                             </a>
@@ -85,4 +111,4 @@ function InvitationToBid() {
     )
 }
 
-export default InvitationToBid
+export default Biddings

@@ -68,7 +68,7 @@ function BoardOfDirectors() {
                 <PageHeader title={"Board of Directors"} />
             </div>
             <div className='p-4'>
-                <div className='flex flex-wrap'>
+                <div className='flex justify-center flex-wrap'>
                     {renderBoardOfDirectors}
                 </div>
             </div>

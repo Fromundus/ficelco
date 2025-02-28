@@ -35,7 +35,7 @@
 
 @layer components {
     input:focus, select:focus, textarea:focus {
-      @apply focus:ring-primary focus:border-primary;
+      @apply focus:ring-primary-darker focus:border-primary-darker;
     }
   }
 

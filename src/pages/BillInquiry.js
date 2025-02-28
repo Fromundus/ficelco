@@ -67,17 +67,17 @@ function BillInquiry() {
             </div>
             <div className='flex flex-wrap w-full p-2 mt-4 dark:bg-dark-accent'>
                 <FeatureCard
-                    image={"https://www.svgrepo.com/show/341469/bill-invoice-payment-receipt-billing.svg"}
+                    image={"https://www.svgrepo.com/show/234211/receipt.svg"}
                     title={"Bill Inquiry"}
                     description={"View your bills online."} 
                 />
                 <FeatureCard
-                    image={"https://www.svgrepo.com/show/341455/power-energy-bolt-thunderbolt-electricity.svg"}
+                    image={"https://www.svgrepo.com/show/161751/history.svg"}
                     title={"Bill History"}
                     description={"View your power consumption for the last six(6) months."} 
                 />
                 <FeatureCard
-                    image={"https://www.svgrepo.com/show/315033/credit-carts.svg"}
+                    image={"https://www.svgrepo.com/show/301708/credit-card-refund.svg"}
                     title={"Payment"}
                     description={"Pay your electric bills online."} 
                 />

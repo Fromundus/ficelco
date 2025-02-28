@@ -29,7 +29,7 @@ function CooperativeProfile() {
                 <div className='p-4 rounded-lg w-full flex sm:max-h-[300px] md:max-h-[400px] lg:max-h-[500px]'>
                     <img className='object-cover rounded-lg w-full' src="https://catanduanestribune.net/wp-content/uploads/2022/07/ficelco2-1024x576.png" alt="" />
                 </div>
-                <p className="p-4 rounded-lg shadow-lg leading-relaxed">
+                <span className="p-4 rounded-lg shadow-lg leading-relaxed">
                     FICELCO was established on <strong>October 28, 1971</strong>, as a non-stock, non-profit distribution utility. As one of the first electric cooperatives in the country, FICELCO has weathered numerous challenges, including fuel price hikes, compulsory wage increases, high maintenance costs, typhoons, and power outages. Despite these obstacles, FICELCO has consistently maintained an <strong>A+ Categorization</strong> among the cooperatives in Region V.
                     <br /><br />
                     As the sole franchise holder for electric distribution in Catanduanes, we proudly serve <strong>42,268 member-consumers</strong> across <strong>315 barangays</strong> in the municipalities of Bagamanoc, Baras, Bato, Caramoran, Gigmoto, Pandan, Panganiban, San Andres, San Miguel, Viga, and Virac. These municipalities are represented by <strong>7 Board of Directors</strong> across distinct districts:
@@ -47,7 +47,7 @@ function CooperativeProfile() {
                     <strong>FICELCO is about change.</strong> We continuously evolve to meet the dynamic demands of our consumers and offer growth opportunities for our human resources to enhance service delivery. Our commitment remains steadfast: to extend rural electrification to the farthest barangays and remotest sitios, fostering progress and development throughout Catanduanes.
                     <br /><br />
                     We are dedicated to delivering reliable service, driving innovation, and illuminating communities — today and for generations to come.
-                </p>
+                </span>
             </div>
         </>
     )

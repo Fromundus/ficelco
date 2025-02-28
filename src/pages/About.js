@@ -64,6 +64,13 @@ function About() {
                     header={"FEUC"}
                     description={"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis perferendis hic asperiores quibusdam quidem voluptates doloremque reiciendis nostrum harum. Repudiandae?"} 
                 />
+                <InfoCard
+                    link={"/about/awards"}
+                    title={"FICELCO"}
+                    image={"https://scontent-mnl1-2.xx.fbcdn.net/v/t39.30808-6/480607007_1094625202467538_2594723332753973170_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEpfp2GSmhXqqTZymv6Xaq6RkrE71uqkHJGSsTvW6qQcpV0zYJjpYICHeUe9MUx4t4THzNn8e6JWOopavoBCjYv&_nc_ohc=ddq8w-78p3MQ7kNvgHiw0lV&_nc_oc=Adgtt-glFbZlZiEbz4HnJu5UrHpUZlllKW4_-zfF6hXb4IFPDX8HMMksyYGIvU_4p1g&_nc_zt=23&_nc_ht=scontent-mnl1-2.xx&_nc_gid=AdSwHUTUCu5ybIJgcYn2KaX&oh=00_AYDUzzyc-qZfo5kdVcPdeUJR1QkBClBrBiXwQBWB_KS4Ig&oe=67C5D771"}
+                    header={"Awards"}
+                    description={"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis perferendis hic asperiores quibusdam quidem voluptates doloremque reiciendis nostrum harum. Repudiandae?"} 
+                />
             </div>
         </>
     )

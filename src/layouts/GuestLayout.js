@@ -11,7 +11,6 @@ import Footer from '../components/Footer';
 function GuestLayout() {
     const { role } = useStateContext();
     const [dropdown, setDropDown] = React.useState(false);
-    const [biddings, setBiddings] = React.useState(false);
 
     if(role){
         return <Navigate to={`${role}`} />
@@ -23,7 +22,6 @@ function GuestLayout() {
     }
 
     const handleCloseDropDown = () => {
-        setBiddings(false)
         setDropDown(false);
         window.scrollTo(0, 0);
     }
@@ -46,6 +44,16 @@ function GuestLayout() {
                         )}
                     </NavLink>
                     <NavLink
+                        to={'/news-and-updates'}
+                        onClick={handleCloseDropDown}
+                    >
+                        {({isActive}) => (isActive ? 
+                            <span className='text-secondary dark:text-primary'>Updates</span>
+                            :
+                            <span className='hover:text-secondary hover:dark:text-primary'>Updates</span>
+                        )}
+                    </NavLink>
+                    <NavLink
                         to={'/bill-inquiry'}
                         onClick={handleCloseDropDown}
                     >
@@ -55,27 +63,6 @@ function GuestLayout() {
                             <span className='hover:text-secondary hover:dark:text-primary'>Bill Inquiry</span>
                         )}
                     </NavLink>
-                    <div
-                        className='cursor-pointer relative'
-                        onClick={() => setBiddings(prev => !prev)}
-                    >
-                        <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
-
-                        {biddings && <div className='absolute top-10 w-[200px] bg-light-muted dark:bg-dark-secondary rounded-lg shadow-lg flex flex-col py-2'>
-                            <Link
-                                to={'/biddings/invitation-to-bid'}
-                                className='dark:hover:bg-dark-primary py-2 px-4 font-normal'
-                            >
-                                <span>Invitation to Bid</span>
-                            </Link>
-                            <Link
-                                to={'/biddings/awards'}
-                                className='dark:hover:bg-dark-primary py-2 px-4 font-normal'
-                            >
-                                <span>Awards</span>
-                            </Link>
-                        </div>}
-                    </div>
                     <NavLink
                         to={'/consumer-services'}
                         onClick={handleCloseDropDown}
@@ -87,6 +74,16 @@ function GuestLayout() {
                         )}
                     </NavLink>
                     <NavLink
+                        to={'/biddings'}
+                        onClick={handleCloseDropDown}
+                    >
+                        {({isActive}) => (isActive ? 
+                            <span className='text-secondary dark:text-primary'>Biddings</span>
+                            :
+                            <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
+                        )}
+                    </NavLink>
+                    <NavLink
                         to={'/about'}
                         onClick={handleCloseDropDown}
                     >
@@ -94,16 +91,6 @@ function GuestLayout() {
                             <span className='text-secondary dark:text-primary'>About</span>
                             :
                             <span className='hover:text-secondary hover:dark:text-primary'>About</span>
-                        )}
-                    </NavLink>
-                    <NavLink
-                        to={'/contact'}
-                        onClick={handleCloseDropDown}
-                    >
-                        {({isActive}) => (isActive ? 
-                            <span className='text-secondary dark:text-primary'>Contact</span>
-                            :
-                            <span className='hover:text-secondary hover:dark:text-primary'>Contact</span>
                         )}
                     </NavLink>
                 </div>
@@ -131,6 +118,17 @@ function GuestLayout() {
                     </NavLink>
                     <NavLink
                         className='p-4 flex'
+                        to={'/news-and-updates'}
+                        onClick={handleCloseDropDown}
+                    >
+                        {({isActive}) => (isActive ? 
+                            <span className='text-secondary dark:text-primary'>Updates</span>
+                            :
+                            <span className='hover:text-secondary hover:dark:text-primary'>Updates</span>
+                        )}
+                    </NavLink>
+                    <NavLink
+                        className='p-4 flex'
                         to={'/bill-inquiry'}
                         onClick={handleCloseDropDown}
                     >
@@ -140,8 +138,8 @@ function GuestLayout() {
                             <span className='hover:text-secondary hover:dark:text-primary'>Bill Inquiry</span>
                         )}
                     </NavLink>
-                    {/* <NavLink
-                        className='p-4 flex'
+                    <NavLink
+                        className='p-4'
                         to={'/biddings'}
                         onClick={handleCloseDropDown}
                     >
@@ -150,30 +148,7 @@ function GuestLayout() {
                             :
                             <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
                         )}
-                    </NavLink> */}
-                    <div
-                        className='cursor-pointer relative p-4'
-                        onClick={() => setBiddings(prev => !prev)}
-                    >
-                        <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
-
-                        {biddings && <div className='absolute top-10 w-[200px] bg-light-muted dark:bg-dark-secondary rounded-lg shadow-lg flex flex-col py-2'>
-                            <Link
-                                to={'/biddings/invitation-to-bid'}
-                                className='dark:hover:bg-dark-primary py-2 px-4 font-normal'
-                                onClick={handleCloseDropDown}
-                            >
-                                <span>Invitation to Bid</span>
-                            </Link>
-                            <Link
-                                to={'/biddings/awards'}
-                                className='dark:hover:bg-dark-primary py-2 px-4 font-normal'
-                                onClick={handleCloseDropDown}
-                            >
-                                <span>Awards</span>
-                            </Link>
-                        </div>}
-                    </div>
+                    </NavLink>
                     <NavLink
                         className='p-4 flex'
                         to={'/consumer-services'}
@@ -194,17 +169,6 @@ function GuestLayout() {
                             <span className='text-secondary dark:text-primary'>About</span>
                             :
                             <span className='hover:text-secondary hover:dark:text-primary'>About</span>
-                        )}
-                    </NavLink>
-                    <NavLink
-                        className='p-4 flex'
-                        to={'/contact'}
-                        onClick={handleCloseDropDown}
-                    >
-                        {({isActive}) => (isActive ? 
-                            <span className='text-secondary dark:text-primary'>Contact</span>
-                            :
-                            <span className='hover:text-secondary hover:dark:text-primary'>Contact</span>
                         )}
                     </NavLink>
                 </div>}

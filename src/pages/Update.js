@@ -1,28 +1,34 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 import BreadCrumbs from '../components/BreadCrumbs';
 import PageHeader from '../components/PageHeader';
 
-function Contact() {
+function Update() {
     React.useEffect( () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const { id } = useParams();
+
     const links = [
         {
-            title: "Contact",
-            href: "/contact"
+            title: "News and Updates",
+            href: "/news-and-updates"
+        },
+        {
+            title: `${id}`,
+            href: `/news-and-updates/${id}`
         },
     ];
-
 
     return (
         <>
             <BreadCrumbs links={links} />
             <div className='px-4'>
-                <PageHeader title={"Contact"} />
-            </div>
+                <PageHeader title={`Update ${id}`} />
+            </div>  
         </>
     )
 }
 
-export default Contact
+export default Update
