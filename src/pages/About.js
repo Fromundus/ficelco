@@ -8,7 +8,7 @@ function About() {
     }, []);
 
     return (
-        <div className=''>
+        <>
             <div className='px-4'>
                 <PageHeader title={"About Us"} />
             </div>
@@ -56,7 +56,7 @@ function About() {
                     description={"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis perferendis hic asperiores quibusdam quidem voluptates doloremque reiciendis nostrum harum. Repudiandae?"} 
                 />
             </div>
-        </div>
+        </>
     )
 }
 
