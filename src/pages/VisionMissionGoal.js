@@ -2,15 +2,19 @@ import React from 'react'
 import BreadCrumbs from '../components/BreadCrumbs';
 import PageHeader from '../components/PageHeader';
 
-function Contact() {
+function VisionMissionGoal() {
     React.useEffect( () => {
         window.scrollTo(0, 0);
     }, []);
 
     const links = [
         {
-            title: "Contact",
-            href: "/contact"
+            title: "About",
+            href: "/about"
+        },
+        {
+            title: "Vision, Mission, and Goal",
+            href: "/about/vision-mission-goal"
         },
     ];
 
@@ -19,10 +23,10 @@ function Contact() {
         <>
             <BreadCrumbs links={links} />
             <div className='px-4'>
-                <PageHeader title={"Contact"} />
+                <PageHeader title={"Vision, Mission, and Goal"} />
             </div>
         </>
     )
 }
 
-export default Contact
+export default VisionMissionGoal

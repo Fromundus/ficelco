@@ -77,7 +77,7 @@ function Landing() {
                             }}
                             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                         ></motion.div>
-                    <div className='absolute md:top-56 lg:top-56'>
+                    <div className='absolute top-52 md:top-56 lg:top-64'>
                         <Lottie animationData={lightningAnimation} style={{ width: 80, height: 80 }} />
                     </div>
                 </div>
@@ -88,15 +88,15 @@ function Landing() {
                     <span className='text-xl font-bold'>Power Rates</span>
                     <span>As of February 2025</span>
                 </div>
-                <div className='flex flex-wrap w-full'>
+                <div className='flex flex-wrap w-full px-2'>
                     <PowerRateCard price={12.8854} label={"Residential"} />
                     <PowerRateCard price={9.2525} label={"Commercial"} />
                     <PowerRateCard price={9.2171} label={"Public Building"} />
-                    <PowerRateCard price={10.2374} label={"Steet Light"} />
+                    <PowerRateCard price={10.2374} label={"Street Light"} />
                 </div>
             </section>
 
-            <section className='flex flex-col items-center justify-center dark:bg-dark-accent'>
+            <section className='flex flex-col items-center justify-center dark:bg-dark-accent pb-2'>
                 <div className='flex flex-col items-center justify-center p-8'>
                     <span className='text-xl font-bold'>News & Updates</span>
                 </div>
@@ -133,6 +133,9 @@ function Landing() {
                         header={"Reading Date, Due Date, & Disconnection Date (JAN 7 - 21, 2025)"}
                         description={"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis perferendis hic asperiores quibusdam quidem voluptates doloremque reiciendis nostrum harum. Repudiandae?"} 
                     />
+                </div>
+                <div className='w-full flex justify-center p-4'>
+                    <Link to={'news-and-updates'} className='h-[44px] rounded-lg px-4 font-semibold flex justify-center items-center bg-primary hover:bg-primary-darker text-white'>Show All News and Updates</Link>
                 </div>
             </section>
         </>

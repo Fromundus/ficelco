@@ -1,17 +1,14 @@
 import React from 'react'
 import PageHeader from '../components/PageHeader'
 
-function Bidings() {
+function Updates() {
     return (
         <>
             <div className='px-4'>
-                <PageHeader title={"Biddings"} />
-            </div>
-            <div>
-                
+                <PageHeader title={"News and Updates"} />
             </div>
         </>
     )
 }
 
-export default Bidings
+export default Updates

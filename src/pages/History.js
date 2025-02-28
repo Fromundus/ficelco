@@ -1,16 +1,20 @@
 import React from 'react'
-import PageHeader from '../components/PageHeader';
 import BreadCrumbs from '../components/BreadCrumbs';
+import PageHeader from '../components/PageHeader';
 
-function ConsumerServices() {
+function History() {
     React.useEffect( () => {
         window.scrollTo(0, 0);
     }, []);
 
     const links = [
         {
-            title: "Consumer Services",
-            href: "/consumer-services"
+            title: "About",
+            href: "/about"
+        },
+        {
+            title: "History",
+            href: "/about/history"
         },
     ];
 
@@ -19,10 +23,10 @@ function ConsumerServices() {
         <>
             <BreadCrumbs links={links} />
             <div className='px-4'>
-                <PageHeader title={"Consumer Services"} />
+                <PageHeader title={"History"} />
             </div>
         </>
     )
 }
 
-export default ConsumerServices
+export default History

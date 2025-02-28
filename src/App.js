@@ -21,6 +21,15 @@ import Bidings from './pages/Bidings';
 import ConsumerServices from './pages/ConsumerServices';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import InvitationToBid from './pages/InvitationToBid';
+import Awards from './pages/Awards';
+import Updates from './pages/Updates';
+import CooperativeProfile from './pages/CooperativeProfile';
+import History from './pages/History';
+import VisionMissionGoal from './pages/VisionMissionGoal';
+import BoardOfDirectors from './pages/BoardOfDirectors';
+import ManagementTeam from './pages/ManagementTeam';
+import Feuc from './pages/Feuc';
 
 const roles = {
     superAdmin: "U2FsdGVkX1+z9Nk1=",
@@ -34,10 +43,20 @@ const router = createBrowserRouter(createRoutesFromElements(
             <Route index element={<Landing />} />
             <Route path='login' element={<Login />} />
             <Route path="signup" element={<Signup />} />
+
+            <Route path='news-and-updates' element={<Updates />} />
             <Route path='bill-inquiry' element={<BillInquiry />} />
             <Route path='biddings' element={<Bidings />} />
+            <Route path='/biddings/invitation-to-bid' element={<InvitationToBid />} />
+            <Route path='/biddings/awards' element={<Awards />} />
             <Route path='consumer-services' element={<ConsumerServices />} />
             <Route path='about' element={<About />} />
+            <Route path='/about/cooperative-profile' element={<CooperativeProfile />} />
+            <Route path='/about/history' element={<History />} />
+            <Route path='/about/vision-mission-goal' element={<VisionMissionGoal />} />
+            <Route path='/about/board-of-directors' element={<BoardOfDirectors />} />
+            <Route path='/about/management-team' element={<ManagementTeam />} />
+            <Route path='/about/feuc' element={<Feuc />} />
             <Route path='contact' element={<Contact />} />
         </Route>
 

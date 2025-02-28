@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, NavLink, Outlet } from 'react-router-dom'
+import { Link, Navigate, NavLink, Outlet } from 'react-router-dom'
 import { useStateContext } from '../context/ContextProvider'
 import Logo from '../components/Logo';
 import ThemeToggleButton from '../components/ThemeToggleButton';
@@ -11,6 +11,7 @@ import Footer from '../components/Footer';
 function GuestLayout() {
     const { role } = useStateContext();
     const [dropdown, setDropDown] = React.useState(false);
+    const [biddings, setBiddings] = React.useState(false);
 
     if(role){
         return <Navigate to={`${role}`} />
@@ -22,6 +23,7 @@ function GuestLayout() {
     }
 
     const handleCloseDropDown = () => {
+        setBiddings(false)
         setDropDown(false);
         window.scrollTo(0, 0);
     }
@@ -35,6 +37,7 @@ function GuestLayout() {
                 <div className='md:flex lg:flex gap-6 font-semibold hidden'>
                     <NavLink
                         to={'/'}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
                             <span className='text-secondary dark:text-primary'>Home</span>
@@ -44,6 +47,7 @@ function GuestLayout() {
                     </NavLink>
                     <NavLink
                         to={'/bill-inquiry'}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
                             <span className='text-secondary dark:text-primary'>Bill Inquiry</span>
@@ -51,17 +55,30 @@ function GuestLayout() {
                             <span className='hover:text-secondary hover:dark:text-primary'>Bill Inquiry</span>
                         )}
                     </NavLink>
-                    <NavLink
-                        to={'/biddings'}
+                    <div
+                        className='cursor-pointer relative'
+                        onClick={() => setBiddings(prev => !prev)}
                     >
-                        {({isActive}) => (isActive ? 
-                            <span className='text-secondary dark:text-primary'>Biddings</span>
-                            :
-                            <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
-                        )}
-                    </NavLink>
+                        <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
+
+                        {biddings && <div className='absolute top-10 w-[200px] bg-light-muted dark:bg-dark-secondary rounded-lg shadow-lg flex flex-col py-2'>
+                            <Link
+                                to={'/biddings/invitation-to-bid'}
+                                className='dark:hover:bg-dark-primary py-2 px-4 font-normal'
+                            >
+                                <span>Invitation to Bid</span>
+                            </Link>
+                            <Link
+                                to={'/biddings/awards'}
+                                className='dark:hover:bg-dark-primary py-2 px-4 font-normal'
+                            >
+                                <span>Awards</span>
+                            </Link>
+                        </div>}
+                    </div>
                     <NavLink
                         to={'/consumer-services'}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
                             <span className='text-secondary dark:text-primary'>Consumer Services</span>
@@ -71,6 +88,7 @@ function GuestLayout() {
                     </NavLink>
                     <NavLink
                         to={'/about'}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
                             <span className='text-secondary dark:text-primary'>About</span>
@@ -80,6 +98,7 @@ function GuestLayout() {
                     </NavLink>
                     <NavLink
                         to={'/contact'}
+                        onClick={handleCloseDropDown}
                     >
                         {({isActive}) => (isActive ? 
                             <span className='text-secondary dark:text-primary'>Contact</span>
@@ -121,7 +140,7 @@ function GuestLayout() {
                             <span className='hover:text-secondary hover:dark:text-primary'>Bill Inquiry</span>
                         )}
                     </NavLink>
-                    <NavLink
+                    {/* <NavLink
                         className='p-4 flex'
                         to={'/biddings'}
                         onClick={handleCloseDropDown}
@@ -131,7 +150,30 @@ function GuestLayout() {
                             :
                             <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
                         )}
-                    </NavLink>
+                    </NavLink> */}
+                    <div
+                        className='cursor-pointer relative p-4'
+                        onClick={() => setBiddings(prev => !prev)}
+                    >
+                        <span className='hover:text-secondary hover:dark:text-primary'>Biddings</span>
+
+                        {biddings && <div className='absolute top-10 w-[200px] bg-light-muted dark:bg-dark-secondary rounded-lg shadow-lg flex flex-col py-2'>
+                            <Link
+                                to={'/biddings/invitation-to-bid'}
+                                className='dark:hover:bg-dark-primary py-2 px-4 font-normal'
+                                onClick={handleCloseDropDown}
+                            >
+                                <span>Invitation to Bid</span>
+                            </Link>
+                            <Link
+                                to={'/biddings/awards'}
+                                className='dark:hover:bg-dark-primary py-2 px-4 font-normal'
+                                onClick={handleCloseDropDown}
+                            >
+                                <span>Awards</span>
+                            </Link>
+                        </div>}
+                    </div>
                     <NavLink
                         className='p-4 flex'
                         to={'/consumer-services'}
