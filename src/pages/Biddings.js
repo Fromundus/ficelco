@@ -35,7 +35,7 @@ function Biddings() {
                             <td className="p-3 whitespace-nowrap flex justify-center">
                             <a
                                 href="#"
-                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
+                                className="inline-block rounded-lg bg-secondary hover:bg-secondary-darker dark:bg-primary p-2 text-xs font-medium text-white dark:hover:bg-primary-darker"
                             >
                                 View
                             </a>
@@ -48,7 +48,7 @@ function Biddings() {
                             <td className="p-3 whitespace-nowrap flex justify-center">
                             <a
                                 href="#"
-                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
+                                className="inline-block rounded-lg bg-secondary hover:bg-secondary-darker dark:bg-primary p-2 text-xs font-medium text-white dark:hover:bg-primary-darker"
                             >
                                 View
                             </a>
@@ -61,7 +61,7 @@ function Biddings() {
                             <td className="p-3 whitespace-nowrap flex justify-center">
                             <a
                                 href="#"
-                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
+                                className="inline-block rounded-lg bg-secondary hover:bg-secondary-darker dark:bg-primary p-2 text-xs font-medium text-white dark:hover:bg-primary-darker"
                             >
                                 View
                             </a>
@@ -74,7 +74,7 @@ function Biddings() {
                             <td className="p-3 whitespace-nowrap flex justify-center">
                             <a
                                 href="#"
-                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
+                                className="inline-block rounded-lg bg-secondary hover:bg-secondary-darker dark:bg-primary p-2 text-xs font-medium text-white dark:hover:bg-primary-darker"
                             >
                                 View
                             </a>
@@ -87,7 +87,7 @@ function Biddings() {
                             <td className="p-3 whitespace-nowrap flex justify-center">
                             <a
                                 href="#"
-                                className="inline-block rounded-lg bg-primary p-2 text-xs font-medium text-white hover:bg-primary-darker"
+                                className="inline-block rounded-lg bg-secondary hover:bg-secondary-darker dark:bg-primary p-2 text-xs font-medium text-white dark:hover:bg-primary-darker"
                             >
                                 View
                             </a>
@@ -100,7 +100,7 @@ function Biddings() {
                 <span>Showing 11 to 20 of 41 results</span>
                 <div className='flex items-center ms-auto'>
                     <button className='w-10 border-x border-y border-neutral-200 dark:border-neutral-700 rounded-s-lg p-2 h-10 flex items-center justify-center text-lg'><IoIosArrowBack /></button>
-                    <button className='w-10 border-e border-y border-neutral-200 bg-secondary text-white dark:border-neutral-700 p-2 h-10 flex items-center justify-center'>1</button>
+                    <button className='w-10 border-e border-y border-neutral-200 bg-primary-darker dark:bg-secondary text-white dark:border-neutral-700 p-2 h-10 flex items-center justify-center'>1</button>
                     <button className='w-10 border-e border-y border-neutral-200 dark:border-neutral-700 p-2 h-10 flex items-center justify-center'>2</button>
                     <button className='w-10 border-e border-y border-neutral-200 dark:border-neutral-700 p-2 h-10 flex items-center justify-center'>3</button>
                     <button className='w-10 border-e border-y border-neutral-200 dark:border-neutral-700 p-2 h-10 flex items-center justify-center'>4</button>

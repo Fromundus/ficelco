@@ -15,16 +15,13 @@ function Updates() {
         },
     ];
 
-
-
-
     return (
         <>
             <BreadCrumbs links={links} />
             <div className='px-4'>
                 <PageHeader title={"News and Updates"} />
             </div>
-            <div className='flex flex-wrap px-2'>
+            <div className='flex flex-wrap p-2'>
                 <NewsCard
                     link={`/news-and-updates/${1}`}
                     date={"Feb 27, 2025"}

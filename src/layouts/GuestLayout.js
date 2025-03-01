@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Navigate, NavLink, Outlet } from 'react-router-dom'
+import { Link, Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useStateContext } from '../context/ContextProvider'
 import Logo from '../components/Logo';
 import ThemeToggleButton from '../components/ThemeToggleButton';
@@ -11,6 +11,7 @@ import Footer from '../components/Footer';
 function GuestLayout() {
     const { role } = useStateContext();
     const [dropdown, setDropDown] = React.useState(false);
+    const location = useLocation();
 
     if(role){
         return <Navigate to={`${role}`} />
@@ -18,13 +19,18 @@ function GuestLayout() {
 
     const handleDropDownToggle = () => {
         setDropDown(prev => !prev);
-        window.scrollTo(0, 0);
     }
 
     const handleCloseDropDown = () => {
         setDropDown(false);
-        window.scrollTo(0, 0);
     }
+
+    const hideNavbarRoutes = ["/login"];
+    const dynamicRoutes = [];
+
+    const shouldHideNavbar =
+    hideNavbarRoutes.includes(location.pathname) || 
+    dynamicRoutes.some((route) => location.pathname.startsWith(route));
 
     return (
         <>
@@ -95,6 +101,7 @@ function GuestLayout() {
                     </NavLink>
                 </div>
                 <div className='flex items-center gap-4'>
+                    <Link className='p-2 bg-secondary dark:bg-primary-darker text-white rounded-lg' to={'/login'}>Login</Link>
                     <ThemeToggleButton />
                     <button className='md:hidden lg:hidden' onClick={handleDropDownToggle}>
                         <RiMenu3Fill className='text-2xl' />
@@ -104,7 +111,7 @@ function GuestLayout() {
             <div className='pt-[82px]'>
                 {dropdown &&
                     <div 
-                        className='flex flex-col justify-center bg-light-background dark:bg-dark-accent text-light-foreground dark:text-dark-foreground md:hidden lg:hidden'>
+                        className='flex flex-col justify-center bg-light-background dark:bg-dark-accent text-light-foreground dark:text-dark-foreground md:hidden lg:hidden fixed z-50 w-full'>
                     <NavLink
                         className='p-4 flex'
                         to={'/'}
@@ -173,13 +180,13 @@ function GuestLayout() {
                     </NavLink>
                 </div>}
             </div>
-            <div className='min-h-[100svh] bg-light-background dark:bg-dark-background text-light-foreground dark:text-dark-foreground'>
+            <div className={`${!shouldHideNavbar && "min-h-[100svh]"} bg-light-background dark:bg-dark-background text-light-foreground dark:text-dark-foreground`}>
                 <Outlet />
             </div>
                     
-            <div>
+            {!shouldHideNavbar && <div>
                 <Footer />
-            </div>
+            </div>}
         </>
     )
 }

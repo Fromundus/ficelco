@@ -82,15 +82,7 @@ function Login() {
     }
 
     return (
-        <div className='min-h-[100svh] p-4 flex flex-col pb-8'>
-            <div className='flex'>
-                <Link to={"/"}>
-                    <IoMdArrowBack className='text-2xl' />
-                </Link>
-                <div className='ms-auto'>
-                    <Link to={'/guest'} className='font-semibold'>Continue As Guest</Link>
-                </div>
-            </div>
+        <div className='min-h-[100svh] p-4 flex flex-col w-full'>
             <div className='flex w-full justify-center items-center mt-4'>
                 <Logo width={"70px"} height={"70px"} />
             </div>
@@ -99,11 +91,11 @@ function Login() {
             </span>
             {errors && <span className='my-4 text-primary text-center font-semibold'>{errors}</span>}
             <form
-                className='flex flex-col gap-4 mt-4'
+                className='flex flex-col gap-4 mt-4 w-full sm:px-20 md:px-52 lg:px-80'
                 onSubmit={handleSubmit}>
                 <label
                     htmlFor="ContactNumber"
-                    className="relative block p-0.5 pb-0 border-b-[1px] border-secondary focus-within:border-secondary focus-within:ring-0 focus-within:ring-secondary focus-within:border-b-2 w-full"
+                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
                     >
                     <input
                         type="number"
@@ -117,7 +109,7 @@ function Login() {
                     />
 
                     <span
-                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-secondary transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
                     >
                         Contact Number
                     </span>
@@ -125,7 +117,7 @@ function Login() {
 
                 <label
                     htmlFor="Password"
-                    className="relative block p-0.5 pb-0 border-b-[1px] border-secondary focus-within:border-secondary focus-within:ring-0 focus-within:ring-secondary focus-within:border-b-2 w-full"
+                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
                     >
                     <input
                         type={showPassword ? "text" : "password"}
@@ -147,25 +139,23 @@ function Login() {
                     </span>
 
                     <span
-                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-secondary transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
                     >
                         Password
                     </span>
                 </label>
 
-                <p className='my-2'>By logging in, you are agreeing to ShopPayo <span className='underline cursor-pointer'>terms & conditions and privacy policy</span>.</p>
+                <p className='my-2'>By logging in, you are agreeing to FICELCO <span className='underline cursor-pointer'>terms & conditions and privacy policy</span>.</p>
                 
                 <button
                     type='submit'
-                    className={`btn font-semibold ${(!data.contact_number || !data.password || isLoading) ? "bg-secondary text-neutral-600" : "bg-primary text-white"}`}
+                    className={`h-[44px] rounded-lg font-semibold ${(!data.contact_number || !data.password || isLoading) ? "bg-light-accent text-neutral-600 cursor-not-allowed" : "bg-primary text-white"}`}
+                    disabled={(!data.contact_number || !data.password || isLoading)}
                 >
                     Log In
                 </button>
             </form>
             <span className='mt-6 text-center'><Link className='text-tertiary'>Forgot Password?</Link></span>
-            <div className='border-b border-secondary mt-auto mx-2'></div>
-            
-            <span className='mt-6 text-center'>Don't have an account? <Link className='text-tertiary underline' to={'/signup'}>Sign up</Link></span>
         </div>
     )
 }
