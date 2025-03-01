@@ -72,7 +72,7 @@ function BillInquiry() {
                     description={"View your bills online."} 
                 />
                 <FeatureCard
-                    image={"https://www.svgrepo.com/show/161751/history.svg"}
+                    image={"https://www.svgrepo.com/show/385152/care-doctor-health-healthcare-history-hospital.svg"}
                     title={"Bill History"}
                     description={"View your power consumption for the last six(6) months."} 
                 />

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 function NotFound() {
     return (
         <div className="grid h-screen place-content-center bg-white px-4">
-            <div className="text-center">
-                <img className='w-[300px]' src="https://www.svgrepo.com/show/509009/avatar-thinking-3.svg" alt="" />
+            <div className="text-center flex flex-col items-center">
+                <img className='w-[250px]' src="https://www.svgrepo.com/show/509009/avatar-thinking-3.svg" alt="" />
 
                 <p className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">Uh-oh!</p>
 

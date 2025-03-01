@@ -150,7 +150,8 @@ function Login() {
                 <button
                     type='submit'
                     className={`h-[44px] rounded-lg font-semibold ${(!data.email || !data.password || isLoading) ? "bg-light-accent text-neutral-600 cursor-not-allowed" : "bg-primary text-white"}`}
-                    disabled={(!data.email || !data.password || isLoading)}
+                    // disabled={(!data.email || !data.password || isLoading)}
+                    disabled={true}
                 >
                     Log In
                 </button>

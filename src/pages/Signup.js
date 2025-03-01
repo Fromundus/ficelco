@@ -213,7 +213,8 @@ function Signup() {
                 <button
                     type='submit'
                     className={`h-[44px] rounded-lg font-semibold ${(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading) ? "bg-light-accent text-neutral-600 cursor-not-allowed" : "bg-primary text-white"}`}
-                    disabled={(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading)}
+                    // disabled={(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading)}
+                    disabled={true}
                 >
                     Create
                 </button>
