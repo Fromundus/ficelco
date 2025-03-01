@@ -2,9 +2,9 @@ import React from 'react'
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowBack } from "react-icons/io";
 import getCookie from '../lib/getCookie';
 import Logo from '../components/Logo';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
     React.useEffect( () => {
@@ -17,7 +17,7 @@ function Login() {
     const [isLoading, setIsloading] = React.useState(false);
     const { setRole, setName, setId } = useStateContext();
     const [data, setData] = React.useState({
-        contact_number: "",
+        email: "",
         password: "",
     });
 
@@ -49,10 +49,10 @@ function Login() {
         try {
             await axiosClient.get('/sanctum/csrf-cookie', { withCredentials: true });
 
-            const response = await axiosClient.post(
+            const res = await axiosClient.post(
                 '/api/login',
                 {
-                    contact_number: data.contact_number, 
+                    email: data.email, 
                     password: data.password 
                 },
                 {
@@ -63,13 +63,13 @@ function Login() {
                 }
             );
 
-            console.log(response);
+            console.log(res);
 
-            if(response.status === 200){
-                setName(response.data.data.firstname);
-                setRole(response.data.data.role);
-                setId(response.data.data.user_id);
-                navigate(`/${response.data.data.role}`);
+            if(res.status === 200){
+                setName(res.data.data.name);
+                setRole(res.data.data.role);
+                setId(res.data.data.id);
+                navigate(`/${res.data.data.role}`);
             }
 
         } catch (err){
@@ -89,29 +89,29 @@ function Login() {
             <span className='text-center text-2xl font-semibold my-2 mt-4'>
                 Login
             </span>
-            {errors && <span className='my-4 text-primary text-center font-semibold'>{errors}</span>}
+            {errors && <span className='my-4 text-red-500 text-center font-semibold'>{errors}</span>}
             <form
                 className='flex flex-col gap-4 mt-4 w-full sm:px-20 md:px-52 lg:px-80'
                 onSubmit={handleSubmit}>
                 <label
-                    htmlFor="ContactNumber"
+                    htmlFor="email"
                     className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
                     >
                     <input
-                        type="number"
-                        id="ContactNumber"
+                        type="email"
+                        id="email"
                         className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full appearance-none"
-                        placeholder="ContactNumber"
-                        name='contact_number'
+                        placeholder="email"
+                        name='email'
                         onChange={handleChange}
-                        value={data.contact_number}
+                        value={data.email}
                         autoComplete='false'
                     />
 
                     <span
                         className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
                     >
-                        Contact Number
+                        Email
                     </span>
                 </label>
 
@@ -131,11 +131,11 @@ function Login() {
                     />
 
                     <span
-                        className="absolute top-3 right-3 text-tertiary cursor-pointer"
+                        className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
                         onMouseDown={(e) => e.preventDefault()}
                         onClick={handlePasswordToggle}
                     >
-                        {showPassword ? "Hide" : "Show"}
+                        {showPassword ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
                     </span>
 
                     <span
@@ -149,13 +149,15 @@ function Login() {
                 
                 <button
                     type='submit'
-                    className={`h-[44px] rounded-lg font-semibold ${(!data.contact_number || !data.password || isLoading) ? "bg-light-accent text-neutral-600 cursor-not-allowed" : "bg-primary text-white"}`}
-                    disabled={(!data.contact_number || !data.password || isLoading)}
+                    className={`h-[44px] rounded-lg font-semibold ${(!data.email || !data.password || isLoading) ? "bg-light-accent text-neutral-600 cursor-not-allowed" : "bg-primary text-white"}`}
+                    disabled={(!data.email || !data.password || isLoading)}
                 >
                     Log In
                 </button>
             </form>
             <span className='mt-6 text-center'><Link className='text-tertiary'>Forgot Password?</Link></span>
+
+            <Link to={'/signup'} className='text-secondary dark:text-primary text-center mt-4'>Don't have an account? Create Account</Link>
         </div>
     )
 }

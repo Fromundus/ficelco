@@ -31,9 +31,9 @@ import Biddings from './pages/Biddings';
 import Awards from './pages/Awards';
 
 const roles = {
-    superAdmin: "U2FsdGVkX1+z9Nk1=",
-    admin: "U2FsdGVkX1+yX2k2=",
-    user: "U2FsdGVkX1+Rv7W03=",
+    superAdmin: "f1",
+    admin: "f2",
+    user: "f3",
 }
 
 const router = createBrowserRouter(createRoutesFromElements(

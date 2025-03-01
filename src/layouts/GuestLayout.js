@@ -25,7 +25,7 @@ function GuestLayout() {
         setDropDown(false);
     }
 
-    const hideNavbarRoutes = ["/login"];
+    const hideNavbarRoutes = [];
     const dynamicRoutes = [];
 
     const shouldHideNavbar =

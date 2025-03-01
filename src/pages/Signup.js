@@ -1,293 +1,226 @@
-import React from 'react';
+import React from 'react'
 import axiosClient from '../axios-client';
-import { v4 as uuidv4 } from 'uuid';
-import { Link, useNavigate } from 'react-router-dom';
 import { useStateContext } from '../context/ContextProvider';
-import { IoMdArrowBack } from 'react-icons/io';
+import { Link, useNavigate } from 'react-router-dom';
+import getCookie from '../lib/getCookie';
 import Logo from '../components/Logo';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Signup() {
-    const navigate = useNavigate();
-    const uniqueId = uuidv4();
-    const [showPassword, setShowPassword] = React.useState(false);
-    const { setToken, setRole, setName, setId } = useStateContext();
-    const [isLoading, setIsLoading] = React.useState(false);
-
     React.useEffect( () => {
-        window.scrollTo(0, 0);
+        window.scrollTo(0 ,0);
         // window.localStorage.clear();
     }, []);
 
+    const navigate = useNavigate();
+
+    const [isLoading, setIsloading] = React.useState(false);
+    const { setRole, setName, setId } = useStateContext();
     const [data, setData] = React.useState({
-        firstname: "",
-        lastname: "",
-        contact_number: "",
+        name: "",
+        email: "",
         password: "",
-        password_confirmation: ""
+        password_confirmation: "",
     });
+
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPasswordConfirmation, setShowPasswordConfirmation] = React.useState(false);
 
     const [errors, setErrors] = React.useState({
-        firstname: "",
-        lastname: "",
-        contact_number: "",
+        name: "",
+        email: "",
         password: "",
-        password_confirmation: ""
+        password_confirmation: "",
     });
 
-    const handlePasswordToggle = () => {
-        setShowPassword(prev => !prev)
-    }
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-
+    const handleChange = (event) => {
+        const { name, value } = event.target;
         setData( (prev) => {
             return {
                 ...prev,
                 [name]: value
             }
-        });
+        })
 
         setErrors( (prev) => {
             return {
                 ...prev,
                 [name]: ""
             }
-        });
+        })
+    }
 
-        if(name === "password_confirmation"){
-            setErrors( (prev) => {
-                return {
-                    ...prev,
-                    password: ""
-                }
-            })
+    const handlePasswordToggle = (type) => {
+        if(type === "password"){
+            setShowPassword(prev => !prev);
+        } else if (type === "password_confirmation"){
+            setShowPasswordConfirmation(prev => !prev);
         }
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsLoading(true);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setIsloading(true);
+        setErrors("");
 
-        const formData = {
-            user_id: uniqueId,
-            cart_id: uniqueId,
-            firstname: data.firstname,
-            lastname: data.lastname,
-            contact_number: data.contact_number,
-            password: data.password,
-            password_confirmation: data.password_confirmation
-        }
+        try {
+            await axiosClient.get('/sanctum/csrf-cookie', { withCredentials: true });
 
-        // axiosClient.post("api/register", formData)
-        //     .then( ({data}) => {
-        //         setRole(data.role);
-        //         setName(data.name);
-        //         setIsLoading(false);
-        //         navigate('/U2FsdGVkX1+Rv7W03=/welcome');
-        //     })
-        //     .catch( (err) => {
-        //         console.log(err);
-        //         setErrors(err.response.data.message);
-        //         setIsLoading(false);
-        //     })
-
-            try {
-                await axiosClient.get('/sanctum/csrf-cookie', { withCredentials: true });
-    
-                const xsrfToken = document.cookie.split('; ')
-                    .find(row => row.startsWith('XSRF-TOKEN='))
-                    ?.split('=')[1];
-    
-                const response = await axiosClient.post(
-                    '/api/register',
-                    {
-                        user_id: uniqueId,
-                        cart_id: uniqueId,
-                        firstname: data.firstname,
-                        lastname: data.lastname,
-                        contact_number: data.contact_number,
-                        password: data.password,
-                        password_confirmation: data.password_confirmation
-                    },
-                    {
-                        headers: { 'X-XSRF-TOKEN': decodeURIComponent(xsrfToken) },
+            const res = await axiosClient.post('/api/register', data, {
+                    headers: {
+                        'X-XSRF-TOKEN': getCookie(),    
                         withCredentials: true
                     }
-                );
-    
-                console.log(response);
-    
-                if(response.status === 200){
-                    setIsLoading(false);
-                    // setName(response.data.data.firstname);
-                    // setRole(response.data.data.role);
-                    // setId(response.data.data.role);
-                    navigate(`/login`);
                 }
-    
-            } catch (err){
-                console.log(err);
-                setErrors(err.response.data.message);
-                setIsLoading(false);
+            );
+
+            console.log(res);
+
+            if(res.status === 200){
+                setIsloading(false);
+                navigate(`/login`);
             }
+
+        } catch (err){
+            console.log(err);
+            if(err.response.status === 422){
+                setErrors(err.response.data.message);
+                setIsloading(false);
+            }
+        }
     }
 
     return (
-        // <div className='min-h-[100svh] p-4 flex flex-col pb-8'>
-        //     <div className='flex'>
-        //         <Link to={"/"}>
-        //             <IoMdArrowBack className='text-2xl' />
-        //         </Link>
-        //         <div className='ms-auto'>
-        //             <Link to={'/guest'} className='font-semibold'>Continue As Guest</Link>
-        //         </div>
-        //     </div>
-        //     <div className='flex w-full justify-center items-center mt-4'>
-        //         <Logo width={"70px"} height={"70px"} />
-        //     </div>
-        //     <span className='text-center text-2xl font-semibold my-2 mt-4'>
-        //         Create account
-        //     </span>
-        //     <form
-        //         className='flex flex-col gap-4 mt-4 mb-4'
-        //         onSubmit={handleSubmit}>
-        //         <label
-        //             htmlFor="Firstname"
-        //             className="relative block p-0.5 pb-0 border-b-[1px] border-secondary focus-within:border-secondary focus-within:ring-0 focus-within:ring-secondary focus-within:border-b-2 w-full"
-        //             >
-        //             <input
-        //                 type="text"
-        //                 id="Firstname"
-        //                 className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full"
-        //                 placeholder="Firstname"
-        //                 name='firstname'
-        //                 onChange={handleChange}
-        //                 value={data.firstname}
-        //                 autoComplete='false'
-        //             />
+        <div className='min-h-[100svh] p-4 flex flex-col w-full'>
+            <div className='flex w-full justify-center items-center mt-4'>
+                <Logo width={"70px"} height={"70px"} />
+            </div>
+            <span className='text-center text-2xl font-semibold my-2 mt-4'>
+                Create Account
+            </span>
+            <form
+                className='flex flex-col gap-4 mt-4 w-full sm:px-20 md:px-52 lg:px-80'
+                onSubmit={handleSubmit}>
+                <label
+                    htmlFor="name"
+                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
+                    >
+                    <input
+                        type="text"
+                        id="name"
+                        className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full appearance-none"
+                        placeholder="name"
+                        name='name'
+                        onChange={handleChange}
+                        value={data.name}
+                        autoComplete='false'
+                    />
 
-        //             <span
-        //                 className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-secondary transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-        //             >
-        //                 First Name
-        //             </span>
-        //         </label>
-        //         {errors.firstname && <span className='text-primary'>{errors.firstname}</span>}
+                    <span
+                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                    >
+                        Name
+                    </span>
+                </label>
+                {errors.name && <span className='text-red-500'>{errors.name}</span>}
 
-        //         <label
-        //             htmlFor="LastName"
-        //             className="relative block p-0.5 pb-0 border-b-[1px] border-secondary focus-within:border-secondary focus-within:ring-0 focus-within:ring-secondary focus-within:border-b-2 w-full"
-        //             >
-        //             <input
-        //                 type="text"
-        //                 id="LastName"
-        //                 className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full"
-        //                 placeholder="LastName"
-        //                 name='lastname'
-        //                 onChange={handleChange}
-        //                 value={data.lastname}
-        //                 autoComplete='false'
-        //             />
+                <label
+                    htmlFor="email"
+                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
+                    >
+                    <input
+                        type="email"
+                        id="email"
+                        className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full appearance-none"
+                        placeholder="email"
+                        name='email'
+                        onChange={handleChange}
+                        value={data.email}
+                        autoComplete='false'
+                    />
 
-        //             <span
-        //                 className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-secondary transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-        //             >
-        //                 Last Name
-        //             </span>
-        //         </label>
-        //         {errors.lastname && <span className='text-primary'>{errors.lastname}</span>}
+                    <span
+                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                    >
+                        Email
+                    </span>
+                </label>
+                {errors.email && <span className='text-red-500'>{errors.email}</span>}
 
-        //         <label
-        //             htmlFor="ContactNumber"
-        //             className="relative block p-0.5 pb-0 border-b-[1px] border-secondary focus-within:border-secondary focus-within:ring-0 focus-within:ring-secondary focus-within:border-b-2 w-full"
-        //             >
-        //             <input
-        //                 type="number"
-        //                 id="ContactNumber"
-        //                 className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full appearance-none"
-        //                 placeholder="ContactNumber"
-        //                 name='contact_number'
-        //                 onChange={handleChange}
-        //                 value={data.contact_number}
-        //                 autoComplete='false'
-        //             />
+                <label
+                    htmlFor="Password"
+                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
+                    >
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        id="Password"
+                        className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full"
+                        placeholder="Password"
+                        name='password'
+                        onChange={handleChange}
+                        value={data.password}
+                        autoComplete='false'
+                    />
 
-        //             <span
-        //                 className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-secondary transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-        //             >
-        //                 Contact Number
-        //             </span>
-        //         </label>
-        //         {errors.contact_number && <span className='text-primary'>{errors.contact_number}</span>}
+                    <span
+                        className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => handlePasswordToggle("password")}
+                    >
+                        {showPassword ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
+                    </span>
 
-        //         <label
-        //             htmlFor="Password"
-        //             className="relative block p-0.5 pb-0 border-b-[1px] border-secondary focus-within:border-secondary focus-within:ring-0 focus-within:ring-secondary focus-within:border-b-2 w-full mt-4"
-        //             >
-        //             <input
-        //                 type={showPassword ? "text" : "password"}
-        //                 id="Password"
-        //                 className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full"
-        //                 placeholder="Password"
-        //                 name='password'
-        //                 onChange={handleChange}
-        //                 value={data.password}
-        //                 autoComplete='false'
-        //             />
+                    <span
+                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                    >
+                        Password
+                    </span>
+                </label>
 
-        //             <span
-        //                 className="absolute top-3 right-3 text-tertiary cursor-pointer"
-        //                 onMouseDown={(e) => e.preventDefault()}
-        //                 onClick={handlePasswordToggle}
-        //             >
-        //                 {showPassword ? "Hide" : "Show"}
-        //             </span>
+                <label
+                    htmlFor="PasswordConfirmation"
+                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
+                    >
+                    <input
+                        type={showPasswordConfirmation ? "text" : "password"}
+                        id="PasswordConfirmation"
+                        className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full"
+                        placeholder="Confirm Password"
+                        name='password_confirmation'
+                        onChange={handleChange}
+                        value={data.password_confirmation}
+                        autoComplete='false'
+                    />
 
-        //             <span
-        //                 className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-secondary transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-        //             >
-        //                 Create Password
-        //             </span>
-        //         </label>
+                    <span
+                        className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => handlePasswordToggle("password_confirmation")}
+                    >
+                        {showPasswordConfirmation ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
+                    </span>
 
-        //         <label
-        //             htmlFor="PasswordConfirmation"
-        //             className="relative block p-0.5 pb-0 border-b-[1px] border-secondary focus-within:border-secondary focus-within:ring-0 focus-within:ring-secondary focus-within:border-b-2 w-full"
-        //             >
-        //             <input
-        //                 type={showPassword ? "text" : "password"}
-        //                 id="PasswordConfirmation"
-        //                 className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full"
-        //                 placeholder="PasswordConfirmation"
-        //                 name='password_confirmation'
-        //                 onChange={handleChange}
-        //                 value={data.password_confirmation}
-        //                 autoComplete='false'
-        //             />
+                    <span
+                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        >
+                        Password
+                    </span>
+                </label>
+                {errors.password && <span className='text-red-500'>{errors.password}</span>}
 
-        //             <span
-        //                 className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-secondary transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-        //             >
-        //                 Password Confirmation
-        //             </span>
-        //         </label>
-        //         {errors.password && <span className='text-primary'>{errors.password}</span>}
-
-        //         <p className='my-2'>By creating account, you are agreeing to ShopPayo <span className='underline cursor-pointer'>terms & conditions and privacy policy</span>.</p>
+                <p className='my-2'>By creating an account, you are agreeing to FICELCO <span className='underline cursor-pointer'>terms & conditions and privacy policy</span>.</p>
                 
-        //         <button
-        //             className={`btn font-semibold ${(!data.firstname || !data.lastname || !data.contact_number || !data.password || !data.password_confirmation) || isLoading ? "bg-secondary text-neutral-600 cursor-not-allowed" : "bg-primary text-white"}`}
-        //             disabled={!data.firstname || !data.lastname || !data.contact_number || !data.password || !data.password_confirmation}
-        //         >
-        //             Create Account
-        //         </button>
-        //     </form>
-        //     <div className='border-b border-secondary mt-auto mx-2'></div>
-        //     <span className='mt-6 text-center'>Already have an account? <Link className='text-tertiary underline' to={'/login'}>Log In</Link></span>
-        // </div>
-        <></>
-    );
+                <button
+                    type='submit'
+                    className={`h-[44px] rounded-lg font-semibold ${(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading) ? "bg-light-accent text-neutral-600 cursor-not-allowed" : "bg-primary text-white"}`}
+                    disabled={(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading)}
+                >
+                    Create
+                </button>
+            </form>
+            <Link to={'/login'} className='text-secondary dark:text-primary text-center mt-4'>Already have an account? Log In</Link>
+        </div>
+    )
 }
 
-export default Signup;
+export default Signup

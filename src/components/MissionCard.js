@@ -5,7 +5,7 @@ function MissionCard({ image, title, description }) {
         <div className='w-full md:w-1/2 lg:w-1/2 p-4'>
             <div className='flex flex-col gap-2'>
                 <img className='w-[50px]' src={image} alt="" />
-                <span className='text-lg font-semibold'>{title}</span>
+                <span className='text-xl font-semibold'>{title}</span>
                 <span>{description}</span>
                {title === "Goal" &&
                 <span>
@@ -19,7 +19,7 @@ function MissionCard({ image, title, description }) {
                 </span>
                 }
                 {title === "Core Values" && <span>
-                    <ul className='"list-disc list-inside'>
+                    <ul className='"list-disc list-inside text-lg'>
                         <li><strong>C</strong>ommitment to</li>
                         <li><strong>A</strong>ctive</li>
                         <li><strong>R</strong>eliable and</li>

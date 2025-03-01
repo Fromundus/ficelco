@@ -69,8 +69,8 @@ export function ContextProvider({children}){
     const [name, setName] = React.useState();
     // const [role, setRole] = React.useState(); 
     // const [id, setId] = React.useState(); 
-    const [role, _setRole] = React.useState(localStorage.getItem("U2FsdGVkX1+MzqF7wOa9iVp6K27rLZy8dS8GbTx9Y0Fw/E3Lbr")); // role
-    const [id, _setId] = React.useState(localStorage.getItem("U2FsdGVkX1+8fTn2Tq0g5zXpBv6y6Lo1Nl7ZpA2h9LwYk6M6Wli")); // id
+    const [role, _setRole] = React.useState(localStorage.getItem("role")); // role
+    const [id, _setId] = React.useState(localStorage.getItem("id")); // id
 
     React.useEffect( () => {
         const fetchUser = async () => {
@@ -78,9 +78,9 @@ export function ContextProvider({children}){
                 const res = await axiosClient.get('/api/user')
                 console.log(res);
                 if(res.status === 200){
-                    setName(res.data.firstname);
+                    setName(res.data.name);
                     setRole(res.data.role);
-                    setId(res.data.user_id);
+                    setId(res.data.id);
                 }
             } catch (err) {
                 console.log(err);
@@ -94,9 +94,9 @@ export function ContextProvider({children}){
         _setRole(role)
 
         if(role){
-            localStorage.setItem("U2FsdGVkX1+MzqF7wOa9iVp6K27rLZy8dS8GbTx9Y0Fw/E3Lbr", role);
+            localStorage.setItem("role", role);
         } else {
-            localStorage.removeItem("U2FsdGVkX1+MzqF7wOa9iVp6K27rLZy8dS8GbTx9Y0Fw/E3Lbr");
+            localStorage.removeItem("role");
         }
     }
 
@@ -104,9 +104,9 @@ export function ContextProvider({children}){
         _setId(id)
 
         if(id){
-            localStorage.setItem("U2FsdGVkX1+8fTn2Tq0g5zXpBv6y6Lo1Nl7ZpA2h9LwYk6M6Wli", id);
+            localStorage.setItem("id", id);
         } else {
-            localStorage.removeItem("U2FsdGVkX1+8fTn2Tq0g5zXpBv6y6Lo1Nl7ZpA2h9LwYk6M6Wli");
+            localStorage.removeItem("id");
         }
     }
 

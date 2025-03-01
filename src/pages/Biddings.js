@@ -4,6 +4,10 @@ import { IoIosArrowBack, IoIosArrowForward  } from "react-icons/io";
 import BreadCrumbs from '../components/BreadCrumbs';
 
 function Biddings() {
+    React.useEffect( () => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const links = [
         {
             title: "Biddings",
