@@ -5,17 +5,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import getCookie from '../lib/getCookie';
 import Logo from '../components/Logo';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import ButtonLoader from '../components/ButtonLoader';
 
 function Login() {
     React.useEffect( () => {
         window.scrollTo(0 ,0);
-        // window.localStorage.clear();
     }, []);
 
     const navigate = useNavigate();
 
     const [isLoading, setIsloading] = React.useState(false);
-    const { setRole, setName, setId } = useStateContext();
+    const { setRole, setName, setId, setEmail } = useStateContext();
     const [data, setData] = React.useState({
         email: "",
         password: "",
@@ -69,6 +69,7 @@ function Login() {
                 setName(res.data.data.name);
                 setRole(res.data.data.role);
                 setId(res.data.data.id);
+                setEmail(res.data.data.email);
                 navigate(`/${res.data.data.role}`);
             }
 
@@ -149,11 +150,12 @@ function Login() {
                 
                 <button
                     type='submit'
-                    className={`h-[44px] rounded-lg font-semibold ${(!data.email || !data.password || isLoading) ? "bg-light-accent text-neutral-600 cursor-not-allowed" : "bg-primary text-white"}`}
-                    // disabled={(!data.email || !data.password || isLoading)}
-                    disabled={true}
+                    className={`h-[44px] rounded-lg font-semibold flex items-center gap-2 justify-center ${(!data.email || !data.password || isLoading) ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-primary text-white"}`}
+                    disabled={(!data.email || !data.password || isLoading)}
+                    // disabled={true}
                 >
                     Log In
+                    {isLoading && <ButtonLoader />}
                 </button>
             </form>
             <span className='mt-6 text-center'><Link className='text-tertiary'>Forgot Password?</Link></span>

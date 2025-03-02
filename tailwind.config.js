@@ -18,15 +18,21 @@ module.exports = {
                 secondary: "#666666",           // Medium Gray
                 accent: "#999999",              // Light Gray
                 muted: "#f5f5f5",               // Soft White
+                line: "#D4D4D4",
+                hover: "#c5c5c5"
             },
             // Dark Mode Colors (Neutral)
             dark: {
-                background: "#000000",          // Pure Black
-                foreground: "#e5e5e5",          // Soft White
+                background: "#1c1c1d",          // Pure Black
+                // foreground: "#e5e5e5",          // Soft White
+                foreground: "#e2e5e9",          // Soft White
                 primary: "#999999",             // Light Gray
                 secondary: "#666666",           // Medium Gray
-                accent: "#333333",              // Dark Gray
+                // accent: "#333333",              // Dark Gray
+                accent: "#252728",              // Dark Gray
                 muted: "#1a1a1a",               // Very Dark Gray
+                line: "#404040",
+                hover: "#4f5152"
             },
         }
     },

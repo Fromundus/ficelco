@@ -5,11 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import getCookie from '../lib/getCookie';
 import Logo from '../components/Logo';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import ButtonLoader from '../components/ButtonLoader';
 
 function Signup() {
     React.useEffect( () => {
         window.scrollTo(0 ,0);
-        // window.localStorage.clear();
     }, []);
 
     const navigate = useNavigate();
@@ -212,11 +212,12 @@ function Signup() {
                 
                 <button
                     type='submit'
-                    className={`h-[44px] rounded-lg font-semibold ${(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading) ? "bg-light-accent text-neutral-600 cursor-not-allowed" : "bg-primary text-white"}`}
-                    // disabled={(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading)}
-                    disabled={true}
+                    className={`h-[44px] rounded-lg font-semibold flex items-center gap-2 justify-center ${(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading) ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-primary text-white"}`}
+                    disabled={(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading)}
+                    // disabled={true}
                 >
                     Create
+                    {isLoading && <ButtonLoader />}
                 </button>
             </form>
             <Link to={'/login'} className='text-secondary dark:text-primary text-center mt-4'>Already have an account? Log In</Link>

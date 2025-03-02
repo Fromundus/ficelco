@@ -23,7 +23,7 @@ const ThemeToggleButton = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full text-lg"
+      className="p-2 rounded-lg text-lg border border-light-line dark:border-dark-line"
     >
       {theme === "dark" ? <IoSunny /> : <IoMoonSharp />}
     </button>

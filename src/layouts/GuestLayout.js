@@ -101,7 +101,17 @@ function GuestLayout() {
                     </NavLink>
                 </div>
                 <div className='flex items-center gap-4'>
-                    <Link className='p-2 bg-secondary dark:bg-primary-darker text-white rounded-lg' to={'/login'}>Login</Link>
+                    <NavLink
+                        className="hidden md:block lg:block"
+                        to={'/login'}
+                        onClick={handleCloseDropDown}
+                    >
+                        {({isActive}) => (isActive ? 
+                            <span className='text-secondary dark:text-primary'>Login</span>
+                            :
+                            <span className='hover:text-secondary hover:dark:text-primary'>Login</span>
+                        )}
+                    </NavLink>
                     <ThemeToggleButton />
                     <button className='md:hidden lg:hidden' onClick={handleDropDownToggle}>
                         <RiMenu3Fill className='text-2xl' />
@@ -176,6 +186,17 @@ function GuestLayout() {
                             <span className='text-secondary dark:text-primary'>About</span>
                             :
                             <span className='hover:text-secondary hover:dark:text-primary'>About</span>
+                        )}
+                    </NavLink>
+                    <NavLink
+                        className='p-4 flex'
+                        to={'/login'}
+                        onClick={handleCloseDropDown}
+                    >
+                        {({isActive}) => (isActive ? 
+                            <span className='text-secondary dark:text-primary'>Login</span>
+                            :
+                            <span className='hover:text-secondary hover:dark:text-primary'>Login</span>
                         )}
                     </NavLink>
                 </div>}

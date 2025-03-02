@@ -29,6 +29,15 @@ import Feuc from './pages/Feuc';
 import Update from './pages/Update';
 import Biddings from './pages/Biddings';
 import Awards from './pages/Awards';
+import AdminHome from './pages/Admin/AdminHome';
+import AdminUpdates from './pages/Admin/AdminUpdates';
+import AdminBoardOfDirectors from './pages/Admin/AdminBoardOfDirectors';
+import AdminManagementTeam from './pages/Admin/AdminManagementTeam';
+import AdminFeuc from './pages/Admin/AdminFeuc';
+import AdminBilling from './pages/Admin/AdminBilling';
+import AdminDetails from './pages/Admin/AdminDetails';
+import AdminSecurity from './pages/Admin/AdminSecurity';
+import AdminPowerRates from './pages/Admin/AdminPowerRates';
 
 const roles = {
     superAdmin: "f1",
@@ -65,6 +74,15 @@ const router = createBrowserRouter(createRoutesFromElements(
 
         <Route element={<RequireAuthentication allowedRoles={roles.admin} />}>
             <Route path={`${roles.admin}`} element={<AdminLayout />}>
+                <Route index element={<AdminHome />} />
+                <Route path='updates' element={<AdminUpdates />} />
+                <Route path='board-of-directors' element={<AdminBoardOfDirectors />} />
+                <Route path='management-team' element={<AdminManagementTeam />} />
+                <Route path='feuc' element={<AdminFeuc />} />
+                <Route path='billing' element={<AdminBilling />} />
+                <Route path='power-rates' element={<AdminPowerRates />} />
+                <Route path='details' element={<AdminDetails />} />
+                <Route path='security' element={<AdminSecurity />} />
             </Route>
         </Route>
 

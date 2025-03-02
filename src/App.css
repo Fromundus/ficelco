@@ -26,7 +26,7 @@
   }
   
 .test {
-    color: #e0e0e0;
+    color: #c5c5c5;
 }
 
 .printable {
@@ -46,3 +46,24 @@
     justify-content: center;
     border-radius: 24px;
 }
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px; /* Scrollbar width */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    /* background: #f1f1f1; */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #a5a5a5; /* Thumb color (gray-700) */
+    border-radius: 10px; /* Rounded corners */
+    /* border: 2px solid #f1f1f1; */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: lightslategray; /* Thumb hover color (gray-900) */
+  }
+  

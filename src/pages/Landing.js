@@ -96,7 +96,7 @@ function Landing() {
                 </div>
             </section>
 
-            <section className='flex flex-col items-center justify-center dark:bg-dark-accent pb-2'>
+            <section className='flex flex-col items-center justify-center dark:bg-dark-accent mt-4 pb-2'>
                 <div className='flex flex-col items-center justify-center p-8'>
                     <span className='text-xl font-bold'>News and Updates</span>
                 </div>

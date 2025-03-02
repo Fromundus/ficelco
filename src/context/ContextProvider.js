@@ -71,6 +71,7 @@ export function ContextProvider({children}){
     // const [id, setId] = React.useState(); 
     const [role, _setRole] = React.useState(localStorage.getItem("role")); // role
     const [id, _setId] = React.useState(localStorage.getItem("id")); // id
+    const [email, setEmail] = React.useState(); // email
 
     React.useEffect( () => {
         const fetchUser = async () => {
@@ -81,6 +82,7 @@ export function ContextProvider({children}){
                     setName(res.data.name);
                     setRole(res.data.role);
                     setId(res.data.id);
+                    setEmail(res.data.email);
                 }
             } catch (err) {
                 console.log(err);
@@ -117,7 +119,9 @@ export function ContextProvider({children}){
             role,
             setRole,
             id,
-            setId
+            setId,
+            email,
+            setEmail,
         }}>
             {children}
         </StateContext.Provider>
