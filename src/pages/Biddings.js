@@ -21,7 +21,7 @@ function Biddings() {
             <div className='px-4'>
                 <PageHeader title={"Biddings"} />
             </div>
-            <div className="overflow-x-auto rounded-lg">
+            <div className="overflow-x-auto rounded-lg p-4">
                 <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700 bg-light-background dark:bg-dark-background text-sm">
                     <thead className="ltr:text-left rtl:text-right">
                         <tr>

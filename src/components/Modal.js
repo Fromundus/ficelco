@@ -25,7 +25,7 @@ function Modal({title, onClose, children }) {
             // onClick={onClose}
         >
             <div
-                className="bg-light-background dark:bg-dark-accent rounded-2xl shadow-xl max-w-xl w-full h-auto relative border border-light-line dark:border-dark-line"
+                className="bg-light-background dark:bg-dark-accent rounded-2xl shadow-xl max-w-lg w-full h-auto relative border border-light-line dark:border-dark-line"
                 onClick={(e) => e.stopPropagation()}
             >   
                 <div className='flex items-center justify-center w-full relative p-6 border-b border-light-line dark:border-dark-line'>

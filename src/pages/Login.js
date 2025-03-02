@@ -77,8 +77,8 @@ function Login() {
             console.log(err);
             if(err.response.status === 422){
                 setErrors("Invalid Account");
-                setIsloading(false);
             }
+            setIsloading(false);
         }
     }
 

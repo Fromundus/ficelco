@@ -2,8 +2,11 @@ import React from 'react'
 import PageHeader from '../components/PageHeader'
 import BreadCrumbs from '../components/BreadCrumbs';
 import NewsCard from '../components/NewsCard';
+import axiosClient from '../axios-client';
 
 function Updates() {
+    const [posts, setPosts] = React.useState();
+
     React.useEffect( () => {
         window.scrollTo(0, 0);
     }, []);
@@ -15,6 +18,33 @@ function Updates() {
         },
     ];
 
+    React.useEffect( () => {
+        const fetchUpdates = async () => {
+            try {
+                const res = await axiosClient.get('/api/posts');
+                console.log(res);
+                setPosts(res.data.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        fetchUpdates();
+    }, []);
+
+    const renderPosts = posts?.map( (item) => {
+        return (
+            <NewsCard
+                link={`/news-and-updates/${item.id}`}
+                data={item.created_at}
+                title={item.title}
+                header={item.header}
+                image={`http://localhost:8000/storage/${item.images[0]?.path}`}
+                description={item.description}
+            />
+        )
+    });
+
     return (
         <>
             <BreadCrumbs links={links} />
@@ -22,7 +52,7 @@ function Updates() {
                 <PageHeader title={"News and Updates"} />
             </div>
             <div className='flex flex-wrap p-2'>
-                <NewsCard
+                {/* <NewsCard
                     link={`/news-and-updates/${1}`}
                     date={"Feb 27, 2025"}
                     title={"POWER INTERUPTION"}
@@ -85,7 +115,8 @@ function Updates() {
                     image={"https://scontent-mnl3-1.xx.fbcdn.net/v/t39.30808-6/472670937_1066668538596538_6963175007320233855_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeE7Ba2Nhs_VVMNS5iGGBs7Hd_BYDQjcb_938FgNCNxv_wODNMqLVX43ii757U9FEgwEtWkR9wT8BexXB83vbdn7&_nc_ohc=KKi9BAPssZUQ7kNvgGbgfJs&_nc_oc=AdiwElseYbmiMvHqbE15kNJ9WeEi-zY4LORtd43tfSQyZK40LGxOA6BD_hUmr4y_H08&_nc_zt=23&_nc_ht=scontent-mnl3-1.xx&_nc_gid=A2Zp1zQmgxI56sIy74259mn&oh=00_AYCAweywI_QdNsOJ_0xuD4r5TGZOpGeVHXxndLJfaZndSA&oe=67C5E7A5"}
                     header={"Reading Date, Due Date, & Disconnection Date (Nov 7 - 21, 2024)"}
                     description={"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis perferendis hic asperiores quibusdam quidem voluptates doloremque reiciendis nostrum harum. Repudiandae?"} 
-                />
+                /> */}
+                {renderPosts}
             </div>
         </>
     )

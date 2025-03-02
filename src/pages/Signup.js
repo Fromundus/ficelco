@@ -85,8 +85,8 @@ function Signup() {
             console.log(err);
             if(err.response.status === 422){
                 setErrors(err.response.data.message);
-                setIsloading(false);
             }
+            setIsloading(false);
         }
     }
 
