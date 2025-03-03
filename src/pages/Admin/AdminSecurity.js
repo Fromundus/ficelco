@@ -3,7 +3,7 @@ import AdminPage from '../../components/Admin/AdminPage'
 
 function AdminSecurity() {
     return (
-        <AdminPage title={"Admin Security"}>
+        <AdminPage title={"Security"}>
             
         </AdminPage>
     )

@@ -6,8 +6,12 @@ import { IoClose } from 'react-icons/io5';
 import axiosClient from '../../axios-client';
 import getCookie from '../../lib/getCookie';
 import ButtonLoader from '../../components/ButtonLoader';
+import NewsCard from '../../components/NewsCard';
+import { useOutletContext } from 'react-router-dom';
+import NewsCardSkeleton from '../../components/NewsCardSkeleton';
 
 function AdminUpdates() {
+    const { posts, setPosts, postLoading } = useOutletContext();
     const [loading, setLoading] = React.useState(false);
     const [modal, setModal] = React.useState(false);
     const [isImage, setIsImage] = React.useState(false);
@@ -123,6 +127,8 @@ function AdminUpdates() {
                     description: "",
                 });
                 setLoading(false);
+                setPosts(res.data.data);
+                setModal(false);
             }
         } catch (err) {
             console.log(err);
@@ -142,11 +148,36 @@ function AdminUpdates() {
 
     // console.log(errors);
 
+    const renderPosts = posts?.map( (item) => {
+        return (
+            <NewsCard
+                key={item.id}
+                link={`${item.id}`}
+                date={item.created_at}
+                title={item.title}
+                header={item.header}
+                image={`http://localhost:8000/storage/${item.images[0]?.path ? item.images[0]?.path : ""}`}
+                description={item.description}
+            />
+        )
+    });
+
     return (
-        <AdminPage title={"Updates"}>
-            <div>
-                <button className='p-2 bg-secondary hover:bg-secondary-darker rounded-lg text-white' onClick={openModal}>Create Post</button>
+        <AdminPage title={"Updates"} className={`${modal && "no-scroll"}`}>
+            <div className='w-full'>
+                <button className='p-2 bg-secondary hover:bg-secondary-darker rounded-lg text-white w-full' onClick={openModal}>Create New Post</button>
             </div>
+            {!postLoading ? 
+            <div className='flex flex-wrap mt-4'>
+                {renderPosts}
+            </div>
+            :
+            <div className='flex flex-wrap mt-4'>
+                <NewsCardSkeleton />
+                <NewsCardSkeleton />
+                <NewsCardSkeleton />
+            </div>
+            }
             {modal && 
                 <Modal onClose={closeModal} title={"Create Post"}>
                     <div className='flex flex-col gap-4 mb-4'>

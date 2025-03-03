@@ -21,7 +21,7 @@ function Modal({title, onClose, children }) {
         // </div>
 
         <div
-            className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-start p-2 md:p-4 lg:p-8 overflow-y-auto"
+            className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-start p-2 sm:p-8 md:p-8 lg:p-8 overflow-y-auto"
             // onClick={onClose}
         >
             <div

@@ -7,23 +7,38 @@ import axiosClient from '../axios-client';
 
 function AdminLayout() {
     const { name, email, setRole, setName, setId, setEmail } = useStateContext();
-    const [loading, setLoading] = React.useState(false);
+    const [postLoading, setPostLoading] = React.useState(false);
+    const [posts, setPosts] = React.useState();
     
     const navigate = useNavigate();
 
     const firstLetter = name?.slice(0, 1).toUpperCase();
 
-    // console.log(firstLetter);
+    React.useEffect( () => {
+        const fetchUpdates = async () => {
+            setPostLoading(true);
+
+            try {
+                const res = await axiosClient.get('/api/posts');
+                console.log(res);
+                setPosts(res.data.data);
+                setPostLoading(false);
+            } catch (err) {
+                console.log(err);
+                setPostLoading(false);
+            }
+        }
+
+        fetchUpdates();
+    }, []);
 
     const handleLogout = async (e) => {
         e.preventDefault();
 
-        try {
-            // await axiosClient.get('/sanctum/csrf-cookie', { withCredentials: true });
-    
+        try {    
             const response = await axiosClient.post('/api/logout', {}, {
                     headers: {
-                        'X-XSRF-TOKEN': getCookie(),    
+                        'X-XSRF-TOKEN': getCookie(),
                         withCredentials: true
                     }
                 }
@@ -266,7 +281,7 @@ function AdminLayout() {
                 </div>
             </div>
             <div className='relative md:ml-56 lg:ml-64 min-h-[100svh] bg-light-background dark:bg-dark-background text-light-foreground dark:text-dark-foreground'>
-                <Outlet />
+                <Outlet context={{ posts, setPosts, postLoading, setPostLoading }} />
             </div>
         </div>
     )

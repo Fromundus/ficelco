@@ -35,8 +35,9 @@ function Updates() {
     const renderPosts = posts?.map( (item) => {
         return (
             <NewsCard
+                key={item.id}
                 link={`/news-and-updates/${item.id}`}
-                data={item.created_at}
+                date={item.created_at}
                 title={item.title}
                 header={item.header}
                 image={`http://localhost:8000/storage/${item.images[0]?.path}`}

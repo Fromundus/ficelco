@@ -21,9 +21,9 @@
     -ms-overflow-style: none;  /* For Internet Explorer */
   }
   
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;  /* For Chrome, Safari, and Opera */
-  }
+.hide-scrollbar::-webkit-scrollbar {
+display: none;  /* For Chrome, Safari, and Opera */
+}
   
 .test {
     color: #c5c5c5;

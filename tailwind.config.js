@@ -34,6 +34,10 @@ module.exports = {
                 line: "#404040",
                 hover: "#4f5152"
             },
+        },
+        animation: {
+            'pulse-slow': 'pulse 5s ease-in-out infinite',
+            'pulse-fast': 'pulse 2s ease-in-out infinite',
         }
     },
   },
