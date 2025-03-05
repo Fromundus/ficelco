@@ -2,7 +2,7 @@ import React from 'react'
 import { IoClose } from 'react-icons/io5'
 
 
-function Modal({title, onClose, children }) {
+function Modal({title, onClose, loading, children }) {
     return (
         // <div
         //     className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center p-4 overflow-y-scroll"
@@ -33,6 +33,7 @@ function Modal({title, onClose, children }) {
                     <button
                         className="absolute right-4 p-2 border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover rounded-lg"
                         onClick={onClose}
+                        disabled={loading}
                     >
                         <IoClose className="text-2xl" />
                     </button>

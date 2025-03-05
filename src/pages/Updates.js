@@ -21,7 +21,7 @@ function Updates() {
     React.useEffect( () => {
         const fetchUpdates = async () => {
             try {
-                const res = await axiosClient.get('/api/posts');
+                const res = await axiosClient.get('/api/posts-public-index-all');
                 console.log(res);
                 setPosts(res.data.data);
             } catch (err) {

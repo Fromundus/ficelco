@@ -20,7 +20,7 @@ function Landing() {
     React.useEffect( () => {
         const fetchUpdates = async () => {
             try {
-                const res = await axiosClient.get('/api/posts-landing');
+                const res = await axiosClient.get('/api/posts-public-index');
                 console.log(res);
                 setPosts(res.data.data);
             } catch (err) {

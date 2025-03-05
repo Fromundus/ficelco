@@ -24,7 +24,7 @@ function NewsCard({ link, image, date, title, header, description }) {
                         <div
                             className=""
                         >
-                            <p className="text-sm text-white">
+                            <p className="text-sm text-white line-clamp-3">
                                 {description}
                             </p>
                         </div>

@@ -9,9 +9,11 @@ import ButtonLoader from '../../components/ButtonLoader';
 import NewsCard from '../../components/NewsCard';
 import { useOutletContext } from 'react-router-dom';
 import NewsCardSkeleton from '../../components/NewsCardSkeleton';
+import AdminNewsCard from '../../components/AdminNewsCard';
 
 function AdminUpdates() {
     const { posts, setPosts, postLoading } = useOutletContext();
+    const [noScroll, setNoScroll] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [modal, setModal] = React.useState(false);
     const [isImage, setIsImage] = React.useState(false);
@@ -23,23 +25,27 @@ function AdminUpdates() {
         description: "",
     });
 
-    const [errors, setErrors] = React.useState({
-        title: "",
-        header: "",
-        description: "",
-    });
+    const [errors, setErrors] = React.useState({});
     
     const openModal = () => {
         setModal(true);
+        setNoScroll(true);
     }
 
     const closeModal = () => {
         setModal(false);
         setIsImage(false);
+        setNoScroll(false);
+        setImages([]);
+        setPreview([]);
+        setErrors({});
     }
 
     const toggleIsImage = () => {
         setIsImage(prev => !prev);
+        setImages([]);
+        setPreview([]);
+        setErrors({});
     }
 
     const removeImage = (e) => {
@@ -88,7 +94,7 @@ function AdminUpdates() {
         setErrors({});
     };
 
-    console.log(images);
+    // console.log(errors);
 
     const handleUpload = async () => {
         setLoading(true);
@@ -129,6 +135,8 @@ function AdminUpdates() {
                 setLoading(false);
                 setPosts(res.data.data);
                 setModal(false);
+                setNoScroll(false);
+                setIsImage(false)
             }
         } catch (err) {
             console.log(err);
@@ -146,11 +154,19 @@ function AdminUpdates() {
         }
     };
 
-    // console.log(errors);
-
     const renderPosts = posts?.map( (item) => {
         return (
-            <NewsCard
+            // <NewsCard
+            //     key={item.id}
+            //     link={`${item.id}`}
+            //     date={item.created_at}
+            //     title={item.title}
+            //     header={item.header}
+            //     image={`http://localhost:8000/storage/${item.images[0]?.path ? item.images[0]?.path : ""}`}
+            //     description={item.description}
+            // />
+
+            <AdminNewsCard
                 key={item.id}
                 link={`${item.id}`}
                 date={item.created_at}
@@ -158,12 +174,17 @@ function AdminUpdates() {
                 header={item.header}
                 image={`http://localhost:8000/storage/${item.images[0]?.path ? item.images[0]?.path : ""}`}
                 description={item.description}
+                hidden={item.hidden}
+                old_images={item.images}
+                setNoScroll={setNoScroll}
+                post_id={item.id}
+                setPosts={setPosts}
             />
         )
     });
 
     return (
-        <AdminPage title={"Updates"} className={`${modal && "no-scroll"}`}>
+        <AdminPage title={"Updates"} className={`${noScroll && "no-scroll"}`}>
             <div className='w-full'>
                 <button className='p-2 bg-secondary hover:bg-secondary-darker rounded-lg text-white w-full' onClick={openModal}>Create New Post</button>
             </div>
@@ -179,14 +200,15 @@ function AdminUpdates() {
             </div>
             }
             {modal && 
-                <Modal onClose={closeModal} title={"Create Post"}>
+                <Modal onClose={closeModal} title={"Create New Post"} loading={loading}>
                     <div className='flex flex-col gap-4 mb-4'>
                         <input
                             type="text"
                             name='title'
-                            className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm'
+                            className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm font-semibold'
                             placeholder='Title'
                             onChange={handleChange}
+                            disabled={loading}
                             value={data.title}
                         />
                         {errors.title && <span className='text-red-500'>{errors.title}</span>}
@@ -197,6 +219,7 @@ function AdminUpdates() {
                             className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm'
                             placeholder='Header'
                             onChange={handleChange}
+                            disabled={loading}
                             value={data.header}
                         />
                         {errors.header && <span className='text-red-500'>{errors.header}</span>}
@@ -208,6 +231,7 @@ function AdminUpdates() {
                             id=""
                             placeholder='Description...'
                             onChange={handleChange}
+                            disabled={loading}
                             value={data.description}
                         >
 
@@ -222,6 +246,13 @@ function AdminUpdates() {
                                     <img src={src} alt="Preview" className="rounded-lg" />
                                     <button className='absolute top-2 right-2 p-2 rounded-full bg-light-hover dark:bg-dark-hover' onClick={() => handleRemoveImage(index)}><IoClose /></button>
                                 </div>
+                                {errors[`images.${index}`] && (
+                                    <div className="text-red-500 mt-2">
+                                        {errors[`images.${index}`].map((msg, i) => (
+                                            <p key={i}>{msg}</p>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -229,7 +260,7 @@ function AdminUpdates() {
                         <div className='p-2 border border-light-line dark:border-dark-line rounded-lg mt-2'>
 
                             <label htmlFor='image' className='rounded-lg h-[100px] flex items-center justify-center bg-light-line dark:bg-dark-line flex-col gap-2 relative'>
-                                <button className='absolute top-0 right-0 p-2 text-xl' onClick={removeImage}><IoClose /></button>
+                                <button className='absolute top-0 right-0 p-2 text-xl' onClick={removeImage} disabled={loading}><IoClose /></button>
                                 <FaImage className='text-2xl' />
                                 <span className='font-semibold'>{images.length > 0 ? "Change Photos" : "Add Photos"}</span>
                             </label>
@@ -241,6 +272,7 @@ function AdminUpdates() {
                                 accept='image/*'
                                 multiple 
                                 onChange={handleImageChange}
+                                disabled={loading}
                             />
                         </div>
                     }
@@ -248,7 +280,7 @@ function AdminUpdates() {
 
                     <div className='mt-4 border flex justify-between items-center p-2 rounded-lg border-light-line dark:border-dark-line'>
                         <span>Add to your post</span>
-                        <button className='border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover p-2 rounded-lg flex items-center justify-center' onClick={toggleIsImage}>
+                        <button className='border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover p-2 rounded-lg flex items-center justify-center' onClick={toggleIsImage} disabled={loading}>
                             <FaImage className='text-xl' />
                         </button>
                     </div>

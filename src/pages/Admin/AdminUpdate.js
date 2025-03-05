@@ -27,7 +27,7 @@ function AdminUpdate() {
     }, []);
 
     return (
-        <AdminPage title={!loading ? post?.title : "Loading..."}>
+        <AdminPage title={!loading ? post?.header : "Loading..."}>
             
         </AdminPage>
     )
