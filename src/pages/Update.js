@@ -18,7 +18,7 @@ function Update() {
         const fetchUpdate = async () => {
             setLoading(true);
             try {
-                const res = await axiosClient.get(`/api/posts/${id}`);
+                const res = await axiosClient.get(`/api/posts-public/${id}`);
                 console.log(res);
                 setPost(res.data.data);
                 setLoading(false);

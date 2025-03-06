@@ -4,6 +4,23 @@ import { format } from 'date-fns'
 function UpdateDetails({ post }) {
     console.log(post);
 
+    const renderImages = post?.images?.map((item) => {
+        return (
+            <img key={item.id} src={`http://localhost:8000/storage/${item.path}`} alt="" />
+        )
+    });
+
+    const renderFiles = post?.files?.map((item, index) => {
+        return (
+            <iframe
+                key={item.id}
+                src={`http://localhost:8000/storage/${item.path}`}
+                title={`pdf-preview-${index}`}
+                className="w-full h-[500px]"
+            ></iframe>
+        )
+    });
+
     return (
         <div className='w-full flex flex-col gap-2'>
             <span className='text-lg font-bold py-4'>{post?.title}</span>
@@ -18,6 +35,14 @@ function UpdateDetails({ post }) {
             </span>}
 
             <div dangerouslySetInnerHTML={{ __html: post?.description }} />
+
+            <div className='mt-4'>
+                {renderImages}
+            </div>
+
+            <div className='mt-4'>
+                {renderFiles}
+            </div>
         </div>
     )
 }

@@ -11,6 +11,9 @@ import NewsCardSkeleton from '../../components/NewsCardSkeleton';
 import AdminNewsCard from '../../components/AdminNewsCard';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { toast } from "react-toastify";
+import { FaPaperclip } from "react-icons/fa6";
+import { FaRegFile } from "react-icons/fa";
 
 function AdminUpdates() {
     const { posts, setPosts, postLoading } = useOutletContext();
@@ -18,7 +21,9 @@ function AdminUpdates() {
     const [loading, setLoading] = React.useState(false);
     const [modal, setModal] = React.useState(false);
     const [isImage, setIsImage] = React.useState(false);
+    const [isFile, setIsFile] = React.useState(false);
     const [images, setImages] = React.useState([]);
+    const [files, setFiles] = React.useState([]);
     const [preview, setPreview] = React.useState([]);
     const [data, setData] = React.useState({
         title: "",
@@ -39,8 +44,15 @@ function AdminUpdates() {
     const closeModal = () => {
         setModal(false);
         setIsImage(false);
+        setIsFile(false);
         setNoScroll(false);
+        setData({
+            title: "",
+            header: "",
+        });
+        setDescription("");
         setImages([]);
+        setFiles([]);
         setPreview([]);
         setErrors({});
     }
@@ -57,6 +69,19 @@ function AdminUpdates() {
         setImages([]);
         setPreview([]);
         setIsImage(false);
+        setErrors({});
+    }
+
+    const toggleIsFile = () => {
+        setIsFile(prev => !prev);
+        setFiles([]);
+        setErrors({});
+    }
+
+    const removeFile = (e) => {
+        e.stopPropagation();
+        setIsFile(false);
+        setFiles([]);
         setErrors({});
     }
 
@@ -86,6 +111,12 @@ function AdminUpdates() {
         setErrors({});
     }
 
+    const handleFileChange = (e) => {
+        const files = Array.from(e.target.files);
+        setFiles(files);
+        setErrors({});
+    }
+
     const handleRemoveImage = (index) => {
         const updatedImages = [...images];
         const updatedPreview = [...preview];
@@ -95,6 +126,15 @@ function AdminUpdates() {
 
         setImages(updatedImages);
         setPreview(updatedPreview);
+        setErrors({});
+    };
+
+    const handleRemoveFile = (index) => {
+        const updatedFiles = [...files];
+
+        updatedFiles.splice(index, 1);
+
+        setFiles(updatedFiles);
         setErrors({});
     };
 
@@ -108,6 +148,10 @@ function AdminUpdates() {
 
         images.forEach((image, index) => {
             formData.append(`images[${index}]`, image);
+        });
+
+        files.forEach((file, index) => {
+            formData.append(`files[${index}]`, file);
         });
 
         formData.append('title', data.title);
@@ -130,6 +174,7 @@ function AdminUpdates() {
             if(res.status === 200){
                 console.log(res);
                 setImages([]);
+                setFiles([]);
                 setPreview([]);
                 setData({
                     title: "",
@@ -140,7 +185,10 @@ function AdminUpdates() {
                 setPosts(res.data.data);
                 setModal(false);
                 setNoScroll(false);
-                setIsImage(false)
+                setIsImage(false);
+                setIsFile(false);
+
+                toast(res.data.message);
             }
         } catch (err) {
             console.log(err);
@@ -180,6 +228,7 @@ function AdminUpdates() {
                 description={item.description}
                 hidden={item.hidden}
                 old_images={item.images}
+                old_files={item.files}
                 setNoScroll={setNoScroll}
                 post_id={item.id}
                 setPosts={setPosts}
@@ -190,7 +239,7 @@ function AdminUpdates() {
     return (
         <AdminPage title={"Updates"} className={`${noScroll && "no-scroll"}`}>
             <div className='w-full'>
-                <button className='p-2 bg-secondary hover:bg-secondary-darker rounded-lg text-white w-full' onClick={openModal}>Create New Post</button>
+                <button className='p-2 bg-secondary hover:bg-secondary-darker rounded-lg text-white w-full h-11' onClick={openModal}>Create New Post</button>
             </div>
             {!postLoading ? 
             <div className='flex flex-wrap mt-4'>
@@ -209,7 +258,7 @@ function AdminUpdates() {
                         <input
                             type="text"
                             name='title'
-                            className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm font-semibold'
+                            className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line font-semibold'
                             placeholder='Title'
                             onChange={handleChange}
                             disabled={loading}
@@ -220,7 +269,7 @@ function AdminUpdates() {
                         <input
                             type="text"
                             name='header'
-                            className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm'
+                            className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
                             placeholder='Header'
                             onChange={handleChange}
                             disabled={loading}
@@ -250,6 +299,26 @@ function AdminUpdates() {
                             </div>
                         ))}
                     </div>
+
+                    <div className="flex flex-wrap">
+                        {files.map((src, index) => (
+                            <div key={index} className='w-full md:w-1/2 lg:w-1/3 p-1'>
+                                <div className='p-2 rounded-lg relative border border-light-line dark:border-dark-line flex items-center justify-center flex-col gap-2 h-full'>
+                                    <FaRegFile className='text-5xl' />
+                                    <span className='text-xs line-clamp-3 text-center'>{src.name}</span>
+                                    <button className='absolute -top-2 -right-2 p-2 rounded-full bg-light-hover dark:bg-dark-hover' onClick={() => handleRemoveFile(index)}><IoClose /></button>
+                                </div>
+                                {errors[`files.${index}`] && (
+                                    <div className="text-red-500 mt-2">
+                                        {errors[`files.${index}`].map((msg, i) => (
+                                            <p key={i}>{msg}</p>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
                     {isImage &&
                         <div className='p-2 border border-light-line dark:border-dark-line rounded-lg mt-2'>
 
@@ -272,11 +341,38 @@ function AdminUpdates() {
                     }
                     {errors.images && <span className='text-red-500'>{errors.images}</span>}
 
+                    {isFile &&
+                        <div className='p-2 border border-light-line dark:border-dark-line rounded-lg mt-2'>
+
+                            <label htmlFor='file' className='rounded-lg h-[100px] flex items-center justify-center bg-light-line dark:bg-dark-line flex-col gap-2 relative'>
+                                <button className='absolute top-0 right-0 p-2 text-xl' onClick={removeFile} disabled={loading}><IoClose /></button>
+                                <FaPaperclip className='text-2xl' />
+                                <span className='font-semibold'>{images.length > 0 ? "Change Files" : "Attach Files"}</span>
+                            </label>
+
+                            <input 
+                                className='hidden' 
+                                id='file' 
+                                type="file" 
+                                accept='application/pdf'
+                                multiple 
+                                onChange={handleFileChange}
+                                disabled={loading}
+                            />
+                        </div>
+                    }
+                    {errors.files && <span className='text-red-500'>{errors.files}</span>}
+
                     <div className='mt-4 border flex justify-between items-center p-2 rounded-lg border-light-line dark:border-dark-line'>
                         <span>Add to your post</span>
-                        <button className='border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover p-2 rounded-lg flex items-center justify-center' onClick={toggleIsImage} disabled={loading}>
-                            <FaImage className='text-xl' />
-                        </button>
+                        <div className='flex items-center gap-2'>
+                            <button className='border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover p-2 rounded-lg flex items-center justify-center' onClick={toggleIsFile} disabled={loading}>
+                                <FaPaperclip className='text-xl' />
+                            </button>
+                            <button className='border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover p-2 rounded-lg flex items-center justify-center' onClick={toggleIsImage} disabled={loading}>
+                                <FaImage className='text-xl' />
+                            </button>
+                        </div>
                     </div>
                     <div className='w-full mt-4'>
                         <button

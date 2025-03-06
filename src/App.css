@@ -35,7 +35,7 @@ display: none;  /* For Chrome, Safari, and Opera */
 
 @layer components {
     input:focus, select:focus, textarea:focus {
-      @apply focus:ring-primary-darker focus:border-primary-darker;
+      @apply focus:ring-secondary focus:border-secondary;
     }
   }
 

@@ -11,13 +11,18 @@ import { FaImage } from "react-icons/fa6";
 import { FaLock } from "react-icons/fa6";
 import { FaGlobeAsia } from "react-icons/fa";
 import ReactQuill from 'react-quill';
+import { toast } from 'react-toastify';
+import { FaPaperclip } from "react-icons/fa6";
+import { FaRegFile } from "react-icons/fa";
 
-function AdminNewsCard({ link, image, date, title, header, description, hidden, old_images, setNoScroll, post_id, setPosts }) {
+function AdminNewsCard({ link, image, date, title, header, description, hidden, old_images, old_files, setNoScroll, post_id, setPosts }) {
     const [isDelete, setIsDelete] = React.useState(false);
     const [dropdown, setDropdown] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [modal, setModal] = React.useState(false);
     const [isImage, setIsImage] = React.useState(false);
+    const [isFile, setIsFile] = React.useState(false);
+    const [files, setFiles] = React.useState([]);
     const [images, setImages] = React.useState([]);
     const [preview, setPreview] = React.useState([]);
     const [data, setData] = React.useState({
@@ -78,6 +83,19 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
         setErrors({});
     }
 
+    const toggleIsFile = () => {
+        setIsFile(prev => !prev);
+        setFiles([]);
+        setErrors({});
+    }
+
+    const removeFile = (e) => {
+        e.stopPropagation();
+        setIsFile(false);
+        setFiles([]);
+        setErrors({});
+    }
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setData( (prev) => {
@@ -104,6 +122,12 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
         setErrors({});
     }
 
+    const handleFileChange = (e) => {
+        const files = Array.from(e.target.files);
+        setFiles(files);
+        setErrors({});
+    }
+
     // console.log(images);
 
     const handleRemoveImage = (index) => {
@@ -118,6 +142,15 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
         setErrors({});
     };
 
+    const handleRemoveFile = (index) => {
+        const updatedFiles = [...files];
+
+        updatedFiles.splice(index, 1);
+
+        setFiles(updatedFiles);
+        setErrors({});
+    };
+
     const handleUpload = async () => {
         setLoading(true);
         setErrors({});
@@ -126,6 +159,10 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
 
         images.forEach((image, index) => {
             formData.append(`images[${index}]`, image);
+        });
+
+        files.forEach((file, index) => {
+            formData.append(`files[${index}]`, file);
         });
 
         formData.append('title', data.title);
@@ -148,13 +185,17 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
             if(res.status === 200){
                 console.log(res);
                 setImages([]);
+                setFiles([]);
                 setPreview([]);
                 setLoading(false);
                 setPosts(res.data.data);
                 setModal(false);
                 setNoScroll(false);
                 setIsImage(false);
+                setIsFile(false);
                 setDropdown(false);
+
+                toast(res.data.message);
             }
         } catch (err) {
             console.log(err);
@@ -191,6 +232,8 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                 setPosts(res.data.data);
                 setNoScroll(false);
                 setIsDelete(false);
+
+                toast(res.data.message);
             }
         } catch (err) {
             console.log(err);
@@ -229,6 +272,8 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
         }
     };
 
+    console.log(old_files);
+
     return (
         <>
             <Link to={link} className='p-2 w-full sm:w-1/2 md:w-1/2 lg:w-1/3 rounded-lg'>
@@ -241,13 +286,13 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             <IoClose />
                         </button>
                     </div>
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col mb-4'>
                         <div className='flex flex-col gap-0'>
                             <span className='font-semibold text-lg truncate'>{title}</span>
                             <span className='font-semibold line-clamp-3'>{header}</span>
                         </div>
                         <div className='flex items-center gap-2'>
-                            <span className='text-xs'>{format(new Date(date), "MMMM d, y")}</span>
+                            <span className='text-xs italic'>{format(new Date(date), "MMMM d, y")}</span>
                             <span className='text-lg'>&#xb7;</span>
                             <span className='text-xs'>{hidden ? <FaLock /> : <FaGlobeAsia />}</span>
                         </div>
@@ -283,7 +328,7 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                         <input
                             type="text"
                             name='title'
-                            className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm font-semibold'
+                            className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line font-semibold'
                             placeholder='Title'
                             onChange={handleChange}
                             disabled={loading}
@@ -294,7 +339,7 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                         <input
                             type="text"
                             name='header'
-                            className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm'
+                            className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
                             placeholder='Header'
                             onChange={handleChange}
                             disabled={loading}
@@ -333,6 +378,39 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             </div>
                         ))}
                     </div>
+
+                    {!isFile && <div className="flex flex-wrap">
+                        {old_files?.map((item, index) => (
+                            <div key={index} className='w-full p-1'>
+                                <div className='p-2 rounded-lg relative border border-light-line dark:border-dark-line flex items-center justify-center flex-col gap-2 h-full'>
+                                    <iframe
+                                        src={`http://localhost:8000/storage/${item.path}`}
+                                        title={`pdf-preview-${index}`}
+                                        className="w-full h-96"
+                                    ></iframe>
+                                </div>
+                            </div>
+                        ))}
+                    </div>}
+                    <div className="flex flex-wrap">
+                        {files.map((src, index) => (
+                            <div key={index} className='w-full md:w-1/2 lg:w-1/3 p-1'>
+                                <div className='p-2 rounded-lg relative border border-light-line dark:border-dark-line flex items-center justify-center flex-col gap-2 h-full'>
+                                    <FaRegFile className='text-5xl' />
+                                    <span className='text-xs line-clamp-3 text-center'>{src.name}</span>
+                                    <button className='absolute -top-2 -right-2 p-2 rounded-full bg-light-hover dark:bg-dark-hover' onClick={() => handleRemoveFile(index)}><IoClose /></button>
+                                </div>
+                                {errors[`files.${index}`] && (
+                                    <div className="text-red-500 mt-2">
+                                        {errors[`files.${index}`].map((msg, i) => (
+                                            <p key={i}>{msg}</p>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
                     {isImage &&
                         <div className='p-2 border border-light-line dark:border-dark-line rounded-lg mt-2'>
 
@@ -355,11 +433,38 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                     }
                     {errors.images && <span className='text-red-500'>{errors.images}</span>}
 
+                    {isFile &&
+                        <div className='p-2 border border-light-line dark:border-dark-line rounded-lg mt-2'>
+
+                            <label htmlFor='file' className='rounded-lg h-[100px] flex items-center justify-center bg-light-line dark:bg-dark-line flex-col gap-2 relative'>
+                                <button className='absolute top-0 right-0 p-2 text-xl' onClick={removeFile} disabled={loading}><IoClose /></button>
+                                <FaPaperclip className='text-2xl' />
+                                <span className='font-semibold'>{images.length > 0 ? "Change Files" : "Attach Files"}</span>
+                            </label>
+
+                            <input 
+                                className='hidden' 
+                                id='file' 
+                                type="file" 
+                                accept='application/pdf'
+                                multiple 
+                                onChange={handleFileChange}
+                                disabled={loading}
+                            />
+                        </div>
+                    }
+                    {errors.files && <span className='text-red-500'>{errors.files}</span>}
+
                     <div className='mt-4 border flex justify-between items-center p-2 rounded-lg border-light-line dark:border-dark-line'>
                         <span>Change Photo</span>
-                        <button className='border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover p-2 rounded-lg flex items-center justify-center' onClick={toggleIsImage} disabled={loading}>
-                            <FaImage className='text-xl' />
-                        </button>
+                        <div className='flex items-center gap-2'>
+                            <button className='border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover p-2 rounded-lg flex items-center justify-center' onClick={toggleIsFile} disabled={loading}>
+                                <FaPaperclip className='text-xl' />
+                            </button>
+                            <button className='border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover p-2 rounded-lg flex items-center justify-center' onClick={toggleIsImage} disabled={loading}>
+                                <FaImage className='text-xl' />
+                            </button>
+                        </div>
                     </div>
                     <div className='w-full mt-4 flex gap-4'>
                         <button
@@ -387,7 +492,7 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                         <input
                             type="text"
                             name='title'
-                            className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm font-semibold'
+                            className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line font-semibold'
                             placeholder='Title'
                             onChange={handleChange}
                             disabled={true}
@@ -397,25 +502,13 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                         <input
                             type="text"
                             name='header'
-                            className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm'
+                            className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
                             placeholder='Header'
                             onChange={handleChange}
                             disabled={true}
                             value={data.header}
                         />
 
-                        {/* <textarea 
-                            className='bg-light-background dark:bg-dark-accent border-0 resize-none focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm' 
-                            rows={4}  
-                            name="description" 
-                            id=""
-                            placeholder='Description...'
-                            onChange={handleChange}
-                            disabled={true}
-                            value={data.description}
-                        >
-
-                        </textarea> */}
                         <div className='p-4' dangerouslySetInnerHTML={{ __html: description }} />
                     </div>
                     <div className="flex flex-wrap">
@@ -423,6 +516,19 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             <div key={index} className='w-full md:w-1/2 lg:w-1/2 p-1'>
                                 <div className='rounded-lg border border-light-line dark:border-dark-line'>
                                     <img src={`http://localhost:8000/storage/${item.path}`} alt="Preview" className="rounded-lg" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex flex-wrap">
+                        {old_files?.map((item, index) => (
+                            <div key={index} className='w-full p-1'>
+                                <div className='p-2 rounded-lg relative border border-light-line dark:border-dark-line flex items-center justify-center flex-col gap-2 h-full'>
+                                    <iframe
+                                        src={`http://localhost:8000/storage/${item.path}`}
+                                        title={`pdf-preview-${index}`}
+                                        className="w-full h-96"
+                                    ></iframe>
                                 </div>
                             </div>
                         ))}

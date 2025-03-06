@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { createContext } from "react";
 import axiosClient from "../axios-client";
+import { useNavigate } from "react-router-dom";
 
 const StateContext = createContext({});
 
@@ -26,6 +27,11 @@ export function ContextProvider({children}){
                 }
             } catch (err) {
                 console.log(err);
+
+                if(err.response.status === 401){
+                    localStorage.removeItem("role"); // remove role
+                    localStorage.removeItem("id"); // remove id
+                }
             }
         }
 

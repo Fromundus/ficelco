@@ -7,6 +7,8 @@ import { IoClose } from 'react-icons/io5';
 import ButtonLoader from '../../components/ButtonLoader';
 import axiosClient from '../../axios-client';
 import getCookie from '../../lib/getCookie';
+import LineSkeleton from '../../components/LineSkeleton';
+import { toast } from 'react-toastify';
 
 function AdminDetails() {
     const { name, email, role, id, profilePic, setRole, setName, setId, setEmail, setProfilePic } = useStateContext();
@@ -113,6 +115,8 @@ function AdminDetails() {
                 setId(res.data.data.id);
                 setEmail(res.data.data.email);
                 setProfilePic(res.data.data.profile_pic);
+
+                toast(`${res.data.message}`);
             }
         } catch (err) {
             console.log(err);
@@ -155,6 +159,8 @@ function AdminDetails() {
                 setId(res.data.data.id);
                 setEmail(res.data.data.email);
                 setProfilePic(res.data.data.profile_pic);
+
+                toast(`${res.data.message}`);
             }
         } catch (err) {
             console.log(err);
@@ -163,36 +169,47 @@ function AdminDetails() {
         }
     };
 
-
     return (
         <AdminPage title={"Details"}>
-            <div className='flex justify-center flex-col items-center'>
-                {profilePic ?
-                    <div className='relative border border-light-line dark:border-dark-line size-40 flex items-center justify-center rounded-full aspect-square'>
-                        <img className='object-cover rounded-full h-full w-full' src={`http://localhost:8000/storage/${profilePic}`} alt="" />
-                        <div className='absolute bottom-2 right-2 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={openModal}>
-                            <FaCamera className='text-lg cursor-pointer' />
+            {name ? 
+                <div className='flex justify-center flex-col items-center'>
+                    {profilePic ?
+                        <div className='relative border border-light-line dark:border-dark-line size-60 flex items-center justify-center rounded-full aspect-square'>
+                            <img className='object-cover rounded-full h-full w-full' src={`http://localhost:8000/storage/${profilePic}`} alt="" />
+                            <div className='absolute bottom-4 right-4 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={openModal}>
+                                <FaCamera className='text-lg cursor-pointer' />
+                            </div>
                         </div>
-                    </div>
-                    :
-                    <div className='relative p-4 border bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-40 flex items-center justify-center rounded-full'>
-                        <span className='text-6xl font-bold'>{firstLetter}</span>
-                        <div className='absolute bottom-2 right-2 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={openModal}>
-                            <FaCamera className='text-lg cursor-pointer' />
+                        :
+                        <div className='relative p-4 border bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-60 flex items-center justify-center rounded-full'>
+                            <span className='text-9xl font-semibold'>{firstLetter}</span>
+                            <div className='absolute bottom-4 right-4 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={openModal}>
+                                <FaCamera className='text-lg cursor-pointer' />
+                            </div>
                         </div>
-                    </div>
-                }
-                <div className='flex flex-col items-center mt-4'>
-                    <span className='font-semibold text-lg flex items-center gap-2'>{name} <span className='text-xs'>({role === "f2" && "Admin"})</span></span>
-                    <span>{email}</span>
+                    }
+                    <div className='flex flex-col items-center mt-4'>
+                        <span className='font-semibold text-lg flex items-center gap-2'>{name} <span className='text-xs'>({role === "f2" && "Admin"})</span></span>
+                        <span>{email}</span>
 
-                    <button className='mt-4 p-2 bg-secondary hover:bg-secondary-darker text-white rounded-lg' onClick={openEditModal}>Edit Profile</button>
+                        <button className='mt-4 p-2 px-4 bg-secondary hover:bg-secondary-darker text-white rounded-lg h-11' onClick={openEditModal}>Edit Profile</button>
+                    </div>
                 </div>
-            </div>
+                :
+                <div className='flex w-full items-center flex-col'>
+                    <div className='p-4 border bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-60 flex items-center justify-center rounded-full animate-pulse'>
+                    </div>
+                    <div className='flex flex-col gap-2 mt-4 w-full items-center'>
+                        <LineSkeleton className={"w-40 h-4"} speed={"fast"} />
+                        <LineSkeleton className={"w-40 h-2"} speed={"slow"} />
+                    </div>
+                </div>
+                
+            }
             {modal && <Modal title="Update Profile Picture" onClose={closeModal}>
                 {preview.length > 0 && 
-                    <div className='flex aspect-square relative'>
-                        <img src={preview} alt="Preview" className="object-cover rounded-full h-full w-full" />
+                    <div className='flex aspect-square relative border-2 rounded-full border-light-line dark:border-dark-line'>
+                        <img src={preview} alt="Preview" className="object-cover rounded-full h-full w-full border" />
                         <div className='absolute top-12 right-12 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={removeImage}>
                             <IoClose className='text-lg cursor-pointer' />
                         </div>
@@ -227,11 +244,11 @@ function AdminDetails() {
             </Modal>}
             
             {editModal && <Modal title="Edit Profile" onClose={closeEditModal}>
-                <div className='flex flex-col gap-4 mb-4'>
+                <form className='flex flex-col gap-4 mb-4'>
                     <input
                         type="text"
                         name='name'
-                        className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm font-semibold'
+                        className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line font-semibold'
                         placeholder='Name'
                         onChange={handleChange}
                         disabled={loading}
@@ -242,24 +259,25 @@ function AdminDetails() {
                     <input
                         type="text"
                         name='email'
-                        className='bg-light-background dark:bg-dark-accent border-0 focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm'
+                        className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
                         placeholder='Email'
                         onChange={handleChange}
                         disabled={loading}
                         value={data.email}
                     />
                     {errors.email && <span className='text-red-500'>{errors.email}</span>}
-                </div>
-                <div className='w-full mt-4'>
-                    <button
-                        className={`h-[44px] p-2 rounded-lg w-full flex items-center justify-center font-semibold gap-2 ${!data.name || !data.email || loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary text-white"}`}
-                        onClick={handleEditProfile}
-                        disabled={!data.name || !data.email || loading }
-                    >
-                        {loading ? "Saving" : "Save"}
-                        {loading && <ButtonLoader />}
-                    </button> 
-                </div>
+
+                    <div className='w-full'>
+                        <button
+                            className={`h-[44px] p-2 rounded-lg w-full flex items-center justify-center font-semibold gap-2 ${!data.name || !data.email || loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary text-white"}`}
+                            onClick={handleEditProfile}
+                            disabled={!data.name || !data.email || loading }
+                        >
+                            {loading ? "Saving" : "Save"}
+                            {loading && <ButtonLoader />}
+                        </button> 
+                    </div>
+                </form>
             </Modal>}
         </AdminPage>
     )

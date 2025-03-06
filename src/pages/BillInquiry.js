@@ -47,7 +47,7 @@ function BillInquiry() {
                     <form className='w-full flex flex-wrap gap-4' onSubmit={handleSubmit} >
                         <input
                             name='account_number'
-                            className='w-full rounded-lg text-light-foreground dark:text-dark-foreground dark:bg-dark-secondary placeholder:text-light-accent dark:placeholder:text-dark-primary'
+                            className='w-full bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
                             type="text"
                             placeholder='Account Number (ex. 123456)'
                             onChange={handleChange}
@@ -55,7 +55,7 @@ function BillInquiry() {
                         />
                         <input
                             name='account_name'
-                            className='w-full rounded-lg text-light-foreground dark:text-dark-foreground dark:bg-dark-secondary placeholder:text-light-accent dark:placeholder:text-dark-primary'
+                            className='w-full bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
                             type="text"
                             placeholder='Account Name (ex. Juan Dela Cruz)'
                             onChange={handleChange}

@@ -4,15 +4,20 @@ import logo from "../assets/ficelco-logo.png"
 import { useStateContext } from '../context/ContextProvider'
 import getCookie from '../lib/getCookie';
 import axiosClient from '../axios-client';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 function AdminLayout() {
-    const { name, email, setRole, setName, setId, setEmail, setProfilePic, profilePic } = useStateContext();
+    const { name, email, setRole, setName, setId, setEmail, setProfilePic, profilePic, id, role } = useStateContext();
     const [postLoading, setPostLoading] = React.useState(false);
     const [posts, setPosts] = React.useState();
     
     const navigate = useNavigate();
 
     const firstLetter = name?.slice(0, 1).toUpperCase();
+
+    if(!id || !role){
+        navigate('/login');
+    }
 
     React.useEffect( () => {
         const fetchUpdates = async () => {
@@ -80,9 +85,9 @@ function AdminLayout() {
                         to={'/f2'}
                         >
                             {({isActive}) => (isActive ?
-                                <span className='block rounded-lg px-4 py-2 text-sm font-medium bg-light-hover dark:bg-dark-hover'>Home</span>
+                                <span className='block rounded-lg px-4 py-2 text-sm font-medium bg-light-hover dark:bg-dark-hover'>Dashboard</span>
                                 :
-                                <span className='block rounded-lg px-4 py-2 text-sm font-medium hover:bg-light-hover dark:hover:bg-dark-hover'>Home</span>
+                                <span className='block rounded-lg px-4 py-2 text-sm font-medium hover:bg-light-hover dark:hover:bg-dark-hover'>Dashboard</span>
                             )}
                         </NavLink>
                     </li>
@@ -290,6 +295,19 @@ function AdminLayout() {
             <div className='relative md:ml-56 lg:ml-64 min-h-[100svh] bg-light-background dark:bg-dark-background text-light-foreground dark:text-dark-foreground'>
                 <Outlet context={{ posts, setPosts, postLoading, setPostLoading }} />
             </div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover={false}
+                theme={localStorage.getItem("theme")}
+                transition={Bounce}
+            />
         </div>
     )
 }
