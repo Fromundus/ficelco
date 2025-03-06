@@ -10,6 +10,7 @@ import ButtonLoader from './ButtonLoader';
 import { FaImage } from "react-icons/fa6";
 import { FaLock } from "react-icons/fa6";
 import { FaGlobeAsia } from "react-icons/fa";
+import ReactQuill from 'react-quill';
 
 function AdminNewsCard({ link, image, date, title, header, description, hidden, old_images, setNoScroll, post_id, setPosts }) {
     const [isDelete, setIsDelete] = React.useState(false);
@@ -22,8 +23,9 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
     const [data, setData] = React.useState({
         title: title,
         header: header,
-        description: description,
     });
+
+    const [newDescription, setNewDescription] = React.useState(description);
 
     const [errors, setErrors] = React.useState({});
 
@@ -128,7 +130,7 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
 
         formData.append('title', data.title);
         formData.append('header', data.header);
-        formData.append('description', data.description);
+        formData.append('description', newDescription);
 
         // console.log(data);
 
@@ -230,7 +232,7 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
     return (
         <>
             <Link to={link} className='p-2 w-full sm:w-1/2 md:w-1/2 lg:w-1/3 rounded-lg'>
-                <div className='relative p-4 rounded-lg bg-light-background dark:bg-dark-accent h-full border border-light-line dark:border-0'>
+                <div className='relative p-4 rounded-lg bg-light-background dark:bg-dark-accent h-full border border-light-line dark:border-0 flex flex-col'>
                     <div className='w-full text-xl flex justify-end'>
                         <button className='p-2 hover:bg-light-hover dark:hover:bg-dark-hover rounded-full' onClick={dropDownToggle}>
                             <BsThreeDots  />
@@ -249,12 +251,12 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             <span className='text-lg'>&#xb7;</span>
                             <span className='text-xs'>{hidden ? <FaLock /> : <FaGlobeAsia />}</span>
                         </div>
-                        <p className='line-clamp-4'>
-                            {description}
-                        </p>
+                        <div className='line-clamp-4' dangerouslySetInnerHTML={{ __html: description }} />
                     </div>
-                    <div className='aspect-square mt-4'>
-                        <img className='h-full w-full object-cover rounded-lg' src={image} alt="" />
+                    <div className='mt-auto'>
+                        <div className='aspect-square'>
+                            <img className='h-full w-full object-cover rounded-lg mt-auto' src={image} alt="" />
+                        </div>
                     </div>
                     {dropdown && <div className='absolute top-12 text right-[70px] flex flex-col w-[150px] bg-light-background dark:bg-dark-line rounded-lg py-2 border border-light-line dark:border-0 shadow-lg'>
                         <button
@@ -300,18 +302,8 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                         />
                         {errors.header && <span className='text-red-500'>{errors.header}</span>}
 
-                        <textarea 
-                            className='bg-light-background dark:bg-dark-accent border-0 resize-none focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm' 
-                            rows={4}  
-                            name="description" 
-                            id=""
-                            placeholder='Description...'
-                            onChange={handleChange}
-                            disabled={loading}
-                            value={data.description}
-                        >
+                        <ReactQuill value={newDescription} onChange={setNewDescription} className="mb-4" />
 
-                        </textarea>
                         {errors.description && <span className='text-red-500'>{errors.description}</span>}
 
                     </div>
@@ -369,11 +361,18 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             <FaImage className='text-xl' />
                         </button>
                     </div>
-                    <div className='w-full mt-4'>
+                    <div className='w-full mt-4 flex gap-4'>
                         <button
-                            className={`h-[44px] p-2 rounded-lg w-full flex items-center justify-center font-semibold gap-2 ${!data.title || !data.header || !data.description || loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary text-white"}`}
+                            className='h-[44px] w-full bg-white text-black p-2 rounded-lg border border-light-line dark:border-0'
+                            onClick={closeModal}
+                            disabled={loading}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            className={`h-[44px] p-2 rounded-lg w-full flex items-center justify-center font-semibold gap-2 ${!data.title || !data.header || !newDescription || loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary text-white"}`}
                             onClick={handleUpload}
-                            disabled={!data.title || !data.header || !data.description || loading }
+                            disabled={!data.title || !data.header || !newDescription || loading }
                         >
                             {loading ? "Saving" : "Save"}
                             {loading && <ButtonLoader />}
@@ -405,7 +404,7 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             value={data.header}
                         />
 
-                        <textarea 
+                        {/* <textarea 
                             className='bg-light-background dark:bg-dark-accent border-0 resize-none focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm' 
                             rows={4}  
                             name="description" 
@@ -416,7 +415,8 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             value={data.description}
                         >
 
-                        </textarea>
+                        </textarea> */}
+                        <div className='p-4' dangerouslySetInnerHTML={{ __html: description }} />
                     </div>
                     <div className="flex flex-wrap">
                         {old_images?.map((item, index) => (
@@ -436,7 +436,7 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             Cancel
                         </button>
                         <button
-                            className={`h-[44px] w-full p-2 rounded-lg border dark:border-0 flex font-semibold items-center gap-2 justify-center ${loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-red-500 text-white"}`}
+                            className={`h-[44px] w-full p-2 rounded-lg border dark:border-0 flex font-semibold items-center gap-2 justify-center ${loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-red-500 hover:bg-red-700 text-white"}`}
                             onClick={handleDelete}
                             disabled={loading}
                         >

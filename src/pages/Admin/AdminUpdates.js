@@ -6,10 +6,11 @@ import { IoClose } from 'react-icons/io5';
 import axiosClient from '../../axios-client';
 import getCookie from '../../lib/getCookie';
 import ButtonLoader from '../../components/ButtonLoader';
-import NewsCard from '../../components/NewsCard';
 import { useOutletContext } from 'react-router-dom';
 import NewsCardSkeleton from '../../components/NewsCardSkeleton';
 import AdminNewsCard from '../../components/AdminNewsCard';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function AdminUpdates() {
     const { posts, setPosts, postLoading } = useOutletContext();
@@ -22,8 +23,11 @@ function AdminUpdates() {
     const [data, setData] = React.useState({
         title: "",
         header: "",
-        description: "",
     });
+
+    const [description, setDescription] = React.useState("");
+    
+    console.log(description);
 
     const [errors, setErrors] = React.useState({});
     
@@ -108,7 +112,7 @@ function AdminUpdates() {
 
         formData.append('title', data.title);
         formData.append('header', data.header);
-        formData.append('description', data.description);
+        formData.append('description', description);
 
         console.log(data);
 
@@ -224,18 +228,8 @@ function AdminUpdates() {
                         />
                         {errors.header && <span className='text-red-500'>{errors.header}</span>}
 
-                        <textarea 
-                            className='bg-light-background dark:bg-dark-accent border-0 resize-none focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm' 
-                            rows={4}  
-                            name="description" 
-                            id=""
-                            placeholder='Description...'
-                            onChange={handleChange}
-                            disabled={loading}
-                            value={data.description}
-                        >
+                        <ReactQuill value={description} onChange={setDescription} className="mb-4" />
 
-                        </textarea>
                         {errors.description && <span className='text-red-500'>{errors.description}</span>}
 
                     </div>
@@ -286,9 +280,9 @@ function AdminUpdates() {
                     </div>
                     <div className='w-full mt-4'>
                         <button
-                            className={`h-[44px] p-2 rounded-lg w-full flex items-center justify-center font-semibold gap-2 ${!data.title || !data.header || !data.description || loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary text-white"}`}
+                            className={`h-[44px] p-2 rounded-lg w-full flex items-center justify-center font-semibold gap-2 ${!data.title || !data.header || !description || loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary text-white"}`}
                             onClick={handleUpload}
-                            disabled={!data.title || !data.header || !data.description || loading }
+                            disabled={!data.title || !data.header || !description || loading }
                         >
                             {loading ? "Posting" : "Post"}
                             {loading && <ButtonLoader />}

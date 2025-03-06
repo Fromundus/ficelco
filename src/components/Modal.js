@@ -4,22 +4,6 @@ import { IoClose } from 'react-icons/io5'
 
 function Modal({title, onClose, loading, children }) {
     return (
-        // <div
-        //     className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center p-4 overflow-y-scroll"
-        //     >
-        //     <div
-        //         className="bg-light-background dark:bg-dark-accent rounded-2xl shadow-xl max-w-4xl w-full h-full p-6 relative border border-light-line dark:border-dark-line"
-        //     >
-        //         <button
-        //             className="absolute top-4 right-4"
-        //             onClick={onClose}
-        //         >
-        //             <IoClose className='text-2xl' />
-        //         </button>
-        //         {children}
-        //     </div>
-        // </div>
-
         <div
             className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-start p-2 sm:p-8 md:p-8 lg:p-8 overflow-y-auto"
             // onClick={onClose}
@@ -35,7 +19,7 @@ function Modal({title, onClose, loading, children }) {
                         onClick={onClose}
                         disabled={loading}
                     >
-                        <IoClose className="text-2xl" />
+                        <IoClose className="text-xl" />
                     </button>
                 </div>
                 <div className='p-6'>

@@ -15,7 +15,7 @@ function Login() {
     const navigate = useNavigate();
 
     const [isLoading, setIsloading] = React.useState(false);
-    const { setRole, setName, setId, setEmail } = useStateContext();
+    const { setRole, setName, setId, setEmail, setProfilePic } = useStateContext();
     const [data, setData] = React.useState({
         email: "",
         password: "",
@@ -70,6 +70,7 @@ function Login() {
                 setRole(res.data.data.role);
                 setId(res.data.data.id);
                 setEmail(res.data.data.email);
+                setProfilePic(res.data.data.profile_pic);
                 navigate(`/${res.data.data.role}`);
             }
 

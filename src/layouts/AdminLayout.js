@@ -6,7 +6,7 @@ import getCookie from '../lib/getCookie';
 import axiosClient from '../axios-client';
 
 function AdminLayout() {
-    const { name, email, setRole, setName, setId, setEmail } = useStateContext();
+    const { name, email, setRole, setName, setId, setEmail, setProfilePic, profilePic } = useStateContext();
     const [postLoading, setPostLoading] = React.useState(false);
     const [posts, setPosts] = React.useState();
     
@@ -51,6 +51,7 @@ function AdminLayout() {
                 setName(null);
                 setId(null);
                 setEmail(null);
+                setProfilePic(null);
                 navigate(`/login`);
             }
     
@@ -59,6 +60,7 @@ function AdminLayout() {
             setName(null);
             setId(null);
             setEmail(null);
+            setProfilePic(null);
             navigate(`/login`);
         }
     }
@@ -256,11 +258,16 @@ function AdminLayout() {
                         className="size-10 rounded-full object-cover"
                     /> */}
                     {name ?
-                        <div className='border-2 rounded-lg p-2 bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-10 flex items-center justify-center'>
-                            <span className='font-semibold text-lg'>{firstLetter}</span>
-                        </div>
+                        profilePic ?
+                            <div className='flex aspect-square size-10 border bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line rounded-full'>
+                                <img className='object-cover rounded-full' src={`http://localhost:8000/storage/${profilePic}`} alt="" />
+                            </div>
+                            :
+                            <div className='border rounded-full p-2 bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-10 flex items-center justify-center'>
+                                <span className='font-semibold text-lg'>{firstLetter}</span>
+                            </div>
                         :
-                        <div className='border-2 rounded-lg p-2 bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-10 flex items-center justify-center animate-pulse'>
+                        <div className='border rounded-full p-2 bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-10 flex items-center justify-center animate-pulse'>
                         </div>
                     }
 

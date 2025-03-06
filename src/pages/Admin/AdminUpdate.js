@@ -3,6 +3,7 @@ import AdminPage from '../../components/Admin/AdminPage'
 import { useParams } from 'react-router-dom'
 import axiosClient from '../../axios-client';
 import LineSkeleton from '../../components/LineSkeleton';
+import UpdateDetails from '../../components/UpdateDetails';
 
 function AdminUpdate() {
     const { id } = useParams();
@@ -27,8 +28,8 @@ function AdminUpdate() {
     }, []);
 
     return (
-        <AdminPage title={!loading ? post?.header : "Loading..."}>
-            
+        <AdminPage title={!loading ? post?.header : "Loading..."} to={'/f2/updates'}>
+            <UpdateDetails post={post} />
         </AdminPage>
     )
 }
