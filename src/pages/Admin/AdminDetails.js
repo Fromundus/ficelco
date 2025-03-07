@@ -173,114 +173,116 @@ function AdminDetails() {
 
     return (
         <AdminPage title={"Details"}>
-            {name ? 
-                <div className='flex justify-center flex-col items-center'>
-                    {profilePic ?
-                        <div className='relative border border-light-line dark:border-dark-line size-60 flex items-center justify-center rounded-full aspect-square'>
-                            <img className='object-cover rounded-full h-full w-full' src={`http://localhost:8000/storage/${profilePic}`} alt="" />
-                            <div className='absolute bottom-4 right-4 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={openModal}>
-                                <FaCamera className='text-lg cursor-pointer' />
+            <div className='px-4'>
+                {name ? 
+                    <div className='flex justify-center flex-col items-center'>
+                        {profilePic ?
+                            <div className='relative border border-light-line dark:border-dark-line size-60 flex items-center justify-center rounded-full aspect-square'>
+                                <img className='object-cover rounded-full h-full w-full' src={`http://localhost:8000/storage/${profilePic}`} alt="" />
+                                <div className='absolute bottom-4 right-4 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={openModal}>
+                                    <FaCamera className='text-lg cursor-pointer' />
+                                </div>
                             </div>
+                            :
+                            <div className='relative p-4 border bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-60 flex items-center justify-center rounded-full'>
+                                <span className='text-9xl font-semibold'>{firstLetter}</span>
+                                <div className='absolute bottom-4 right-4 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={openModal}>
+                                    <FaCamera className='text-lg cursor-pointer' />
+                                </div>
+                            </div>
+                        }
+                        <div className='flex flex-col items-center mt-4'>
+                            <span className='font-semibold text-lg flex items-center gap-2'>{name} <span className='text-xs'>({role === "f2" && "Admin"})</span></span>
+                            <span>{email}</span>
+
+                            <button className='mt-4 p-2 px-4 bg-secondary hover:bg-secondary-darker text-white rounded-lg h-11' onClick={openEditModal}>Edit Profile</button>
                         </div>
-                        :
-                        <div className='relative p-4 border bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-60 flex items-center justify-center rounded-full'>
-                            <span className='text-9xl font-semibold'>{firstLetter}</span>
-                            <div className='absolute bottom-4 right-4 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={openModal}>
-                                <FaCamera className='text-lg cursor-pointer' />
+                    </div>
+                    :
+                    <div className='flex w-full items-center flex-col'>
+                        <div className='p-4 border bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-60 flex items-center justify-center rounded-full animate-pulse'>
+                        </div>
+                        <div className='flex flex-col gap-2 mt-4 w-full items-center'>
+                            <LineSkeleton className={"w-40 h-4"} speed={"fast"} />
+                            <LineSkeleton className={"w-40 h-2"} speed={"slow"} />
+                        </div>
+                    </div>
+                    
+                }
+                {modal && <Modal title="Update Profile Picture" onClose={closeModal}>
+                    {preview.length > 0 && 
+                        <div className='flex aspect-square relative border-2 rounded-full border-light-line dark:border-dark-line'>
+                            <img src={preview} alt="Preview" className="object-cover rounded-full h-full w-full border" />
+                            <div className='absolute top-12 right-12 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={removeImage}>
+                                <IoClose className='text-lg cursor-pointer' />
                             </div>
                         </div>
                     }
-                    <div className='flex flex-col items-center mt-4'>
-                        <span className='font-semibold text-lg flex items-center gap-2'>{name} <span className='text-xs'>({role === "f2" && "Admin"})</span></span>
-                        <span>{email}</span>
+                    {image.length === 0 && <div className='p-2 border border-light-line dark:border-dark-line rounded-lg mt-2'>
 
-                        <button className='mt-4 p-2 px-4 bg-secondary hover:bg-secondary-darker text-white rounded-lg h-11' onClick={openEditModal}>Edit Profile</button>
-                    </div>
-                </div>
-                :
-                <div className='flex w-full items-center flex-col'>
-                    <div className='p-4 border bg-light-hover dark:bg-dark-hover border-light-line dark:border-dark-line size-60 flex items-center justify-center rounded-full animate-pulse'>
-                    </div>
-                    <div className='flex flex-col gap-2 mt-4 w-full items-center'>
-                        <LineSkeleton className={"w-40 h-4"} speed={"fast"} />
-                        <LineSkeleton className={"w-40 h-2"} speed={"slow"} />
-                    </div>
-                </div>
-                
-            }
-            {modal && <Modal title="Update Profile Picture" onClose={closeModal}>
-                {preview.length > 0 && 
-                    <div className='flex aspect-square relative border-2 rounded-full border-light-line dark:border-dark-line'>
-                        <img src={preview} alt="Preview" className="object-cover rounded-full h-full w-full border" />
-                        <div className='absolute top-12 right-12 border border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent p-2 rounded-full hover:bg-light-hover dark:hover:bg-dark-hover' onClick={removeImage}>
-                            <IoClose className='text-lg cursor-pointer' />
-                        </div>
-                    </div>
-                }
-                {image.length === 0 && <div className='p-2 border border-light-line dark:border-dark-line rounded-lg mt-2'>
+                        <label htmlFor='image' className='rounded-lg h-[100px] flex items-center justify-center bg-light-line dark:bg-dark-line flex-col gap-2 relative'>
+                            <FaImage className='text-2xl' />
+                            <span className='font-semibold'>Add Photo</span>
+                        </label>
 
-                    <label htmlFor='image' className='rounded-lg h-[100px] flex items-center justify-center bg-light-line dark:bg-dark-line flex-col gap-2 relative'>
-                        <FaImage className='text-2xl' />
-                        <span className='font-semibold'>Add Photo</span>
-                    </label>
-
-                    <input 
-                        className='hidden' 
-                        id='image' 
-                        type="file" 
-                        accept='image/*'
-                        onChange={handleImageChange}
-                        disabled={loading}
-                    />
-                </div>}
-                <div className='w-full mt-4'>
-                    <ActionButton
-                        label={"Update"}
-                        processLabel={"Updating"}
-                        loading={loading}
-                        disabled={loading || image.length === 0}
-                        onClick={handleUpload}
-                        className={"bg-secondary hover:bg-secondary-darker text-white"}
-                    />
-                </div>
-            </Modal>}
-            
-            {editModal && <Modal title="Edit Profile" onClose={closeEditModal}>
-                <form className='flex flex-col gap-4 mb-4'>
-                    <Input 
-                        type="text"
-                        name='name'
-                        className=' font-semibold'
-                        placeholder='Name'
-                        onChange={handleChange}
-                        disabled={loading}
-                        value={data.name}
-                        errors={errors.name}
-                    />
-
-                    <Input 
-                        type="email"
-                        name='email'
-                        className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
-                        placeholder='Email'
-                        onChange={handleChange}
-                        disabled={loading}
-                        value={data.email}
-                        errors={errors.email}
-                    />
-
-                    <div className='w-full'>
+                        <input 
+                            className='hidden' 
+                            id='image' 
+                            type="file" 
+                            accept='image/*'
+                            onChange={handleImageChange}
+                            disabled={loading}
+                        />
+                    </div>}
+                    <div className='w-full mt-4'>
                         <ActionButton
-                            label={"Save"}
-                            processLabel={"Saving"}
+                            label={"Update"}
+                            processLabel={"Updating"}
                             loading={loading}
-                            disabled={!data.name || !data.email || loading }
-                            onClick={handleEditProfile}
+                            disabled={loading || image.length === 0}
+                            onClick={handleUpload}
                             className={"bg-secondary hover:bg-secondary-darker text-white"}
                         />
                     </div>
-                </form>
-            </Modal>}
+                </Modal>}
+                
+                {editModal && <Modal title="Edit Profile" onClose={closeEditModal}>
+                    <form className='flex flex-col gap-4 mb-4'>
+                        <Input 
+                            type="text"
+                            name='name'
+                            className=' font-semibold'
+                            placeholder='Name'
+                            onChange={handleChange}
+                            disabled={loading}
+                            value={data.name}
+                            errors={errors.name}
+                        />
+
+                        <Input 
+                            type="email"
+                            name='email'
+                            className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
+                            placeholder='Email'
+                            onChange={handleChange}
+                            disabled={loading}
+                            value={data.email}
+                            errors={errors.email}
+                        />
+
+                        <div className='w-full'>
+                            <ActionButton
+                                label={"Save"}
+                                processLabel={"Saving"}
+                                loading={loading}
+                                disabled={!data.name || !data.email || loading }
+                                onClick={handleEditProfile}
+                                className={"bg-secondary hover:bg-secondary-darker text-white"}
+                            />
+                        </div>
+                    </form>
+                </Modal>}
+            </div>
         </AdminPage>
     )
 }

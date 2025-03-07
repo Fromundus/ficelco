@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import React from 'react'
 import { IoClose } from 'react-icons/io5'
-import { Link } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
 import { BsThreeDots } from "react-icons/bs";
 import Modal from './Modal';
 import axiosClient from '../axios-client';
@@ -20,6 +20,7 @@ import FileInput from './FileInput';
 import ActionButton from './ActionButton';
 
 function AdminNewsCard({ link, image, date, title, header, description, hidden, old_images, old_files, setNoScroll, post_id, setPosts }) {
+    const { setPostYears } = useOutletContext();
     const [isDelete, setIsDelete] = React.useState(false);
     const [dropdown, setDropdown] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
@@ -193,6 +194,7 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                 setPreview([]);
                 setLoading(false);
                 setPosts(res.data.data);
+                setPostYears(res.data.years);
                 setModal(false);
                 setNoScroll(false);
                 setIsImage(false);
@@ -234,6 +236,7 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                 console.log(res);
                 setLoading(false);
                 setPosts(res.data.data);
+                setPostYears(res.data.years);
                 setNoScroll(false);
                 setIsDelete(false);
 

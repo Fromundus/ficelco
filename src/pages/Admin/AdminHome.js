@@ -8,8 +8,7 @@ import { FaMoneyBill } from "react-icons/fa6";
 function AdminHome() {
     return (
         <AdminPage title={"Dashboard"}>
-            <div className='flex flex-wrap'>
-
+            <div className='flex flex-wrap px-4'>
                 <div className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
                     <div className='flex bg-light-background dark:bg-dark-accent border border-light-line dark:border-dark-line rounded-lg p-4 gap-8 h-32'>
                         <div className='text-4xl flex items-center'>

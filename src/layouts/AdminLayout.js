@@ -10,9 +10,7 @@ function AdminLayout() {
     const { name, email, setRole, setName, setId, setEmail, setProfilePic, profilePic, id, role } = useStateContext();
     const [postLoading, setPostLoading] = React.useState(false);
     const [posts, setPosts] = React.useState();
-
-    const [postsSearchParams, setPostsSearchParams] = useSearchParams();
-    const postyear = postsSearchParams.get('postyear');
+    const [postYears, setPostYears] = React.useState();
     
     const navigate = useNavigate();
 
@@ -27,13 +25,10 @@ function AdminLayout() {
             setPostLoading(true);
 
             try {
-                const res = await axiosClient.get('/api/posts', {
-                    params: {
-                        postyear
-                    }
-                });
+                const res = await axiosClient.get('/api/posts');
                 console.log(res);
                 setPosts(res.data.data);
+                setPostYears(res.data.years);
                 setPostLoading(false);
             } catch (err) {
                 console.log(err);
@@ -43,7 +38,7 @@ function AdminLayout() {
         }
 
         fetchUpdates();
-    }, [postyear]);
+    }, []);
 
     const handleLogout = async (e) => {
         e.preventDefault();
@@ -301,7 +296,7 @@ function AdminLayout() {
                 </div>
             </div>
             <div className='relative md:ml-56 lg:ml-64 min-h-[100svh] bg-light-background dark:bg-dark-background text-light-foreground dark:text-dark-foreground'>
-                <Outlet context={{ posts, setPosts, postLoading, setPostLoading, setPostsSearchParams, postyear }} />
+                <Outlet context={{ posts, setPosts, postLoading, setPostLoading, postYears, setPostYears }} />
             </div>
             <ToastContainer
                 position="bottom-right"

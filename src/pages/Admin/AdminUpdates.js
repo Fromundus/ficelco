@@ -20,7 +20,7 @@ import ActionButton from '../../components/ActionButton';
 import FileInput from '../../components/FileInput';
 
 function AdminUpdates() {
-    const { posts, setPosts, postLoading, setPostsSearchParams, postyear } = useOutletContext();
+    const { posts, setPosts, postLoading, postYears, setPostYears} = useOutletContext();
 
     const [noScroll, setNoScroll] = React.useState(false);
 
@@ -43,8 +43,11 @@ function AdminUpdates() {
 
     const [errors, setErrors] = React.useState({});
 
-    const handleSearchParams = (postyear) => {
-        setPostsSearchParams({ postyear: postyear })
+    const [searchParams, setSearchParams] = useSearchParams();
+    const year = searchParams.get('year');
+
+    const handleSearchParams = (year) => {
+        setSearchParams({ year: year })
     }
     
     const openModal = () => {
@@ -198,6 +201,7 @@ function AdminUpdates() {
                 });
                 setLoading(false);
                 setPosts(res.data.data);
+                setPostYears(res.data.years);
                 setModal(false);
                 setNoScroll(false);
                 setIsImage(false);
@@ -221,9 +225,24 @@ function AdminUpdates() {
         }
     };
 
+    // FILTERED UPDATES
+
+    const filteredPosts = posts?.filter((item) => {
+        const searchYear = year ? parseInt(year) : null;
+        const postYear = new Date(item.created_at).getFullYear();
+    
+        if (searchYear) {
+            // Filter by year if a year is selected
+            return postYear === searchYear;
+        } else {
+            // Return all posts when no year is selected
+            return true;
+        }
+    });
+
     //RENDER COMPONENTS
 
-    const renderPosts = posts?.map( (item) => {
+    const renderPosts = filteredPosts?.map( (item) => {
         return (
             <AdminNewsCard
                 key={item.id}
@@ -240,6 +259,18 @@ function AdminUpdates() {
                 post_id={item.id}
                 setPosts={setPosts}
             />
+        )
+    });
+
+    const renderFilterYears = postYears?.map( (item) => {
+        return (
+            <button 
+                key={item}
+                onClick={() => handleSearchParams(`${item}`)} 
+                className={`w-full text-start rounded-lg px-4 py-2 text-sm font-medium hover:bg-light-hover hover:dark:bg-dark-hover ${year === `${item}` && "bg-light-hover dark:bg-dark-hover"}`}
+            >
+                {item}
+            </button>
         )
     });
 
@@ -270,47 +301,13 @@ function AdminUpdates() {
                         </div>
                         <div className='mt-12 w-full flex flex-col gap-1'>
                             <button 
-                                onClick={() => setPostsSearchParams("")} 
-                                className={`w-full text-start rounded-lg px-4 py-2 text-sm font-medium ${postyear === null && "bg-light-hover dark:bg-dark-hover"}`}
+                                onClick={() => setSearchParams("")} 
+                                className={`w-full text-start rounded-lg px-4 py-2 text-sm font-medium hover:bg-light-hover hover:dark:bg-dark-hover ${year === null && "bg-light-hover dark:bg-dark-hover"}`}
                             >
                                 All
                             </button>
 
-                            <button 
-                                onClick={() => handleSearchParams("2025")} 
-                                className={`w-full text-start rounded-lg px-4 py-2 text-sm font-medium ${postyear === "2025" && "bg-light-hover dark:bg-dark-hover"}`}
-                            >
-                                2025
-                            </button>
-
-                            <button 
-                                onClick={() => handleSearchParams("2024")} 
-                                className={`w-full text-start rounded-lg px-4 py-2 text-sm font-medium ${postyear === "2024" && "bg-light-hover dark:bg-dark-hover"}`}
-                            >
-                                2024
-                            </button>
-
-                            <button 
-                                onClick={() => handleSearchParams("2023")} 
-                                className={`w-full text-start rounded-lg px-4 py-2 text-sm font-medium ${postyear === "2023" && "bg-light-hover dark:bg-dark-hover"}`}
-                            >
-                                2023
-                            </button>
-
-                            <button 
-                                onClick={() => handleSearchParams("2022")} 
-                                className={`w-full text-start rounded-lg px-4 py-2 text-sm font-medium ${postyear === "2022" && "bg-light-hover dark:bg-dark-hover"}`}
-                            >
-                                2022
-                            </button>
-
-                            <button 
-                                onClick={() => handleSearchParams("2021")} 
-                                className={`w-full text-start rounded-lg px-4 py-2 text-sm font-medium ${postyear === "2021" && "bg-light-hover dark:bg-dark-hover"}`}
-                            >
-                                2021
-                            </button>
-
+                            {renderFilterYears}
                         </div>
                         
                     </div>

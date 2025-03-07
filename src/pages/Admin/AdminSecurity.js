@@ -85,80 +85,82 @@ function AdminSecurity() {
 
     return (
         <AdminPage title={"Security"}>
-            <form className='flex flex-col gap-4 mb-4' onSubmit={handleChangePassword}>
-                <div className='relative'>
-                    <Input
-                        type={showOldPassword ? "text" : "password"}
-                        name='old_password'
-                        className='w-full'
-                        placeholder='Old Password'
-                        onChange={handleChange}
-                        disabled={loading}
-                        value={data.old_password}
-                        errors={errors.old_password}
-                    />
+            <div className='px-4'>
+                <form className='flex flex-col gap-4 mb-4' onSubmit={handleChangePassword}>
+                    <div className='relative'>
+                        <Input
+                            type={showOldPassword ? "text" : "password"}
+                            name='old_password'
+                            className='w-full'
+                            placeholder='Old Password'
+                            onChange={handleChange}
+                            disabled={loading}
+                            value={data.old_password}
+                            errors={errors.old_password}
+                        />
 
-                    <span
-                        className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
-                        onMouseDown={(e) => e.preventDefault()}
-                        onClick={() => handlePasswordToggle("old_password")}
-                        disabled={loading}
+                        <span
+                            className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => handlePasswordToggle("old_password")}
+                            disabled={loading}
+                        >
+                            {showOldPassword ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
+                        </span>
+                    </div>
+
+                    <div className='relative'>
+                        <Input
+                            type={showPassword ? "text" : "password"}
+                            name='password'
+                            className='w-full'
+                            placeholder='New Password'
+                            onChange={handleChange}
+                            disabled={loading}
+                            value={data.password}
+                        />
+
+                        <span
+                            className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => handlePasswordToggle("password")}
+                            disabled={loading}
+                        >
+                            {showPassword ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
+                        </span>
+                    </div>
+
+                    <div className='relative'>
+                        <Input
+                            type={showPasswordConfirmation ? "text" : "password"}
+                            name='password_confirmation'
+                            className='w-full'
+                            placeholder='Confirm New Password'
+                            onChange={handleChange}
+                            disabled={loading}
+                            value={data.password_confirmation}
+                            errors={errors.password}
+                        />
+
+                        <span
+                            className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => handlePasswordToggle("password_confirmation")}
+                            disabled={loading}
+                        >
+                            {showPasswordConfirmation ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
+                        </span>
+                    </div>
+
+                    <button 
+                        className={`p-2 rounded-lg h-11 flex items-center justify-center gap-2 ${loading || !data.old_password || !data.password || !data.password_confirmation ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary hover:bg-secondary-darker text-white"}`}
+                        disabled={loading || !data.old_password || !data.password || !data.password_confirmation}
                     >
-                        {showOldPassword ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
-                    </span>
-                </div>
-
-                <div className='relative'>
-                    <Input
-                        type={showPassword ? "text" : "password"}
-                        name='password'
-                        className='w-full'
-                        placeholder='New Password'
-                        onChange={handleChange}
-                        disabled={loading}
-                        value={data.password}
-                    />
-
-                    <span
-                        className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
-                        onMouseDown={(e) => e.preventDefault()}
-                        onClick={() => handlePasswordToggle("password")}
-                        disabled={loading}
-                    >
-                        {showPassword ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
-                    </span>
-                </div>
-
-                <div className='relative'>
-                    <Input
-                        type={showPasswordConfirmation ? "text" : "password"}
-                        name='password_confirmation'
-                        className='w-full'
-                        placeholder='Confirm New Password'
-                        onChange={handleChange}
-                        disabled={loading}
-                        value={data.password_confirmation}
-                        errors={errors.password}
-                    />
-
-                    <span
-                        className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
-                        onMouseDown={(e) => e.preventDefault()}
-                        onClick={() => handlePasswordToggle("password_confirmation")}
-                        disabled={loading}
-                    >
-                        {showPasswordConfirmation ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
-                    </span>
-                </div>
-
-                <button 
-                    className={`p-2 rounded-lg h-11 flex items-center justify-center gap-2 ${loading || !data.old_password || !data.password || !data.password_confirmation ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary hover:bg-secondary-darker text-white"}`}
-                    disabled={loading || !data.old_password || !data.password || !data.password_confirmation}
-                >
-                    {loading ? "Changing" : "Change Password"}
-                    {loading && <ButtonLoader />}
-                </button>
-            </form>
+                        {loading ? "Changing" : "Change Password"}
+                        {loading && <ButtonLoader />}
+                    </button>
+                </form>
+            </div>
         </AdminPage>
     )
 }
