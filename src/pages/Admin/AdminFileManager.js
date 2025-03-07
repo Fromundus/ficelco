@@ -1,12 +1,12 @@
 import React from 'react'
 import AdminPage from '../../components/Admin/AdminPage'
 
-function AdminPowerRates() {
+function AdminFileManager() {
     return (
-        <AdminPage title={"Power Rates"}>
+        <AdminPage title={"File Manager"}>
             
         </AdminPage>
     )
 }
 
-export default AdminPowerRates
+export default AdminFileManager

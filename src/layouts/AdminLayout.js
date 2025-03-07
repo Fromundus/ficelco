@@ -107,7 +107,7 @@ function AdminLayout() {
                         </NavLink>
                     </li>
 
-                    <li>
+                    {/* <li>
                         <details className="group [&_summary::-webkit-details-marker]:hidden">
                         <summary
                             className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 hover:bg-light-hover dark:hover:bg-dark-hover"
@@ -168,7 +168,7 @@ function AdminLayout() {
                             </li>
                         </ul>
                         </details>
-                    </li>
+                    </li> */}
 
                     <li>
                         <NavLink
@@ -184,12 +184,12 @@ function AdminLayout() {
 
                     <li>
                         <NavLink
-                        to={'power-rates'}
+                        to={'file-manager'}
                         >
                             {({isActive}) => (isActive ?
-                                <span className='block rounded-lg px-4 py-2 text-sm font-medium bg-light-hover dark:bg-dark-hover'>Power Rates</span>
+                                <span className='block rounded-lg px-4 py-2 text-sm font-medium bg-light-hover dark:bg-dark-hover'>File Manager</span>
                                 :
-                                <span className='block rounded-lg px-4 py-2 text-sm font-medium hover:bg-light-hover dark:hover:bg-dark-hover'>Power Rates</span>
+                                <span className='block rounded-lg px-4 py-2 text-sm font-medium hover:bg-light-hover dark:hover:bg-dark-hover'>File Manager</span>
                             )}                        
                         </NavLink>
                     </li>

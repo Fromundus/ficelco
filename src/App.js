@@ -37,8 +37,8 @@ import AdminFeuc from './pages/Admin/AdminFeuc';
 import AdminBilling from './pages/Admin/AdminBilling';
 import AdminDetails from './pages/Admin/AdminDetails';
 import AdminSecurity from './pages/Admin/AdminSecurity';
-import AdminPowerRates from './pages/Admin/AdminPowerRates';
 import AdminUpdate from './pages/Admin/AdminUpdate';
+import AdminFileManager from './pages/Admin/AdminFileManager';
 
 const roles = {
     superAdmin: "f1",
@@ -82,7 +82,7 @@ const router = createBrowserRouter(createRoutesFromElements(
                 <Route path='management-team' element={<AdminManagementTeam />} />
                 <Route path='feuc' element={<AdminFeuc />} />
                 <Route path='billing' element={<AdminBilling />} />
-                <Route path='power-rates' element={<AdminPowerRates />} />
+                <Route path='file-manager' element={<AdminFileManager />} />
                 <Route path='details' element={<AdminDetails />} />
                 <Route path='security' element={<AdminSecurity />} />
             </Route>
