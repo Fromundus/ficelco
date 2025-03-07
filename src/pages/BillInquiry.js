@@ -2,6 +2,7 @@ import React from 'react'
 import PageHeader from '../components/PageHeader'
 import FeatureCard from '../components/FeatureCard';
 import BreadCrumbs from '../components/BreadCrumbs';
+import Input from '../components/Input';
 
 function BillInquiry() {
     React.useEffect( () => {
@@ -38,30 +39,41 @@ function BillInquiry() {
     return (
         <div className=''>
             <BreadCrumbs links={links} />
-            <div className='flex items-center justify-center p-4 flex-col'>
+            <div className='flex p-4 flex-col'>
                 <div className='flex items-center justify-center flex-col'>
                     <PageHeader title={"Check your Bill"} />
-                    <span>Updated as of February 28, 2025</span>
+                    <span>Updated as of March 7, 2025</span>
                 </div>
                 <div className='flex items-center justify-center mt-4'>
-                    <form className='w-full flex flex-wrap gap-4' onSubmit={handleSubmit} >
-                        <input
+                    <form className='w-full flex flex-wrap gap-4 sm:px-20 md:px-52 lg:px-80' onSubmit={handleSubmit} >
+
+                        {/* <input
                             name='account_number'
                             className='w-full bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
                             type="text"
                             placeholder='Account Number (ex. 123456)'
                             onChange={handleChange}
                             value={data.account_number}
+                        /> */}
+
+                        <Input
+                            name='account_number'
+                            type="text"
+                            placeholder='Account Number (ex. 123456)'
+                            onChange={handleChange}
+                            value={data.account_number}
+                            classNameParent={"w-full"}
                         />
-                        <input
+
+                        <Input
                             name='account_name'
-                            className='w-full bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
                             type="text"
                             placeholder='Account Name (ex. Juan Dela Cruz)'
                             onChange={handleChange}
                             value={data.account_name}
+                            classNameParent={"w-full"}
                         />
-                        <button className='bg-primary h-[44px] w-full text-white hover:bg-primary-darker rounded-lg'>Verify</button>
+                        <button className='bg-secondary h-[44px] w-full text-white hover:bg-secondary-darker rounded-lg'>Verify</button>
                     </form>
                 </div>
             </div>

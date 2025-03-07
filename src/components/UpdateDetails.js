@@ -2,7 +2,6 @@ import React from 'react'
 import { format } from 'date-fns'
 
 function UpdateDetails({ post }) {
-    console.log(post);
 
     const renderImages = post?.images?.map((item) => {
         return (

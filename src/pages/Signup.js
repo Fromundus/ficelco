@@ -6,6 +6,8 @@ import getCookie from '../lib/getCookie';
 import Logo from '../components/Logo';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import ButtonLoader from '../components/ButtonLoader';
+import Input from '../components/Input';
+import ActionButton from '../components/ActionButton';
 
 function Signup() {
     React.useEffect( () => {
@@ -100,125 +102,84 @@ function Signup() {
             </span>
             <form
                 className='flex flex-col gap-4 mt-4 w-full sm:px-20 md:px-52 lg:px-80'
-                onSubmit={handleSubmit}>
-                <label
-                    htmlFor="name"
-                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
-                    >
-                    <input
-                        type="text"
-                        id="name"
-                        className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full appearance-none"
-                        placeholder="name"
-                        name='name'
-                        onChange={handleChange}
-                        value={data.name}
-                        autoComplete='false'
-                    />
+                onSubmit={handleSubmit}
+            >
+                <Input
+                    type="text"
+                    id="name"
+                    placeholder="Name"
+                    name='name'
+                    onChange={handleChange}
+                    disabled={isLoading}
+                    value={data.name}
+                    autoComplete='false'
+                    errors={errors.name}
+                />
 
-                    <span
-                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-                    >
-                        Name
-                    </span>
-                </label>
-                {errors.name && <span className='text-red-500'>{errors.name}</span>}
+                <Input
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    name='email'
+                    onChange={handleChange}
+                    disabled={isLoading}
+                    value={data.email}
+                    autoComplete='false'
+                    errors={errors.email}
+                />
 
-                <label
-                    htmlFor="email"
-                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
-                    >
-                    <input
-                        type="email"
-                        id="email"
-                        className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full appearance-none"
-                        placeholder="email"
-                        name='email'
-                        onChange={handleChange}
-                        value={data.email}
-                        autoComplete='false'
-                    />
-
-                    <span
-                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-                    >
-                        Email
-                    </span>
-                </label>
-                {errors.email && <span className='text-red-500'>{errors.email}</span>}
-
-                <label
-                    htmlFor="Password"
-                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
-                    >
-                    <input
+                <div className='relative'>
+                    <Input
                         type={showPassword ? "text" : "password"}
-                        id="Password"
-                        className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full"
-                        placeholder="Password"
                         name='password'
+                        className='w-full'
+                        placeholder='New Password'
                         onChange={handleChange}
+                        disabled={isLoading}
                         value={data.password}
-                        autoComplete='false'
                     />
 
                     <span
                         className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
                         onMouseDown={(e) => e.preventDefault()}
                         onClick={() => handlePasswordToggle("password")}
+                        disabled={isLoading}
                     >
                         {showPassword ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
                     </span>
+                </div>
 
-                    <span
-                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-                    >
-                        Password
-                    </span>
-                </label>
-
-                <label
-                    htmlFor="PasswordConfirmation"
-                    className="relative block p-0.5 pb-0 border-b-[1px] border-light-accent focus-within:border-primary focus-within:ring-0 focus-within:ring-light-accent w-full"
-                    >
-                    <input
+                <div className='relative'>
+                    <Input
                         type={showPasswordConfirmation ? "text" : "password"}
-                        id="PasswordConfirmation"
-                        className="peer px-1 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-full"
-                        placeholder="Confirm Password"
                         name='password_confirmation'
+                        className='w-full'
+                        placeholder='Confirm New Password'
                         onChange={handleChange}
+                        disabled={isLoading}
                         value={data.password_confirmation}
-                        autoComplete='false'
+                        errors={errors.password}
                     />
 
                     <span
                         className="absolute top-3 right-0 text-tertiary flex justify-center cursor-pointer w-[50px]"
                         onMouseDown={(e) => e.preventDefault()}
                         onClick={() => handlePasswordToggle("password_confirmation")}
+                        disabled={isLoading}
                     >
                         {showPasswordConfirmation ? <FaEye className='text-xl text-light-accent' /> : <FaEyeSlash className='text-xl text-light-accent' />}
                     </span>
-
-                    <span
-                        className="pointer-events-none absolute start-0 top-0 -translate-y-1/2 p-0.5 text-xs text-light-accent transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-                        >
-                        Password
-                    </span>
-                </label>
-                {errors.password && <span className='text-red-500'>{errors.password}</span>}
+                </div>
 
                 <p className='my-2'>By creating an account, you are agreeing to FICELCO <span className='underline cursor-pointer'>terms & conditions and privacy policy</span>.</p>
-                
-                <button
-                    type='submit'
-                    className={`h-[44px] rounded-lg font-semibold flex items-center gap-2 justify-center ${(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading) ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-primary text-white"}`}
+
+                <ActionButton
+                    label={"Create Account"}
+                    processLabel={"Creating"}
+                    loading={isLoading}
                     disabled={(!data.name || !data.email || !data.password || !data.password_confirmation || isLoading)}
-                    // disabled={true}
-                >
-                    Create
-                    {isLoading && <ButtonLoader />}
-                </button>
+                    className={"bg-secondary hover:bg-secondary-darker text-white"}
+                />
             </form>
             <Link to={'/login'} className='text-secondary dark:text-primary text-center mt-4'>Already have an account? Log In</Link>
         </div>

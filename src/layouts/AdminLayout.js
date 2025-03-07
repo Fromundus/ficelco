@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom'
 import logo from "../assets/ficelco-logo.png"
 import { useStateContext } from '../context/ContextProvider'
 import getCookie from '../lib/getCookie';
@@ -10,6 +10,9 @@ function AdminLayout() {
     const { name, email, setRole, setName, setId, setEmail, setProfilePic, profilePic, id, role } = useStateContext();
     const [postLoading, setPostLoading] = React.useState(false);
     const [posts, setPosts] = React.useState();
+
+    const [postsSearchParams, setPostsSearchParams] = useSearchParams();
+    const postyear = postsSearchParams.get('postyear');
     
     const navigate = useNavigate();
 
@@ -24,18 +27,23 @@ function AdminLayout() {
             setPostLoading(true);
 
             try {
-                const res = await axiosClient.get('/api/posts');
+                const res = await axiosClient.get('/api/posts', {
+                    params: {
+                        postyear
+                    }
+                });
                 console.log(res);
                 setPosts(res.data.data);
                 setPostLoading(false);
             } catch (err) {
                 console.log(err);
                 setPostLoading(false);
+                setPosts([]);
             }
         }
 
         fetchUpdates();
-    }, []);
+    }, [postyear]);
 
     const handleLogout = async (e) => {
         e.preventDefault();
@@ -293,7 +301,7 @@ function AdminLayout() {
                 </div>
             </div>
             <div className='relative md:ml-56 lg:ml-64 min-h-[100svh] bg-light-background dark:bg-dark-background text-light-foreground dark:text-dark-foreground'>
-                <Outlet context={{ posts, setPosts, postLoading, setPostLoading }} />
+                <Outlet context={{ posts, setPosts, postLoading, setPostLoading, setPostsSearchParams, postyear }} />
             </div>
             <ToastContainer
                 position="bottom-right"

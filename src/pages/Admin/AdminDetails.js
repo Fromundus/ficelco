@@ -9,6 +9,8 @@ import axiosClient from '../../axios-client';
 import getCookie from '../../lib/getCookie';
 import LineSkeleton from '../../components/LineSkeleton';
 import { toast } from 'react-toastify';
+import Input from '../../components/Input';
+import ActionButton from '../../components/ActionButton';
 
 function AdminDetails() {
     const { name, email, role, id, profilePic, setRole, setName, setId, setEmail, setProfilePic } = useStateContext();
@@ -232,50 +234,50 @@ function AdminDetails() {
                     />
                 </div>}
                 <div className='w-full mt-4'>
-                    <button
-                        className={`h-[44px] p-2 rounded-lg w-full flex items-center justify-center font-semibold gap-2 ${loading || image.length === 0 ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary text-white"}`}
-                        onClick={handleUpload}
+                    <ActionButton
+                        label={"Update"}
+                        processLabel={"Updating"}
+                        loading={loading}
                         disabled={loading || image.length === 0}
-                    >
-                        {loading ? "Updating" : "Update"}
-                        {loading && <ButtonLoader />}
-                    </button> 
+                        onClick={handleUpload}
+                        className={"bg-secondary hover:bg-secondary-darker text-white"}
+                    />
                 </div>
             </Modal>}
             
             {editModal && <Modal title="Edit Profile" onClose={closeEditModal}>
                 <form className='flex flex-col gap-4 mb-4'>
-                    <input
+                    <Input 
                         type="text"
                         name='name'
-                        className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line font-semibold'
+                        className=' font-semibold'
                         placeholder='Name'
                         onChange={handleChange}
                         disabled={loading}
                         value={data.name}
+                        errors={errors.name}
                     />
-                    {errors.name && <span className='text-red-500'>{errors.name}</span>}
 
-                    <input
-                        type="text"
+                    <Input 
+                        type="email"
                         name='email'
                         className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
                         placeholder='Email'
                         onChange={handleChange}
                         disabled={loading}
                         value={data.email}
+                        errors={errors.email}
                     />
-                    {errors.email && <span className='text-red-500'>{errors.email}</span>}
 
                     <div className='w-full'>
-                        <button
-                            className={`h-[44px] p-2 rounded-lg w-full flex items-center justify-center font-semibold gap-2 ${!data.name || !data.email || loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary text-white"}`}
-                            onClick={handleEditProfile}
+                        <ActionButton
+                            label={"Save"}
+                            processLabel={"Saving"}
+                            loading={loading}
                             disabled={!data.name || !data.email || loading }
-                        >
-                            {loading ? "Saving" : "Save"}
-                            {loading && <ButtonLoader />}
-                        </button> 
+                            onClick={handleEditProfile}
+                            className={"bg-secondary hover:bg-secondary-darker text-white"}
+                        />
                     </div>
                 </form>
             </Modal>}

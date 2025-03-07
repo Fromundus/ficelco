@@ -14,6 +14,10 @@ import ReactQuill from 'react-quill';
 import { toast } from 'react-toastify';
 import { FaPaperclip } from "react-icons/fa6";
 import { FaRegFile } from "react-icons/fa";
+import Input from './Input';
+import FilePreview from './FilePreview';
+import FileInput from './FileInput';
+import ActionButton from './ActionButton';
 
 function AdminNewsCard({ link, image, date, title, header, description, hidden, old_images, old_files, setNoScroll, post_id, setPosts }) {
     const [isDelete, setIsDelete] = React.useState(false);
@@ -272,11 +276,9 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
         }
     };
 
-    console.log(old_files);
-
     return (
         <>
-            <Link to={link} className='p-2 w-full sm:w-1/2 md:w-1/2 lg:w-1/3 rounded-lg'>
+            <Link to={link} className='p-2 w-full lg:w-1/2 rounded-lg'>
                 <div className='relative p-4 rounded-lg bg-light-background dark:bg-dark-accent h-full border border-light-line dark:border-0 flex flex-col'>
                     <div className='w-full text-xl flex justify-end'>
                         <button className='p-2 hover:bg-light-hover dark:hover:bg-dark-hover rounded-full' onClick={dropDownToggle}>
@@ -316,27 +318,28 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             onClick={(e) => handleHide(e, hidden ? false : true)}
                             disabled={loading}
                         >
-                            {loading ? hidden ? "Showing" : "Hidding" : hidden ? "Show Post" : "Hide Post"}
-                            {loading && <ButtonLoader />}
+                            {loading ? hidden ? "Showing..." : "Hidding..." : hidden ? "Show Post" : "Hide Post"}
                         </button>
                     </div>}
                 </div>
             </Link>
+
+
             {modal &&
                 <Modal onClose={closeModal} title={"Edit Post"} loading={loading}>
                     <div className='flex flex-col gap-4 mb-4'>
-                        <input
+                        <Input 
                             type="text"
                             name='title'
-                            className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line font-semibold'
+                            className=' font-semibold'
                             placeholder='Title'
                             onChange={handleChange}
                             disabled={loading}
                             value={data.title}
+                            errors={errors.title}
                         />
-                        {errors.title && <span className='text-red-500'>{errors.title}</span>}
-
-                        <input
+                        
+                        <Input 
                             type="text"
                             name='header'
                             className='bg-light-background dark:bg-dark-accent focus:ring-0 placeholder:text-light-hover dark:placeholder:text-dark-hover text-sm rounded-lg h-11 border-light-line dark:border-dark-line'
@@ -344,119 +347,48 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                             onChange={handleChange}
                             disabled={loading}
                             value={data.header}
+                            errors={errors.header}
                         />
-                        {errors.header && <span className='text-red-500'>{errors.header}</span>}
 
                         <ReactQuill value={newDescription} onChange={setNewDescription} className="mb-4" />
-
                         {errors.description && <span className='text-red-500'>{errors.description}</span>}
 
                     </div>
-                    {!isImage && <div className="flex flex-wrap">
-                        {old_images?.map((item, index) => (
-                            <div key={index} className='w-full md:w-1/2 lg:w-1/2 p-1'>
-                                <div className='rounded-lg border border-light-line dark:border-dark-line'>
-                                    <img src={`http://localhost:8000/storage/${item.path}`} alt="Preview" className="rounded-lg" />
-                                </div>
-                            </div>
-                        ))}
-                    </div>}
-                    <div className="flex flex-wrap">
-                        {preview.map((src, index) => (
-                            <div key={index} className='w-full md:w-1/2 lg:w-1/2 p-1'>
-                                <div className='rounded-lg relative border border-light-line dark:border-dark-line'>
-                                    <img src={src} alt="Preview" className="rounded-lg" />
-                                    <button className='absolute top-2 right-2 p-2 rounded-full bg-light-hover dark:bg-dark-hover' onClick={() => handleRemoveImage(index)}><IoClose /></button>
-                                </div>
-                                {errors[`images.${index}`] && (
-                                    <div className="text-red-500 mt-2">
-                                        {errors[`images.${index}`].map((msg, i) => (
-                                            <p key={i}>{msg}</p>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
 
-                    {!isFile && <div className="flex flex-wrap">
-                        {old_files?.map((item, index) => (
-                            <div key={index} className='w-full p-1'>
-                                <div className='p-2 rounded-lg relative border border-light-line dark:border-dark-line flex items-center justify-center flex-col gap-2 h-full'>
-                                    <iframe
-                                        src={`http://localhost:8000/storage/${item.path}`}
-                                        title={`pdf-preview-${index}`}
-                                        className="w-full h-96"
-                                    ></iframe>
-                                </div>
-                            </div>
-                        ))}
-                    </div>}
-                    <div className="flex flex-wrap">
-                        {files.map((src, index) => (
-                            <div key={index} className='w-full md:w-1/2 lg:w-1/3 p-1'>
-                                <div className='p-2 rounded-lg relative border border-light-line dark:border-dark-line flex items-center justify-center flex-col gap-2 h-full'>
-                                    <FaRegFile className='text-5xl' />
-                                    <span className='text-xs line-clamp-3 text-center'>{src.name}</span>
-                                    <button className='absolute -top-2 -right-2 p-2 rounded-full bg-light-hover dark:bg-dark-hover' onClick={() => handleRemoveFile(index)}><IoClose /></button>
-                                </div>
-                                {errors[`files.${index}`] && (
-                                    <div className="text-red-500 mt-2">
-                                        {errors[`files.${index}`].map((msg, i) => (
-                                            <p key={i}>{msg}</p>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
+                    {!isImage && <FilePreview preview={old_images} type={"old_images"} />}
 
-                    {isImage &&
-                        <div className='p-2 border border-light-line dark:border-dark-line rounded-lg mt-2'>
+                    <FilePreview preview={preview} handleRemoveFile={handleRemoveImage} errors={errors} type={"image"} />
 
-                            <label htmlFor='image' className='rounded-lg h-[100px] flex items-center justify-center bg-light-line dark:bg-dark-line flex-col gap-2 relative'>
-                                <button className='absolute top-0 right-0 p-2 text-xl' onClick={removeImage} disabled={loading}><IoClose /></button>
-                                <FaImage className='text-2xl' />
-                                <span className='font-semibold'>{images.length > 0 ? "Change Photos" : "Add Photos"}</span>
-                            </label>
+                    {!isFile && <FilePreview preview={old_files} type={"old_files"} />}
 
-                            <input 
-                                className='hidden' 
-                                id='image' 
-                                type="file" 
-                                accept='image/*'
-                                multiple 
-                                onChange={handleImageChange}
-                                disabled={loading}
-                            />
-                        </div>
-                    }
-                    {errors.images && <span className='text-red-500'>{errors.images}</span>}
+                    <FilePreview preview={files} handleRemoveFile={handleRemoveFile} errors={errors} type={"pdf"} />
 
-                    {isFile &&
-                        <div className='p-2 border border-light-line dark:border-dark-line rounded-lg mt-2'>
+                    {isImage && <FileInput
+                        id="image"
+                        loading={loading}
+                        label={"Add Image/s"}
+                        accept={"image/*"}
+                        multiple={"multiple"}
+                        handleFileChange={handleImageChange}
+                        removeFile={removeImage}
+                        errors={errors.images}
+                        type="image"
+                    />}
 
-                            <label htmlFor='file' className='rounded-lg h-[100px] flex items-center justify-center bg-light-line dark:bg-dark-line flex-col gap-2 relative'>
-                                <button className='absolute top-0 right-0 p-2 text-xl' onClick={removeFile} disabled={loading}><IoClose /></button>
-                                <FaPaperclip className='text-2xl' />
-                                <span className='font-semibold'>{images.length > 0 ? "Change Files" : "Attach Files"}</span>
-                            </label>
-
-                            <input 
-                                className='hidden' 
-                                id='file' 
-                                type="file" 
-                                accept='application/pdf'
-                                multiple 
-                                onChange={handleFileChange}
-                                disabled={loading}
-                            />
-                        </div>
-                    }
-                    {errors.files && <span className='text-red-500'>{errors.files}</span>}
+                    {isFile && <FileInput
+                        id="file"
+                        loading={loading}
+                        label={"Add File/s"}
+                        accept={"application/pdf"}
+                        multiple={"multiple"}
+                        handleFileChange={handleFileChange}
+                        removeFile={removeFile}
+                        errors={errors.files}
+                        type="pdf"
+                    />}
 
                     <div className='mt-4 border flex justify-between items-center p-2 rounded-lg border-light-line dark:border-dark-line'>
-                        <span>Change Photo</span>
+                        <span>Add to your post.</span>
                         <div className='flex items-center gap-2'>
                             <button className='border border-light-line dark:border-dark-line hover:bg-light-hover dark:hover:bg-dark-hover p-2 rounded-lg flex items-center justify-center' onClick={toggleIsFile} disabled={loading}>
                                 <FaPaperclip className='text-xl' />
@@ -468,20 +400,21 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
                     </div>
                     <div className='w-full mt-4 flex gap-4'>
                         <button
-                            className='h-[44px] w-full bg-white text-black p-2 rounded-lg border border-light-line dark:border-0'
+                            className='h-[44px] w-full bg-white hover:bg-light-hover text-black p-2 rounded-lg border border-light-line dark:border-0'
                             onClick={closeModal}
                             disabled={loading}
                         >
                             Cancel
                         </button>
-                        <button
-                            className={`h-[44px] p-2 rounded-lg w-full flex items-center justify-center font-semibold gap-2 ${!data.title || !data.header || !newDescription || loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-secondary text-white"}`}
+
+                        <ActionButton
+                            label={"Save"}
+                            processLabel={"Saving"}
+                            loading={loading}
+                            disabled={!data.title || !data.header || !newDescription || loading}
                             onClick={handleUpload}
-                            disabled={!data.title || !data.header || !newDescription || loading }
-                        >
-                            {loading ? "Saving" : "Save"}
-                            {loading && <ButtonLoader />}
-                        </button> 
+                            className={"bg-secondary hover:bg-secondary-darker text-white"}
+                        />
                     </div>
                 </Modal>
             }
@@ -511,44 +444,27 @@ function AdminNewsCard({ link, image, date, title, header, description, hidden, 
 
                         <div className='p-4' dangerouslySetInnerHTML={{ __html: description }} />
                     </div>
-                    <div className="flex flex-wrap">
-                        {old_images?.map((item, index) => (
-                            <div key={index} className='w-full md:w-1/2 lg:w-1/2 p-1'>
-                                <div className='rounded-lg border border-light-line dark:border-dark-line'>
-                                    <img src={`http://localhost:8000/storage/${item.path}`} alt="Preview" className="rounded-lg" />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="flex flex-wrap">
-                        {old_files?.map((item, index) => (
-                            <div key={index} className='w-full p-1'>
-                                <div className='p-2 rounded-lg relative border border-light-line dark:border-dark-line flex items-center justify-center flex-col gap-2 h-full'>
-                                    <iframe
-                                        src={`http://localhost:8000/storage/${item.path}`}
-                                        title={`pdf-preview-${index}`}
-                                        className="w-full h-96"
-                                    ></iframe>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+
+                    <FilePreview preview={old_images} type={"old_images"} />
+
+                    <FilePreview preview={old_files} type={"old_files"} />
+
                     <div className='flex w-full gap-4 mt-4'>
                         <button
-                            className='h-[44px] w-full bg-white text-black p-2 rounded-lg border border-light-line dark:border-0'
+                            className='h-[44px] w-full bg-white hover:bg-light-hover text-black p-2 rounded-lg border border-light-line dark:border-0'
                             onClick={closeDeleteModal}
                             disabled={loading}
                         >
                             Cancel
                         </button>
-                        <button
-                            className={`h-[44px] w-full p-2 rounded-lg border dark:border-0 flex font-semibold items-center gap-2 justify-center ${loading ? "bg-light-accent text-dark-line cursor-not-allowed" : "bg-red-500 hover:bg-red-700 text-white"}`}
-                            onClick={handleDelete}
+                        <ActionButton
+                            label={"Delete"}
+                            processLabel={"Deleting"}
+                            loading={loading}
                             disabled={loading}
-                        >
-                            {loading ? "Deleting" : "Delete"}
-                            {loading && <ButtonLoader />}
-                        </button>
+                            onClick={handleDelete}
+                            className={"bg-red-500 hover:bg-red-700 text-white"}
+                        />
                     </div>
                 </Modal>
             }

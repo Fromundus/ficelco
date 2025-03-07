@@ -10,50 +10,50 @@ function AdminHome() {
         <AdminPage title={"Dashboard"}>
             <div className='flex flex-wrap'>
 
-                <div className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-full'>
-                    <div className='flex bg-light-background dark:bg-dark-accent border border-light-line dark:border-dark-line rounded-lg p-4 items-center gap-4 h-full'>
-                        <div className='text-4xl'>
+                <div className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
+                    <div className='flex bg-light-background dark:bg-dark-accent border border-light-line dark:border-dark-line rounded-lg p-4 gap-8 h-32'>
+                        <div className='text-4xl flex items-center'>
                             <FaUsers />
                         </div>
-                        <div className='flex flex-col gap-2 h-full'>
+                        <div className='flex flex-col'>
                             <span className='text-lg font-semibold'>Member Consumers</span>
-                            <span className='text-xl'>12,204</span>
+                            <span className='text-xl mt-auto'>12,204</span>
                         </div>
                     </div>
                 </div>
 
-                <div className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-full'>
-                    <div className='flex bg-light-background dark:bg-dark-accent border border-light-line dark:border-dark-line rounded-lg p-4 items-center gap-4 h-full'>
-                        <div className='text-4xl'>
+                <div className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
+                    <div className='flex bg-light-background dark:bg-dark-accent border border-light-line dark:border-dark-line rounded-lg p-4 gap-8 h-32'>
+                        <div className='text-4xl flex items-center'>
                             <BiMoneyWithdraw />
                         </div>
-                        <div className='flex flex-col gap-2 h-full'>
+                        <div className='flex flex-col'>
                             <span className='text-lg font-semibold'>Revenue</span>
-                            <span className='text-xl'>$1.2M</span>
+                            <span className='text-xl mt-auto'>$1.2M</span>
                         </div>
                     </div>
                 </div>
 
-                <div className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-full'>
-                    <div className='flex bg-light-background dark:bg-dark-accent border border-light-line dark:border-dark-line rounded-lg p-4 items-center gap-4 h-full'>
-                        <div className='text-4xl'>
+                <div className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
+                    <div className='flex bg-light-background dark:bg-dark-accent border border-light-line dark:border-dark-line rounded-lg p-4 gap-8 h-32'>
+                        <div className='text-4xl flex items-center'>
                             <LuZapOff />
                         </div>
-                        <div className='flex flex-col gap-2 h-full'>
+                        <div className='flex flex-col'>
                             <span className='text-lg font-semibold'>Reported Outages</span>
-                            <span className='text-xl'>5</span>
+                            <span className='text-xl mt-auto'>5</span>
                         </div>
                     </div>
                 </div>
 
-                <div className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-full'>
-                    <div className='flex bg-light-background dark:bg-dark-accent border border-light-line dark:border-dark-line rounded-lg p-4 items-center gap-4 h-full'>
-                        <div className='text-4xl'>
+                <div className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
+                    <div className='flex bg-light-background dark:bg-dark-accent border border-light-line dark:border-dark-line rounded-lg p-4 gap-8 h-32'>
+                        <div className='text-4xl flex items-center'>
                             <FaMoneyBill />
                         </div>
-                        <div className='flex flex-col gap-2 h-full'>
+                        <div className='flex flex-col'>
                             <span className='text-lg font-semibold'>Pending Bills</span>
-                            <span className='text-xl'>324</span>
+                            <span className='text-xl mt-auto'>324</span>
                         </div>
                     </div>
                 </div>
