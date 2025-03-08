@@ -8,10 +8,14 @@ import { SiGmail } from "react-icons/si";
 function Footer() {
     return (
         <div className='bg-light-background dark:bg-dark-accent text-light-foreground dark:text-dark-foreground p-4 flex flex-col items-center justify-center gap-2'>
+            <div>
+
+            </div>
+
             <div className='flex items-center text-xl gap-4'>
-                <Link>
+                <a href='https://www.facebook.com/ficelco' target='_blank'>
                     <FaFacebook />
-                </Link>
+                </a>
                 <Link>
                     <FaFacebookMessenger />
                 </Link>
