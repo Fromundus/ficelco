@@ -6,7 +6,7 @@ function Modal({title, onClose, loading, children }) {
     return (
         <div
             className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-start p-2 sm:p-8 md:p-8 lg:p-8 overflow-y-auto"
-            // onClick={onClose}
+            onClick={(e) => e.stopPropagation()}
         >
             <div
                 className="bg-light-background dark:bg-dark-accent rounded-2xl shadow-xl max-w-lg w-full h-auto relative border border-light-line dark:border-dark-line"

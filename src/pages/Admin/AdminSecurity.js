@@ -85,7 +85,7 @@ function AdminSecurity() {
 
     return (
         <AdminPage title={"Security"}>
-            <div className='px-4'>
+            <div className='p-4'>
                 <form className='flex flex-col gap-4 mb-4' onSubmit={handleChangePassword}>
                     <div className='relative'>
                         <Input

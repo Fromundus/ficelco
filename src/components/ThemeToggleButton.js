@@ -16,7 +16,8 @@ const ThemeToggleButton = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
+  const toggleTheme = (e) => {
+    e.stopPropagation();
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };
 

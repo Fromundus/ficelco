@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import logo from "../assets/ficelco-logo.png"
 import { useStateContext } from '../context/ContextProvider'
 import getCookie from '../lib/getCookie';
@@ -13,6 +13,7 @@ function AdminLayout() {
     const [postYears, setPostYears] = React.useState();
     
     const navigate = useNavigate();
+    const location = useLocation();
 
     const firstLetter = name?.slice(0, 1).toUpperCase();
 
@@ -73,9 +74,16 @@ function AdminLayout() {
         }
     }
 
+    const hideNavbarRoutes = ["/f2/file-manager"];
+    const dynamicRoutes = [];
+
+    const shouldHideNavbar =
+    hideNavbarRoutes.includes(location.pathname) || 
+    dynamicRoutes.some((route) => location.pathname.startsWith(route));
+
     return (
         <div className='relative'>
-            <div className="fixed overflow-y-auto custom-scrollbar h-screen flex-col justify-between border-e border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent text-light-foreground dark:text-dark-foreground md:w-56 lg:w-64 hidden md:flex lg:flex">
+            {!shouldHideNavbar && <div className="fixed overflow-y-auto custom-scrollbar h-screen flex-col justify-between border-e border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent text-light-foreground dark:text-dark-foreground md:w-56 lg:w-64 hidden md:flex lg:flex">
                 <div className="px-4 py-6">
                     <span className="grid h-10 place-content-center rounded-lg text-xs cursor-pointer" onClick={() => window.location.reload()}>
                         <img className='w-[50px]' src={logo} alt="" />
@@ -184,7 +192,7 @@ function AdminLayout() {
 
                     <li>
                         <NavLink
-                        to={'file-manager'}
+                        to={'file-manager/1'}
                         >
                             {({isActive}) => (isActive ?
                                 <span className='block rounded-lg px-4 py-2 text-sm font-medium bg-light-hover dark:bg-dark-hover'>File Manager</span>
@@ -294,7 +302,7 @@ function AdminLayout() {
                     </div>
                     </NavLink>
                 </div>
-            </div>
+            </div>}
             <div className='relative md:ml-56 lg:ml-64 min-h-[100svh] bg-light-background dark:bg-dark-background text-light-foreground dark:text-dark-foreground'>
                 <Outlet context={{ posts, setPosts, postLoading, setPostLoading, postYears, setPostYears }} />
             </div>

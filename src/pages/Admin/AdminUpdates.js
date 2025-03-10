@@ -279,7 +279,7 @@ function AdminUpdates() {
             
             <div className='w-full relative bg-light-background dark:bg-dark-background'>
                 <div className='absolute left-0 md:right-56 lg:right-64 bg-light-background dark:bg-dark-background'>
-                    <div className='px-4 w-full'>
+                    <div className='p-4 w-full'>
                         <button className='p-2 bg-secondary hover:bg-secondary-darker rounded-lg text-white w-full h-11' onClick={openModal}>Create New Post</button>
                     </div>
 
@@ -295,7 +295,7 @@ function AdminUpdates() {
                     }
                 </div>
                 <div className='relative'>
-                    <div className="fixed top-[62px] right-0 overflow-y-auto custom-scrollbar h-screen flex-col justify-between border-s border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent text-light-foreground dark:text-dark-foreground md:w-56 lg:w-64 hidden md:flex lg:flex p-4">
+                    <div className="fixed top-[61px] right-0 overflow-y-auto custom-scrollbar h-screen flex-col justify-between border-s border-light-line dark:border-dark-line bg-light-background dark:bg-dark-accent text-light-foreground dark:text-dark-foreground md:w-56 lg:w-64 hidden md:flex lg:flex p-4">
                         <div className='absolute left-0 right-0 top-0 border-b border-light-line dark:border-dark-line px-4 py-2'>
                             <span className='text-lg'>Filters</span>
                         </div>

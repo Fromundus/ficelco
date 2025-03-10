@@ -173,7 +173,7 @@ function AdminDetails() {
 
     return (
         <AdminPage title={"Details"}>
-            <div className='px-4'>
+            <div className='p-4'>
                 {name ? 
                     <div className='flex justify-center flex-col items-center'>
                         {profilePic ?
