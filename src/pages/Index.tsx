@@ -75,7 +75,7 @@ const Index = () => {
               <Link to="/billing">Check Your Bill</Link>
             </Button>
             <Button asChild className="bg-primary bg-blue-500 hover:bg-blue-600 text-white font-semibold">
-              <Link to="/about">Apply for New Connection</Link>
+              <Link to="/services">Apply for New Connection</Link>
             </Button>
           </div>
         </div>
