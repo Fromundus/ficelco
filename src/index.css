@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+/* FICELCO Design System - Electric Cooperative Professional Theme */
+
+@layer base {
+  :root {
+    /* Core Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%;
+
+    /* Electric Blue Primary - Trustworthy and Modern */
+
+    --test: hsl(359, 67%, 50%);
+
+    /* --primary: 47, 88%, 54%; */
+    /* --primary-hover: 47, 88%, 50%; */
+
+    /* --primary: 51 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 100% 50%; */
+
+  --primary: 45 100% 45%; /* Rich golden yellow */
+  --primary-foreground: 0 0% 100%;
+  --primary-hover: 45 100% 40%; /* Slightly darker hover */
+
+    --popover: 0 0% 100%;
+
+    /* Energy Orange Accent - Warmth and Power */
+    /* --accent: 359 67% 50%;
+    --accent-foreground: 0 0% 100%;
+    --accent-hover: 25 95% 47%; */
+
+    --accent: 0 84% 60%; /* Vibrant Red */
+    --accent-foreground: 0 0% 100%;
+    --accent-hover: 0 84% 55%; /* Slightly darker on hover */
+
+    /* Professional Secondary */
+    --secondary: 210 17% 95%;
+    --secondary-foreground: 215 25% 27%;
+
+    /* Card and Surface Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+
+    /* Utility Colors */
+    --muted: 210 17% 95%;
+    --muted-foreground: 215 13% 54%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 90%;
+    --input: 210 20% 96%;
+    --ring: 210 100% 56%;
+
+    /* Electric Theme Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 56%), hsl(220 100% 65%));
+    --gradient-energy: linear-gradient(90deg, hsl(210 100% 56%), hsl(25 95% 53%));
+    --gradient-subtle: linear-gradient(180deg, hsl(210 17% 98%), hsl(210 17% 95%));
+
+    /* Energy-themed Shadows */
+    --shadow-electric: 0 4px 20px hsl(210 100% 56% / 0.15);
+    --shadow-warm: 0 4px 20px hsl(25 95% 53% / 0.15);
+    --shadow-card: 0 2px 10px hsl(215 25% 27% / 0.08);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --gradient-subtle: linear-gradient(180deg, hsl(222.2 84% 4.9%), hsl(222, 33%, 8%)); */
+    /* Core Brand Colors */
+    --background: 215 25% 10%;
+    --foreground: 0 0% 98%;
+
+    /* Electric Blue Primary */
+    --primary: 51 100% 50%; /* Keep yellow vivid */
+    --primary-foreground: 0 0% 10%;
+    --primary-hover: 51 100% 60%;
+
+    /* Accent - Energy Orange */
+    --accent: 0 70% 60%; /* Slightly desaturated for dark backgrounds */
+    --accent-foreground: 0 0% 100%;
+    --accent-hover: 0 70% 65%; /* A bit brighter for hover */
+
+    /* Popover and Surfaces */
+    --popover: 215 25% 12%;
+    --secondary: 215 20% 18%;
+    --secondary-foreground: 0 0% 98%;
+
+    /* Card and Surface Colors */
+    --card: 215 20% 14%;
+    --card-foreground: 0 0% 98%;
+
+    /* Muted Elements */
+    --muted: 215 15% 20%;
+    --muted-foreground: 215 10% 70%;
+
+    /* Destructive Action */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Borders & Inputs */
+    --border: 215 20% 25%;
+    --input: 215 20% 20%;
+    --ring: 210 100% 56%;
+
+    /* Electric Theme Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 56%), hsl(220 100% 65%));
+    --gradient-energy: linear-gradient(90deg, hsl(210 100% 56%), hsl(25 95% 53%));
+    --gradient-subtle: linear-gradient(180deg, hsl(215 25% 12%), hsl(215 20% 18%));
+
+    /* Energy-themed Shadows */
+    --shadow-electric: 0 4px 20px hsl(210 100% 56% / 0.25);
+    --shadow-warm: 0 4px 20px hsl(25 95% 53% / 0.25);
+    --shadow-card: 0 2px 10px hsl(0 0% 0% / 0.3);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 0.5rem;
+
+    /* Sidebar */
+    --sidebar-background: 215 25% 12%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 215 20% 18%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 215 20% 25%;
+    --sidebar-ring: 210 100% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Hero Button Variants */
+  .btn-hero {
+    @apply bg-gradient-to-r from-primary to-accent text-white border-0 
+           hover:shadow-[var(--shadow-electric)] transition-[var(--transition-smooth)]
+           hover:scale-105 font-medium px-6 py-3;
+  }
+  
+  .btn-energy {
+    @apply bg-accent text-accent-foreground hover:bg-[hsl(var(--accent-hover))]
+           shadow-[var(--shadow-warm)] transition-[var(--transition-smooth)]
+           hover:scale-105 font-medium;
+  }
+
+  /* Card Enhancements */
+  .card-electric {
+    @apply bg-card border border-border rounded-lg shadow-[var(--shadow-card)]
+           hover:shadow-[var(--shadow-electric)] transition-[var(--transition-smooth)]
+           /* hover:-translate-y-1 */
+           ;
+  }
+
+  /* Navigation Styles */
+  .nav-link {
+    @apply text-foreground hover:text-primary transition-[var(--transition-smooth)]
+           relative after:content-[''] after:absolute after:w-0 after:h-0.5 
+           after:bottom-0 after:left-0 after:bg-primary after:transition-[var(--transition-smooth)]
+           hover:after:w-full;
+  }
+  
+  .nav-link-active {
+    @apply text-primary after:w-full;
+  }
+
+  /* Gradient Backgrounds */
+  .bg-hero-gradient {
+    background: var(--gradient-hero);
+  }
+  
+  .bg-energy-gradient {
+    background: var(--gradient-energy);
+  }
+  
+  .bg-subtle-gradient {
+    background: var(--gradient-subtle);
+  }
+
+  .bg-footer {
+    background-color: hsl(215 20% 20%);
+    color: hsl(0 0% 98%);
+  }
+}
