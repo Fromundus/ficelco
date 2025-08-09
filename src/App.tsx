@@ -18,6 +18,7 @@ import GuestLayout from "./layouts/GuestLayout";
 import { useAuth } from "./store/auth";
 import React from "react";
 import Register from "./pages/Register";
+import Dashboard from "./components/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,8 @@ const App = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
           </Route>
+
+          <Route path="/dashboard" element={<Dashboard /> } />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
