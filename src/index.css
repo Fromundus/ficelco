@@ -52,12 +52,13 @@
     --muted: 210 17% 95%;
     --muted-foreground: 215 13% 54%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 50%; /* Slightly darker than your original for better readability */
     --destructive-foreground: 0 0% 100%;
 
     --border: 210 20% 90%;
     --input: 210 20% 96%;
-    --ring: 210 100% 56%;
+    /* --ring: 210 100% 56%; */
+    --ring: var(--primary);
 
     /* Electric Theme Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(210 100% 56%), hsl(220 100% 65%));
@@ -157,13 +158,14 @@
     --muted-foreground: 215 10% 70%;
 
     /* Destructive Action */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-
+    --destructive: 0 65% 55%; /* Slightly lighter red to stand out on dark surfaces */
+    --destructive-foreground: 0 0% 100%;
+    
     /* Borders & Inputs */
     --border: 215 20% 25%;
     --input: 215 20% 20%;
-    --ring: 210 100% 56%;
+    --ring: var(--primary);
+    /* --ring: 210 100% 56%; */
 
     /* Electric Theme Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(210 100% 56%), hsl(220 100% 65%));

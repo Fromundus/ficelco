@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search, CreditCard, Calendar, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import InputWithLabel from "@/components/custom/InputWithLabel";
 
 const BillingInquiry = () => {
   const [accountNumber, setAccountNumber] = useState("");
@@ -55,17 +56,14 @@ const BillingInquiry = () => {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label htmlFor="accountNumber">Account Number</Label>
-                <Input
+              <InputWithLabel
                   id="accountNumber"
                   type="text"
                   placeholder="Enter your account number"
                   value={accountNumber}
                   onChange={(e) => setAccountNumber(e.target.value)}
-                  className="mt-1"
-                />
-              </div>
+                  label="Account Number"
+              />
               <Button type="submit" disabled={loading} className="w-full">
                 {loading ? "Searching..." : "Search Billing Information"}
               </Button>

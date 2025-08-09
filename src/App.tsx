@@ -14,6 +14,7 @@ import Biddings from "./pages/Biddings";
 import Downloads from "./pages/Downloads";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -34,8 +35,11 @@ const App = () => (
             <Route path="biddings" element={<Biddings />} />
             <Route path="downloads" element={<Downloads />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
+
+            <Route path="login" element={<Login />} />
           </Route>
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
       </TooltipProvider>
