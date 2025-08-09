@@ -4,7 +4,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./components/ThemeProvider";
-import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import BillingInquiry from "./pages/BillingInquiry";
@@ -15,10 +14,21 @@ import Downloads from "./pages/Downloads";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import GuestLayout from "./layouts/GuestLayout";
+import { useAuth } from "./store/auth";
+import React from "react";
+import Register from "./pages/Register";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  const { getUser } = useAuth();
+
+  React.useEffect(() => {
+    getUser();
+  }, [getUser]);
+  
+  return (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="system" storageKey="ficelco-ui-theme">
       <TooltipProvider>
@@ -26,7 +36,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<GuestLayout />}>
             <Route index element={<Index />} />
             <Route path="about" element={<About />} />
             <Route path="billing" element={<BillingInquiry />} />
@@ -37,6 +47,7 @@ const App = () => (
             <Route path="contact" element={<Contact />} />
 
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
@@ -45,6 +56,6 @@ const App = () => (
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>
-);
+)};
 
 export default App;
