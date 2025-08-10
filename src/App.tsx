@@ -19,6 +19,7 @@ import { useAuth } from "./store/auth";
 import React from "react";
 import Register from "./pages/Register";
 import Dashboard from "./components/Dashboard";
+import EmailVerification from "./pages/EmailVerification";
 
 const queryClient = new QueryClient();
 
@@ -49,7 +50,10 @@ const App = () => {
 
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+
           </Route>
+
+          <Route path="/verify" element={<EmailVerification /> } />
 
           <Route path="/dashboard" element={<Dashboard /> } />
 

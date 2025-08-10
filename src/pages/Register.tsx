@@ -1,6 +1,7 @@
 import api, { getCsrf } from '@/api/axios';
 import ButtonWithLoading from '@/components/custom/ButtonWithLoading';
 import InputWithLabel from '@/components/custom/InputWithLabel';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input';
@@ -8,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { useAuth } from '@/store/auth';
 import { Value } from '@radix-ui/react-select';
 import axios from 'axios';
+import { CheckCircle } from 'lucide-react';
 import React, { ChangeEvent, FormEvent } from 'react'
 import { Link } from 'react-router-dom';
 
@@ -51,6 +53,7 @@ const Register = () => {
     const { login } = useAuth();
     const [loading, setLoading] = React.useState<boolean>(false);
     const [validated, setValidated] = React.useState<boolean>(false);
+    const [registered, setRegistered] = React.useState<boolean>(false);
     const [formData, setFormData] = React.useState<FormData>({
         account_number: "",
         book: "",
@@ -191,6 +194,7 @@ const Register = () => {
                 status: "",
             });
 
+            setRegistered(true);
             setLoading(false);
         } catch (err) {
             console.log(err);
@@ -202,7 +206,7 @@ const Register = () => {
     return (
         <div className="min-h-screen py-12 flex items-center justify-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                {!validated && <Card className='card-electric max-w-lg mx-auto w-full'>
+                {!validated && !registered && <Card className='card-electric max-w-lg mx-auto w-full'>
                     <CardHeader className='flex items-center'>
                         <CardTitle>
                             Validate
@@ -385,6 +389,28 @@ const Register = () => {
                         </div>
                     </CardFooter>
                 </Card>}
+
+                {registered && 
+                    <Card className='card-electric max-w-lg mx-auto w-full text-sm'>
+                        <CardHeader className="text-center">
+                            <CheckCircle className="mx-auto h-12 w-12 text-green-500" />
+                            <CardTitle className="mt-4 text-2xl font-bold">
+                                Registration Successful
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4 text-center">
+                            <p className="text-muted-foreground">
+                                We’ve sent a verification link to your email account. Please check your inbox and click the link to verify your account.
+                            </p>
+
+                            <Button>
+                                <Link to={'/login'}>
+                                    Login
+                                </Link>
+                            </Button>
+                        </CardContent>
+                    </Card>
+                }
             </div>
         </div>
     )
