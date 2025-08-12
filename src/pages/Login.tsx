@@ -63,30 +63,39 @@ const Login = () => {
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="">
                             {errors && 
                             <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-2 w-full text-center">
                                 <span className='text-destructive text-sm'>{errors}</span>
                             </div>
                             }
-                            <InputWithLabel
-                                id="email"
-                                name='email'
-                                type="text"
-                                label='Email'
-                                placeholder="Enter your email address"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                            <InputWithLabel
-                                id="password"
-                                name='password'
-                                type="password"
-                                placeholder="Enter your password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                label='Password'
-                            />
+                            <div className='space-y-4'>
+                                <InputWithLabel
+                                    id="email"
+                                    name='email'
+                                    type="text"
+                                    label='Email'
+                                    placeholder="Enter your email address"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
+                                <InputWithLabel
+                                    id="password"
+                                    name='password'
+                                    type="password"
+                                    placeholder="Enter your password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    label='Password'
+                                />
+                            </div>
+                            <div className='w-full flex justify-end text-sm'>
+                                <Button type='button' variant='link'> 
+                                    <Link to={'/forgot-password'}>
+                                        Forgot Password?
+                                    </Link>
+                                </Button>
+                            </div>
                             <ButtonWithLoading
                                 type='submit'
                                 disabled={loading || formData.email === "" || formData.password === ""}
@@ -100,9 +109,11 @@ const Login = () => {
                     <CardFooter>
                         <div className='text-center w-full text-sm'>
                             Don't have an account? {" "}
-                            <Link className='text-primary font-semibold' to={'/register'}>
-                                Create Account.
-                            </Link>
+                            <Button className='p-0 h-fit' variant='link'>
+                                <Link className='text-primary font-semibold' to={'/register'}>
+                                    Create Account.
+                                </Link>
+                            </Button>
                         </div>
                     </CardFooter>
                 </Card>

@@ -20,6 +20,14 @@ import React from "react";
 import Register from "./pages/Register";
 import Dashboard from "./components/Dashboard";
 import EmailVerification from "./pages/EmailVerification";
+import ForgotPassword from "./pages/ForgotPassword";
+import PasswordReset from "./pages/PasswordReset";
+import PrivateRoute from "./components/PrivateRoute";
+import SuperadminLayout from "./layouts/SuperadminLayout";
+import Members from "./pages/Admin/Members";
+import { DashboardOverview } from "./components/DashboardOverview";
+import Accounts from "./pages/Admin/Accounts";
+import UserLayout from "./layouts/UserLayout";
 
 const queryClient = new QueryClient();
 
@@ -53,9 +61,28 @@ const App = () => {
 
           </Route>
 
+          <Route element={<PrivateRoute requiredRole="user" />}>
+            <Route path="/user" element={<UserLayout />}>
+              <Route index element={<DashboardOverview />} />
+            </Route>
+          </Route>
+
+          <Route element={<PrivateRoute requiredRole="superadmin" />}>
+            <Route path="/superadmin" element={<SuperadminLayout />}>
+              <Route index element={<DashboardOverview />} />
+              <Route path="members" element={<Members />} />
+              <Route path="accounts" element={<Accounts />} />
+            </Route>
+          </Route>
+
+          {/* email verification */}
           <Route path="/verify" element={<EmailVerification /> } />
 
-          <Route path="/dashboard" element={<Dashboard /> } />
+          {/* password reset */}
+          <Route path="/forgot-password" element={<ForgotPassword /> } />
+          <Route path="/password-reset/:token" element={<PasswordReset /> } />
+
+          {/* <Route path="/dashboard" element={<Dashboard /> } /> */}
 
           <Route path="*" element={<NotFound />} />
         </Routes>

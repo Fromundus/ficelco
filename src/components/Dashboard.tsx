@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { 
   LayoutDashboard, 
   Users, 
@@ -29,6 +29,8 @@ import {
 import { DashboardOverview } from "./DashboardOverview";
 import { ThemeToggle } from "./ThemeToggle";
 import logo from "../assets/logo.png";
+import { useAuth } from "@/store/auth";
+import NavItem from "@/types/NavItem";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -40,9 +42,21 @@ const navigation = [
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
-export default function Dashboard() {
+type Props = {
+  navItems: NavItem[];
+}
+
+export default function Dashboard({ navItems }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+
+  const { logout, user } = useAuth();
+  
+  const navigate = useNavigate();
+  
+  const userName = user?.name?.split("").slice(0, 2).join("").toUpperCase();
+
+  // console.log(user.name.split("").slice(0, 2).join(""));
 
   const isActive = (href: string) => {
     if (href === "/") {
@@ -51,20 +65,36 @@ export default function Dashboard() {
     return location.pathname.startsWith(href);
   };
 
+  const handleLogout = async () => {
+    try {
+      const res = await logout();
+      navigate('/login');
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Fixed Header */}
       <header className="fixed top-0 left-0 lg:left-64 right-0 z-30 bg-card border-b border-border shadow-soft">
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex items-center gap-4">
-            <Button
+            {user.role !== 'user' && <Button
               variant="ghost"
               size="icon"
               className="lg:hidden"
               onClick={() => setSidebarOpen(!sidebarOpen)}
             >
               {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+            </Button>}
+
+            {user.role === "user" && <div className="lg:hidden flex items-center gap-2 w-full">
+              <img className="w-8" src={logo} alt="" />
+              <h1 className="text-xl font-bold text-foreground">FICELCO</h1>
+              {/* <p className="text-sm text-muted-foreground">Admin Portal</p> */}
+            </div>}
             
             {/* <div className="relative w-96 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -76,10 +106,10 @@ export default function Dashboard() {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="relative">
+            {user.role !== "user" && <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
               <span className="absolute -top-1 -right-1 h-3 w-3 bg-accent rounded-full animate-pulse-soft" />
-            </Button>
+            </Button>}
 
             <ThemeToggle />
             
@@ -89,11 +119,11 @@ export default function Dashboard() {
                 <Button variant="ghost" className="flex items-center gap-2 hover:bg-secondary">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src="/placeholder-avatar.jpg" />
-                    <AvatarFallback className="electric-gradient text-white">AD</AvatarFallback>
+                    <AvatarFallback className="electric-gradient text-foreground">{userName}</AvatarFallback>
                   </Avatar>
                   <div className="hidden md:block text-left">
-                    <div className="text-sm font-medium">Admin User</div>
-                    <div className="text-xs text-muted-foreground">admin@ficelco.com</div>
+                    <div className="text-sm font-medium">{user.name}</div>
+                    <div className="text-xs text-muted-foreground">{user.email}</div>
                   </div>
                 </Button>
               </DropdownMenuTrigger>
@@ -109,7 +139,7 @@ export default function Dashboard() {
                   Settings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -147,23 +177,25 @@ export default function Dashboard() {
 
             {/* Navigation - scrollable */}
             <nav className="flex-1 overflow-y-auto px-4 py-4 space-y-2 w-full">
-              {navigation.map((item) => {
-                const active = isActive(item.href);
+              {navItems.map((item) => {
+                // const active = isActive(item.href);
                 return (
                   <NavLink
                     key={item.name}
                     to={item.href}
-                    className={`
+                    end={item.end}
+                    className={({ isActive }) => `
                       flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium
                       transition-all duration-200 animate-slide-in
-                      ${active 
+                      ${isActive 
                         ? 'bg-primary text-primary-foreground shadow-electric' 
                         : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
                       }
                     `}
                     onClick={() => setSidebarOpen(false)}
                   >
-                    <item.icon className="h-5 w-5" />
+                    {/* <item.icon className="h-5 w-5" /> */}
+                    {item.icon}
                     {item.name}
                   </NavLink>
                 );
@@ -182,13 +214,41 @@ export default function Dashboard() {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 mt-[65px] lg:pl-0 overflow-y-auto">
+        <div className="flex-1 mt-[65px] mb-[65px] lg:mb-0 lg:pl-0 overflow-y-auto">
           <main className="p-6">
-            <DashboardOverview />
-            {/* <Outlet /> */}
+            {/* <DashboardOverview /> */}
+            <Outlet />
           </main>
         </div>
       </div>
+
+      {user.role === "user" && <div className="fixed bottom-0 left-0 lg:left-64 right-0 z-30 bg-card border-t border-border shadow-soft lg:hidden">
+          <nav className="flex items-center justify-evenly overflow-y-auto w-full">
+              {navItems.map((item) => {
+                // const active = isActive(item.href);
+                return (
+                  <NavLink
+                    key={item.name}
+                    to={item.href}
+                    end={item.end}
+                    className={({ isActive }) => `
+                      flex flex-col items-center px-3 py-2 rounded-lg text-sm font-medium
+                      transition-all duration-200 animate-slide-in
+                      ${isActive 
+                        ? 'text-primary shadow-electric' 
+                        : 'text-muted-foreground hover:text-foreground'
+                      }
+                    `}
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    {/* <item.icon className="h-5 w-5" /> */}
+                    {item.icon}
+                    {item.name}
+                  </NavLink>
+                );
+              })}
+            </nav>
+      </div>}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 export default function PrivateRoute({
   requiredRole,
 }: {
-  requiredRole?: string;
+  requiredRole: string;
 }) {
   const { user } = useAuth();
 

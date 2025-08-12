@@ -18,7 +18,7 @@ const InputWithLabel = ({ label, containerClassName, labelClassName, inputClassN
   return (
     <div className={`flex flex-col gap-2 ${containerClassName}`}>
         <div className='flex flex-col gap-4 relative'>
-          <Label htmlFor={props.id} className={labelClassName}>
+          <Label htmlFor={props.id} className={`${labelClassName} cursor-pointer`}>
               {label}
           </Label>
           <Input

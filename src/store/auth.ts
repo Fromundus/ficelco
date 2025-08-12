@@ -1,5 +1,6 @@
 import api, { getCsrf } from "@/api/axios";
 import User from "@/types/User";
+import { useNavigate } from "react-router-dom";
 import { create } from "zustand";
 
 interface AuthState {
@@ -7,13 +8,14 @@ interface AuthState {
   loading: boolean;
   getUser: () => Promise<void>;
   login: (email: string, password: string) => Promise<any>;
-  logout: () => Promise<void>;
+  logout: () => Promise<any>;
 }
+
 
 export const useAuth = create<AuthState>((set) => ({
   user: null,
   loading: true,
-
+  
   getUser: async () => {
     try {
       const { data } = await api.get("/api/user");
@@ -34,7 +36,9 @@ export const useAuth = create<AuthState>((set) => ({
   },
 
   logout: async () => {
-    await api.post("/api/logout");
+    const res = await api.post("/api/logout");
     set({ user: null });
+
+    return res;
   },
 }));

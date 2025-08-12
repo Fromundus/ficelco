@@ -256,9 +256,11 @@ const Register = () => {
                     <CardFooter>
                         <div className='text-center w-full text-sm'>
                             Already have an account? {" "}
-                            <Link className='text-primary font-semibold' to={'/login'}>
-                                Login.
-                            </Link>
+                            <Button className='p-0 h-fit' variant='link'>
+                                <Link className='text-primary font-semibold' to={'/login'}>
+                                    Login.
+                                </Link>
+                            </Button>
                         </div>
                     </CardFooter>
                 </Card>}
