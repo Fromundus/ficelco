@@ -116,10 +116,10 @@ export default function Dashboard({ navItems }: Props) {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-2 hover:bg-secondary">
+                <Button variant="ghost" className="flex items-center gap-2">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src="/placeholder-avatar.jpg" />
-                    <AvatarFallback className="electric-gradient text-foreground">{userName}</AvatarFallback>
+                    <AvatarFallback className="bg-background border border-border text-foreground">{userName}</AvatarFallback>
                   </Avatar>
                   <div className="hidden md:block text-left">
                     <div className="text-sm font-medium">{user.name}</div>
@@ -167,7 +167,7 @@ export default function Dashboard({ navItems }: Props) {
         `}>
           <div className="flex flex-col h-full w-full">
             {/* Logo */}
-            <div className="flex items-center gap-3 px-6 py-4 border-b">
+            <div className="flex items-center gap-3 px-6 py-3 border-b">
               <div className="flex items-center gap-2 w-full">
                 <img className="w-8" src={logo} alt="" />
                 <h1 className="text-xl font-bold text-foreground">FICELCO</h1>

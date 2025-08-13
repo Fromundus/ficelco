@@ -50,11 +50,12 @@ const ForgotPassword = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <form className='space-y-4' onSubmit={handleSubmit}>
+              <form className='space-y-6' onSubmit={handleSubmit}>
                 {errors && <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-2 w-full text-center">
                     <span className='text-destructive text-sm'>{errors}</span>
                 </div>}
                 <InputWithLabel
+                  label='Email'
                   type='email'
                   value={email}
                   onChange={(e) => {
@@ -87,8 +88,8 @@ const ForgotPassword = () => {
             </CardHeader>
             <CardContent className="space-y-4 text-center text-muted-foreground">
               <p>We’ve sent a password reset link to your email account. Please check your inbox and click the link to reset your password.</p>
-              <Button onClick={() => navigate("/login")} className="w-full">
-                Back to Login
+              <Button onClick={() => navigate("/login")} className="w-fit">
+                Login
               </Button>
             </CardContent>
           </Card>}

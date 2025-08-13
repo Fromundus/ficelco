@@ -1,3 +1,4 @@
+import GuestPage from "@/components/custom/GuestPage";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Target, Eye, Award } from "lucide-react";
 
@@ -21,8 +22,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <GuestPage>
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">About FICELCO</h1>
@@ -128,8 +128,7 @@ const About = () => {
             ))}
           </div>
         </section>
-      </div>
-    </div>
+    </GuestPage>
   );
 };
 

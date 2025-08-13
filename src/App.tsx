@@ -28,6 +28,8 @@ import Members from "./pages/Admin/Members";
 import { DashboardOverview } from "./components/DashboardOverview";
 import Accounts from "./pages/Admin/Accounts";
 import UserLayout from "./layouts/UserLayout";
+import Test from "./pages/Test";
+import AddAccount from "./pages/Admin/AddAccount";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +74,7 @@ const App = () => {
               <Route index element={<DashboardOverview />} />
               <Route path="members" element={<Members />} />
               <Route path="accounts" element={<Accounts />} />
+              <Route path="accounts/add" element={<AddAccount />} />
             </Route>
           </Route>
 
@@ -83,6 +86,8 @@ const App = () => {
           <Route path="/password-reset/:token" element={<PasswordReset /> } />
 
           {/* <Route path="/dashboard" element={<Dashboard /> } /> */}
+
+          <Route path="/test" element={<Test />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

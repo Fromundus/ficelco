@@ -56,20 +56,20 @@ const Login = () => {
     return (
         <div className="min-h-screen py-12 flex items-center justify-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <Card className='card-electric max-w-lg mx-auto w-full'>
+                <Card className='max-w-lg mx-auto w-full'>
                     <CardHeader className='flex items-center'>
                         <CardTitle>
                             Login
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <form onSubmit={handleSubmit} className="">
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                             {errors && 
                             <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-2 w-full text-center">
                                 <span className='text-destructive text-sm'>{errors}</span>
                             </div>
                             }
-                            <div className='space-y-4'>
+                            <div className='space-y-6'>
                                 <InputWithLabel
                                     id="email"
                                     name='email'
@@ -78,23 +78,32 @@ const Login = () => {
                                     placeholder="Enter your email address"
                                     value={formData.email}
                                     onChange={handleChange}
+                                    disabled={loading}
                                 />
-                                <InputWithLabel
-                                    id="password"
-                                    name='password'
-                                    type="password"
-                                    placeholder="Enter your password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    label='Password'
-                                />
+                                <div className='flex flex-col gap-3'>
+                                    <div className='flex items-center justify-between w-full'>
+                                        <Label htmlFor='password'>
+                                            Password
+                                        </Label>
+                                        <Button className='p-0 m-0 h-0' type='button' variant='link'> 
+                                            <Link to={'/forgot-password'}>
+                                                Forgot password?
+                                            </Link>
+                                        </Button>
+                                    </div>
+                                    <InputWithLabel
+                                        id="password"
+                                        name='password'
+                                        type="password"
+                                        placeholder="Enter your password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        disabled={loading}
+                                    />
+                                </div>
                             </div>
                             <div className='w-full flex justify-end text-sm'>
-                                <Button type='button' variant='link'> 
-                                    <Link to={'/forgot-password'}>
-                                        Forgot Password?
-                                    </Link>
-                                </Button>
+                                
                             </div>
                             <ButtonWithLoading
                                 type='submit'
@@ -110,7 +119,7 @@ const Login = () => {
                         <div className='text-center w-full text-sm'>
                             Don't have an account? {" "}
                             <Button className='p-0 h-fit' variant='link'>
-                                <Link className='text-primary font-semibold' to={'/register'}>
+                                <Link className='text-primary underline' to={'/register'}>
                                     Create Account.
                                 </Link>
                             </Button>

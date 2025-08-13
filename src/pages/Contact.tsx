@@ -15,6 +15,7 @@ import {
   Send
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import GuestPage from "@/components/custom/GuestPage";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -91,8 +92,7 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <GuestPage>
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">Contact Us</h1>
@@ -322,8 +322,7 @@ const Contact = () => {
             </Card>
           </div>
         </div>
-      </div>
-    </div>
+    </GuestPage>
   );
 };
 

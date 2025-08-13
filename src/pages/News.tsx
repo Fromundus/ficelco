@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, AlertTriangle, Info, Megaphone } from "lucide-react";
+import GuestPage from "@/components/custom/GuestPage";
 
 interface NewsItem {
   id: number;
@@ -93,8 +94,7 @@ const News = () => {
   };
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <GuestPage>
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">News & Advisories</h1>
@@ -210,8 +210,7 @@ const News = () => {
             </CardContent>
           </Card>
         </section>
-      </div>
-    </div>
+    </GuestPage>
   );
 };
 

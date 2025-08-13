@@ -6,6 +6,8 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import api, { getCsrf } from "@/api/axios";
 import InputWithLabel from "@/components/custom/InputWithLabel";
+import { Label } from "@/components/ui/label";
+import ButtonWithLoading from "@/components/custom/ButtonWithLoading";
 
 export default function VerifyStatusPage() {
   const [qs] = useSearchParams();
@@ -41,8 +43,8 @@ export default function VerifyStatusPage() {
           title: "Email Verified",
           description: "Your email has been successfully verified. You can now log in to your account.",
           action: (
-            <Button className="w-full" onClick={() => navigate("/login")}>
-              Go to Login
+            <Button className="w-fit" onClick={() => navigate("/login")}>
+              Login
             </Button>
           ),
         };
@@ -52,8 +54,8 @@ export default function VerifyStatusPage() {
           title: "Already Verified",
           description: "This email address has already been verified. Please log in to continue.",
           action: (
-            <Button className="w-full" onClick={() => navigate("/login")}>
-              Go to Login
+            <Button className="w-fit" onClick={() => navigate("/login")}>
+              Login
             </Button>
           ),
         };
@@ -65,21 +67,35 @@ export default function VerifyStatusPage() {
           description: "Your verification link is invalid or has expired. Enter your email below to receive a new verification link.",
           action: (
             <div className="space-y-4">
-              <Input
-                className="text-foreground"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Button
+              <div className="flex flex-col gap-3 items-start">
+                <Label htmlFor="email">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  className="text-foreground"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <ButtonWithLoading
+                loading={loading}
                 onClick={resendVerification}
                 disabled={loading || !email}
                 className="w-full"
               >
-                {loading ? "Sending..." : "Resend Verification Link"}
-              </Button>
-              {message && <p className="text-sm text-muted-foreground">{message}</p>}
+                Resend Verification Link
+              </ButtonWithLoading>
+              {message &&
+                <>
+                  <p className="text-sm text-muted-foreground">{message}</p>
+                  <Button className="w-fit" onClick={() => navigate("/login")}>
+                    Login
+                  </Button>
+                </>
+              }
             </div>
           ),
         };

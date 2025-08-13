@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Search, CreditCard, Calendar, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import InputWithLabel from "@/components/custom/InputWithLabel";
+import GuestPage from "@/components/custom/GuestPage";
 
 const BillingInquiry = () => {
   const [accountNumber, setAccountNumber] = useState("");
@@ -36,8 +37,7 @@ const BillingInquiry = () => {
   };
 
   return (
-    <div className="min-h-screen py-12 bg-subtle-gradient">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <GuestPage childrenMaxWidth="max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4">Billing Inquiry</h1>
@@ -163,8 +163,7 @@ const BillingInquiry = () => {
             </div>
           </CardContent>
         </Card>
-      </div>
-    </div>
+    </GuestPage>
   );
 };
 
