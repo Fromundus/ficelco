@@ -107,7 +107,7 @@ const AddAccount = () => {
     const navigate = useNavigate();
 
     return (
-        <AdminPage withBackButton={true}>
+        <AdminPage withBackButton={true} title='Add Account'>
             <div className='w-fit mb-4'>
                 <CustomTabs tabs={typeTab} value={type} onChange={setType} />
             </div>

@@ -16,7 +16,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { MoreVertical, Plus, PlusCircle, Save, Trash } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import IconButton from "./IconButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import User from "@/types/User";
 import { Badge } from "../ui/badge";
 
@@ -154,6 +154,8 @@ export default function AccountsTable() {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="space-y-4">
       {/* Search + Bulk Actions */}
@@ -263,8 +265,10 @@ export default function AccountsTable() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>View</DropdownMenuItem>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => navigate(`${u.id}`)}
+                        >View</DropdownMenuItem>
+                        {/* <DropdownMenuItem>Edit</DropdownMenuItem> */}
 
                         {u.email_verified_at && <DropdownMenuItem onClick={() => resetPassword(u.email)}>
                           Reset Password

@@ -10,6 +10,8 @@ type User = {
   occupant: string;
   phone_number: string;
   role: string;
+
+  profile_picture: string;
 } | null;
 
 export default User;
