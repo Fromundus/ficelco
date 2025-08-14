@@ -14,94 +14,71 @@
 
 @layer base {
   :root {
-    /* --background: 0 0% 100%;          
-    --foreground: 240 6% 10%;         
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
 
-    --card: 0 0% 100%;                
-    --card-foreground: 240 6% 10%;    
+    /* Light mode card: adjusted for similar contrast to #171717 in dark mode */
+    --card: 0 0% 96%;
+    --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 6% 10%;
+    --popover-foreground: 240 10% 3.9%;
 
+    /* Light mode primary: rich golden yellow */
     --primary: 46 85% 48%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;            
-    --secondary-foreground: 240 6% 10%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
 
-    --accent: 0 0% 96%;
-    --accent-foreground: 240 6% 10%;
+    --accent: 240 6% 85%;
+    --accent-foreground: 240 5.9% 10%;
 
-    --destructive: 0 75% 45%;         
-    --destructive-foreground: 0 0% 98%;
+    /* Lighter, vibrant red */
+    --destructive: 0 84% 63%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: var(--primary);
-
-    --radius: 0.5rem; */
-    --background: 0 0% 100%;          /* inverted from dark gray */
-    --foreground: 240 6% 18%;         /* inverted from white */
-
-    --card: 0 0% 96%;                 /* inverted from darker card */
-    --card-foreground: 240 6% 18%;
-
-    --popover: 0 0% 96%;
-    --popover-foreground: 240 6% 18%;
-
-    --primary: 45 90% 55%;            /* same as dark mode */
-    --primary-foreground: 0 0% 0%;
-
-    --secondary: 0 0% 90%;            /* inverted from dark secondary */
-    --secondary-foreground: 240 6% 26%;
-
-    --muted: 0 0% 90%;
-    --muted-foreground: 240 6% 20%;
-
-    --accent: 0 0% 90%;
-    --accent-foreground: 240 6% 20%;
-
-    --destructive: 0 65% 50%;         /* same red as dark mode */
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: var(--primary);
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 46 85% 48%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 240 6% 18%;         
-    --foreground: 0 0% 100%;          
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 240 6% 14%;               
-    --card-foreground: 0 0% 100%;
+    /* Dark mode card: #171717 */
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 240 6% 14%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
+    /* Dark mode primary: slightly brighter golden yellow */
     --primary: 45 90% 55%;
     --primary-foreground: 0 0% 0%;
 
-    --secondary: 240 6% 26%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 6% 20%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
-    --accent: 240 6% 20%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 65% 50%;
-    --destructive-foreground: 0 0% 98%;
+    /* Lighter red for dark mode too */
+    --destructive: 0 80% 66%;
+    --destructive-foreground: 0 0% 0%;
 
-    --border: 240 6% 26%;
-    --input: 240 6% 26%;
-    --ring: var(--primary);
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 45 90% 55%;
   }
 }
 
@@ -110,10 +87,9 @@
     @apply border-border;
   }
   body {
-    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))];
+    @apply bg-background text-foreground;
   }
 }
-
 
 @layer components {
   /* Hero Button Variants */

@@ -168,31 +168,31 @@ const RegisterComponent = ({ type }: { type?: string }) => {
             const res = await api.post('/api/register', registerData);
             console.log(res);
 
-            setFormData({
-                account_number: "",
-                book: "",
-                name: "",
-                address: "",
-                occupant: "",
-                phone_number: "",
-                email: "",
-                password: "",
-                password_confirmation: "",
-            });
+            // setFormData({
+            //     account_number: "",
+            //     book: "",
+            //     name: "",
+            //     address: "",
+            //     occupant: "",
+            //     phone_number: "",
+            //     email: "",
+            //     password: "",
+            //     password_confirmation: "",
+            // });
 
             setValidated(false);
-            setValidatedData({
-                account_number: "",
-                book: "",
-                name: "",
-                address: "",
-                occupant: "",
-                phone_number: "",
-                email: "",
-                created: "",
-                createdBy: "",
-                status: "",
-            });
+            // setValidatedData({
+            //     account_number: "",
+            //     book: "",
+            //     name: "",
+            //     address: "",
+            //     occupant: "",
+            //     phone_number: "",
+            //     email: "",
+            //     created: "",
+            //     createdBy: "",
+            //     status: "",
+            // });
 
             setRegistered(true);
             setLoading(false);
@@ -202,6 +202,18 @@ const RegisterComponent = ({ type }: { type?: string }) => {
             setLoading(false);
         }
     }
+
+    const resendVerification = async () => {
+        setLoading(true);
+        try {
+            await getCsrf();
+            const res = await api.post("/api/email/resend", { email: formData.email });
+            console.log(res);
+        } catch {
+        } finally {
+            setLoading(false);
+        }
+    };
     
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -429,15 +441,20 @@ const RegisterComponent = ({ type }: { type?: string }) => {
                         <p className="text-muted-foreground">
                             The user account has been created successfully. A verification link has been sent to the user’s email address. They must verify their email before they can log in.
                         </p>
+                        <div className='flex items-center gap-2 w-full justify-center'>
+                            <Button variant='outline' onClick={() => {
+                                setRegistered(false);
+                                setValidated(false);
+                                setFormData({});
+                                setValidatedData({});
+                            }}>
+                                Create New User Account
+                            </Button>
+                            <ButtonWithLoading loading={loading} disabled={loading} onClick={resendVerification}>
+                                Resend
+                            </ButtonWithLoading>
+                        </div>
 
-                        <Button onClick={() => {
-                            setRegistered(false);
-                            setValidated(false);
-                            setFormData({});
-                            setValidatedData({});
-                        }}>
-                            Create New User Account
-                        </Button>
                     </CardContent>}
                 </Card>
             }

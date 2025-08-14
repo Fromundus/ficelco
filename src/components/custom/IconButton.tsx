@@ -11,7 +11,7 @@ type Props = {
 
 const IconButton = ({ children, onClick, className, disabled, variant }: Props) => {
   return (
-    <Button className={`${className} h-10`} onClick={onClick} disabled={disabled} variant={variant}>
+    <Button className={`${className} w-10 h-10`} onClick={onClick} disabled={disabled} variant={variant}>
         {children}
     </Button>
   )

@@ -214,7 +214,7 @@ export default function Dashboard({ navItems }: Props) {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 mt-[65px] mb-[65px] lg:mb-0 lg:pl-0 overflow-y-auto">
+        <div className="flex-1 mt-[55px] mb-[55px] lg:mb-0 lg:pl-0 overflow-y-auto">
           <main className="p-6">
             {/* <DashboardOverview /> */}
             <Outlet />

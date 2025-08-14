@@ -200,6 +200,8 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { MoreVertical, Trash } from "lucide-react";
+import { Badge } from "../ui/badge";
+import IconButton from "./IconButton";
 
 interface Member {
   id: number;
@@ -279,13 +281,13 @@ export default function MembersTable() {
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-xs"
         />
-        {selected.length > 0 && <Button className="w-fit" variant="destructive" onClick={bulkDelete} disabled={selected.length === 0}>
-          <Trash /> ({selected.length})
-        </Button>}
+        {selected.length > 0 && <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
+          <Trash />
+        </IconButton>}
       </div>
 
       {/* Table */}
-      <div className="border rounded-md">
+      <div className="">
         <Table className="bg-card">
           <TableHeader>
             <TableRow>
@@ -323,7 +325,15 @@ export default function MembersTable() {
                   <TableCell>{m.book}</TableCell>
                   <TableCell>{m.name}</TableCell>
                   <TableCell>{m.address}</TableCell>
-                  <TableCell>{m.status}</TableCell>
+                  <TableCell>{m.status ?
+                    <Badge className="bg-green-500 text-white hover:bg-green-600">
+                      Registered
+                    </Badge>
+                    :
+                    <Badge className="text-nowrap" variant="destructive">
+                      Not Registered
+                    </Badge>
+                  }</TableCell>
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -351,24 +361,27 @@ export default function MembersTable() {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-end gap-2 w-full">
-        <Button
-          variant="outline"
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-          disabled={page === 1}
-        >
-          Prev
-        </Button>
-        <span className="px-4 text-sm flex items-center border rounded">
-          Page {page} of {totalPages}
-        </span>
-        <Button
-          variant="outline"
-          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-          disabled={page === totalPages}
-        >
-          Next
-        </Button>
+      <div className="flex justify-between gap-4 w-full">
+        <span className="text-sm text-muted-foreground">{selected.length} of {members.length} row(s) selected.</span>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+          >
+            Prev
+          </Button>
+          <span className="px-4 text-sm flex items-center border rounded h-full">
+            Page {page} of {totalPages}
+          </span>
+          <Button
+            variant="outline"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

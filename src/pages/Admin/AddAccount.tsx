@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import RegisterComponent from '@/components/custom/RegisterComponent';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import InputWithLabel from '@/components/custom/InputWithLabel';
@@ -8,6 +8,10 @@ import ButtonWithLoading from '@/components/custom/ButtonWithLoading';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import AdminPage from '@/components/custom/AdminPage';
+import { TabsList, TabsTrigger } from '@/components/ui/tabs';
+import CustomTabs from '@/components/custom/CustomTabs';
 
 type FormData = {
     name?: string;
@@ -25,9 +29,10 @@ type Errors = {
 };
 
 const AddAccount = () => {
-    const [searchParams] = useSearchParams();
-    const type = searchParams.get('type');
+    const [type, setType] = React.useState('user');
     const [loading, setLoading] = React.useState<boolean>(false);
+
+    const [tab, setTab] = React.useState("overview");
 
     const [formData, setFormData] = React.useState<FormData>({
         name: "",
@@ -90,10 +95,23 @@ const AddAccount = () => {
         }
     }
 
-    console.log(type);
+    const handleToggleType = (type: string) => {
+        setType(type);
+    }
+
+    const typeTab = [
+        { value: "user", label: "User" },
+        { value: "admin", label: "Admin" },
+    ];
+
+    const navigate = useNavigate();
 
     return (
-        <>
+        <AdminPage withBackButton={true}>
+            <div className='w-fit mb-4'>
+                <CustomTabs tabs={typeTab} value={type} onChange={setType} />
+            </div>
+
             {type === 'user' && <RegisterComponent type='user' />}
             {type === 'admin' && 
             <Card className='max-w-lg mx-auto w-full'>
@@ -148,28 +166,6 @@ const AddAccount = () => {
                             </div>
                             {errors?.role && <span className='text-destructive text-sm'>{errors?.role}</span>}
                         </div>
-
-                        <InputWithLabel
-                            id="password"
-                            name='password'
-                            type="password"
-                            placeholder="Enter password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            disabled={loading}
-                            label='Password'
-                        />
-                        <InputWithLabel
-                            id="password_confirmation"
-                            name='password_confirmation'
-                            type="password"
-                            placeholder="Confirm password"
-                            value={formData.password_confirmation}
-                            error={errors?.password}
-                            onChange={handleChange}
-                            disabled={loading}
-                            label='Confirm Password'
-                        />
                         <ButtonWithLoading
                             type='submit'
                             disabled={loading}
@@ -182,7 +178,7 @@ const AddAccount = () => {
                 </CardContent>
             </Card>
             }
-        </>
+        </AdminPage>
     )
 }
 

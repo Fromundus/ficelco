@@ -123,13 +123,13 @@ const Navigation = () => {
     { name: "News & Advisories", path: "/news" },
     { name: "Billing Inquiry", path: "/billing" },
     { name: "Services", path: "/services" },
-    { name: "About", path: "/about" },
-    { name: "Contact Us", path: "/contact" },
   ];
-
+  
   const infoItems = [
     { name: "Biddings", path: "/biddings" },
     { name: "Downloads", path: "/downloads" },
+    { name: "About", path: "/about" },
+    { name: "Contact Us", path: "/contact" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -176,14 +176,25 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <div className="ml-4">
+            <div className="ml-4 flex items-center gap-4">
               <ThemeToggle />
+              <Button>
+                <Link to={'/login'}>
+                  Login
+                </Link>
+              </Button>
             </div>
+
           </div>
 
           {/* Mobile menu button and theme toggle */}
-          <div className="lg:hidden flex items-center space-x-2">
+          <div className="lg:hidden flex items-center space-x-4">
             <ThemeToggle />
+            <Button>
+              <Link to={'/login'}>
+                Login
+              </Link>
+            </Button>
             <Button
               variant="ghost"
               size="sm"
