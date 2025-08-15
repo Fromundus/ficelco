@@ -31,6 +31,7 @@ import UserLayout from "./layouts/UserLayout";
 import Test from "./pages/Test";
 import AddAccount from "./pages/Admin/AddAccount";
 import Account from "./pages/Admin/Account";
+import { Layout } from "./components/Layout";
 
 const queryClient = new QueryClient();
 
@@ -87,7 +88,7 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword /> } />
           <Route path="/password-reset/:token" element={<PasswordReset /> } />
 
-          {/* <Route path="/dashboard" element={<Dashboard /> } /> */}
+          <Route path="/dashboard" element={<Layout /> } />
 
           <Route path="/test" element={<Test />} />
 
