@@ -28,7 +28,6 @@ import { DashboardOverview } from "./components/DashboardOverview";
 import Accounts from "./pages/Admin/Accounts";
 import UserLayout from "./layouts/UserLayout";
 import Test from "./pages/Test";
-import AddAccount from "./pages/Admin/AddAccount";
 import Account from "./pages/Admin/Account";
 import Dashboard from "./components/Dashboard";
 
@@ -76,7 +75,6 @@ const App = () => {
               <Route path="members" element={<Members />} />
               <Route path="accounts" element={<Accounts />} />
               <Route path="accounts/:id" element={<Account />} />
-              <Route path="accounts/add" element={<AddAccount />} />
             </Route>
           </Route>
 

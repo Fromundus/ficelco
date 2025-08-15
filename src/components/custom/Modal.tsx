@@ -12,7 +12,7 @@ type Props = {
     buttonClassName?: string;
 }
 
-const Modal = ({ open, setOpen, title, buttonLabel, buttonClassName, children }) => {
+const Modal = ({ open, setOpen, title, buttonLabel, buttonClassName, children }: Props) => {
   return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>

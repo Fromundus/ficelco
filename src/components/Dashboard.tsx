@@ -33,6 +33,7 @@ const pageNames: Record<string, string> = {
   
   "/superadmin/members": "Member Management",
   "/superadmin/accounts": "Account Management",
+  "/superadmin/accounts/add": "Add Account",
 };
 
 export default function Dashboard() {

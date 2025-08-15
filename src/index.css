@@ -8,10 +8,6 @@
 
 /* FICELCO Design System - Electric Cooperative Professional Theme */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -48,7 +44,8 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 214 84% 56%;
+    /* --ring: 214 84% 56%; */
+    --ring: var(--primary);
 
     /* Professional styling */
     --radius: 0.5rem;

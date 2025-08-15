@@ -29,9 +29,9 @@ const InputWithLabel = ({ label, containerClassName, labelClassName, inputClassN
           {type === "password" &&
             <>
               {!show ?
-              <EyeOff className='absolute right-3 size-5 bottom-3 cursor-pointer' onClick={() => setShow(true)} />
+              <EyeOff className='absolute right-3 size-5 bottom-2.5 cursor-pointer' onClick={() => setShow(true)} />
               :
-              <Eye className='absolute right-3 size-5 bottom-3 cursor-pointer' onClick={() => setShow(false)} />
+              <Eye className='absolute right-3 size-5 bottom-2.5 cursor-pointer' onClick={() => setShow(false)} />
               }
             </>
           }

@@ -10,22 +10,24 @@ type Props = {
     withBackButton?: boolean;
     backbuttonAction?: () => void;
     title?: string;
+    description?: string;
 }
 
-const AdminPage = ({ children, className, withBackButton, backbuttonAction, title }: Props) => {
+const AdminPage = ({ children, className, withBackButton, backbuttonAction, title, description }: Props) => {
     const navigate = useNavigate();
     
     return (
-        <div className={`${className} text-sm`}>
+        <div className={`${className}`}>
             {withBackButton && <div className='w-full'>
-                <Button variant='ghost' onClick={() => backbuttonAction ? backbuttonAction : navigate(-1)}>
+                <Button variant='outline' onClick={() => backbuttonAction ? backbuttonAction : navigate(-1)}>
                     <ArrowLeft /> Back
                 </Button>
             </div>}
-            <CardTitle className='mt-6'>
-                {title}
-            </CardTitle>
-            <div className={`${withBackButton && "mt-6"} flex flex-col gap-4`}>
+            <div className='mt-6'>
+                <h2 className="text-2xl font-bold">{title}</h2>
+                <p className="text-muted-foreground">{description}</p>
+            </div>
+            <div className={`${withBackButton && "mt-6"} flex flex-col gap-6`}>
                 {children}
             </div>
         </div>

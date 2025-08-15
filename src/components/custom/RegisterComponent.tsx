@@ -216,8 +216,8 @@ const RegisterComponent = ({ type }: { type?: string }) => {
     };
     
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            {!validated && !registered && <Card className='max-w-lg mx-auto w-full'>
+        <div className={`${!type && "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"} w-full`}>
+            {!validated && !registered && <Card className={`${type === "user" ? "w-full" : "max-w-lg"} mx-auto w-full`}>
                 <CardHeader className='flex items-center'>
                     <CardTitle>
                         Validate
@@ -235,7 +235,7 @@ const RegisterComponent = ({ type }: { type?: string }) => {
                             name='account_number'
                             type="text"
                             label='Account Number'
-                            placeholder="Enter your account number"
+                            placeholder="Enter account number"
                             value={formData.account_number}
                             error={errors?.account_number}
                             onChange={handleChange}
@@ -248,7 +248,7 @@ const RegisterComponent = ({ type }: { type?: string }) => {
                             name='book'
                             type="text"
                             label='Book Number'
-                            placeholder="Enter your book number"
+                            placeholder="Enter book number"
                             value={formData.book}
                             error={errors?.book}
                             onChange={handleChange}
@@ -278,14 +278,14 @@ const RegisterComponent = ({ type }: { type?: string }) => {
                 </CardFooter>}
             </Card>}
 
-            {validated && <Card className='max-w-lg mx-auto w-full'>
+            {validated && <Card className={`${type === "user" ? "w-full" : "max-w-lg"} mx-auto w-full`}>
                 <CardHeader className='flex items-center'>
                     {type === "user" && <div className='w-full'>
-                        <Button variant='ghost' onClick={() => {
+                        <Button variant='outline' onClick={() => {
                             setValidated(false);
                             setFormData({});
                         }}>
-                            <ArrowLeftIcon />
+                            <ArrowLeftIcon /> Back
                         </Button>
                     </div>}
                     <CardTitle>
@@ -294,110 +294,112 @@ const RegisterComponent = ({ type }: { type?: string }) => {
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <InputWithLabel
-                            id="account_number"
-                            name='account_number'
-                            type="text"
-                            label='Account Number'
-                            placeholder="Enter your account number"
-                            value={validatedData.account_number}
-                            error={errors?.account_number}
-                            onChange={handleChange}
-                            minLength={8}
-                            maxLength={8}
-                            disabled={true}
-                        />
-                        <InputWithLabel
-                            id="book"
-                            name='book'
-                            type="text"
-                            label='Book Number'
-                            placeholder="Enter your book number"
-                            value={validatedData.book}
-                            error={errors?.book}
-                            onChange={handleChange}
-                            minLength={6}
-                            maxLength={6}
-                            disabled={true}
-                        />
-                        <InputWithLabel
-                            id="name"
-                            name='name'
-                            type="text"
-                            label='Name'
-                            placeholder="Enter your name"
-                            value={validatedData.name}
-                            error={errors?.name}
-                            onChange={handleChange}
-                            disabled={true}
-                        />
-                        <InputWithLabel
-                            id="address"
-                            name='address'
-                            type="text"
-                            label='Address'
-                            placeholder="Enter your address"
-                            value={validatedData.address}
-                            error={errors?.address}
-                            onChange={handleChange}
-                            disabled={true}
-                        />
-                        <InputWithLabel
-                            id="occupant"
-                            name='occupant'
-                            type="text"
-                            label='Occupant'
-                            placeholder="Enter your occupant"
-                            value={validatedData.occupant}
-                            error={errors?.occupant}
-                            onChange={handleChange}
-                            disabled={loading}
-                        />
-                        <InputWithLabel
-                            id="email"
-                            name='email'
-                            type="email"
-                            label='Email'
-                            placeholder="Enter your email address"
-                            value={validatedData.email}
-                            error={errors?.email}
-                            onChange={handleChange}
-                            disabled={loading}
-                        />
-                        <InputWithLabel
-                            id="phone_number"
-                            name='phone_number'
-                            type="text"
-                            label='Phone Number'
-                            placeholder="Enter your phone number"
-                            value={validatedData.phone_number}
-                            error={errors?.phone_number}
-                            onChange={handleChange}
-                            disabled={loading}
-                            minLength={11}
-                            maxLength={11}
-                        />
-                        <InputWithLabel
-                            id="password"
-                            name='password'
-                            type="password"
-                            placeholder="Enter your password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            disabled={loading}
-                            label='Password'
-                        />
-                        <InputWithLabel
-                            id="password_confirmation"
-                            name='password_confirmation'
-                            type="password"
-                            placeholder="Confirm your password"
-                            value={formData.password_confirmation}
-                            error={errors?.password}
-                            onChange={handleChange}
-                            disabled={loading}
-                            label='Confirm Password'
-                        />
+                        <div className='grid grid-cols-2 gap-6'> 
+                            <InputWithLabel
+                                id="account_number"
+                                name='account_number'
+                                type="text"
+                                label='Account Number'
+                                placeholder="Enter your account number"
+                                value={validatedData.account_number}
+                                error={errors?.account_number}
+                                onChange={handleChange}
+                                minLength={8}
+                                maxLength={8}
+                                disabled={true}
+                            />
+                            <InputWithLabel
+                                id="book"
+                                name='book'
+                                type="text"
+                                label='Book Number'
+                                placeholder="Enter your book number"
+                                value={validatedData.book}
+                                error={errors?.book}
+                                onChange={handleChange}
+                                minLength={6}
+                                maxLength={6}
+                                disabled={true}
+                            />
+                            <InputWithLabel
+                                id="name"
+                                name='name'
+                                type="text"
+                                label='Name'
+                                placeholder="Enter your name"
+                                value={validatedData.name}
+                                error={errors?.name}
+                                onChange={handleChange}
+                                disabled={true}
+                            />
+                            <InputWithLabel
+                                id="address"
+                                name='address'
+                                type="text"
+                                label='Address'
+                                placeholder="Enter your address"
+                                value={validatedData.address}
+                                error={errors?.address}
+                                onChange={handleChange}
+                                disabled={true}
+                            />
+                            <InputWithLabel
+                                id="occupant"
+                                name='occupant'
+                                type="text"
+                                label='Occupant'
+                                placeholder="Enter your occupant"
+                                value={validatedData.occupant}
+                                error={errors?.occupant}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="email"
+                                name='email'
+                                type="email"
+                                label='Email'
+                                placeholder="Enter your email address"
+                                value={validatedData.email}
+                                error={errors?.email}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="phone_number"
+                                name='phone_number'
+                                type="text"
+                                label='Phone Number'
+                                placeholder="Enter your phone number"
+                                value={validatedData.phone_number}
+                                error={errors?.phone_number}
+                                onChange={handleChange}
+                                disabled={loading}
+                                minLength={11}
+                                maxLength={11}
+                            />
+                            <InputWithLabel
+                                id="password"
+                                name='password'
+                                type="password"
+                                placeholder="Enter your password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                disabled={loading}
+                                label='Password'
+                            />
+                            <InputWithLabel
+                                id="password_confirmation"
+                                name='password_confirmation'
+                                type="password"
+                                placeholder="Confirm your password"
+                                value={formData.password_confirmation}
+                                error={errors?.password}
+                                onChange={handleChange}
+                                disabled={loading}
+                                label='Confirm Password'
+                            />
+                        </div>
                         <ButtonWithLoading
                             type='submit'
                             disabled={loading}

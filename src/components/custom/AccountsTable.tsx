@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -20,6 +20,12 @@ import { Link, useNavigate } from "react-router-dom";
 import User from "@/types/User";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import Modal from "./Modal";
+import InputWithLabel from "./InputWithLabel";
+import { Label } from "../ui/label";
+import ButtonWithLoading from "./ButtonWithLoading";
+import AddAdmin from "./add-account-components/AddAdmin";
+import AddUser from "./add-account-components/AddUser";
 
 export default function AccountsTable() {
   const [users, setUsers] = useState<User[]>([]);
@@ -165,11 +171,17 @@ export default function AccountsTable() {
           <h2 className="text-2xl font-bold">Account Management</h2>
           <p className="text-muted-foreground">Manage account information and records</p>
         </div>
-        <Button>
-          <Link className="flex items-center gap-2" to={'add'}>
-            <Plus /> Add Account
-          </Link>
-        </Button>
+        <div className="space-x-4">
+          {/* <Button>
+            <Link className="flex items-center gap-2" to={'add'}>
+              <Plus /> Add Account
+            </Link>
+          </Button> */}
+
+          <AddUser refetch={fetchUsers} />
+
+          <AddAdmin refetch={fetchUsers} />
+        </div>
       </div>
       <Card>
         <CardContent className="p-6">
@@ -190,11 +202,14 @@ export default function AccountsTable() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="superadmin">Super Admin</SelectItem>
+                      <SelectItem value="csd">Consumer Services Department</SelectItem>
+                      <SelectItem value="mrbc">Meter Reading and Billing Collection Division</SelectItem>
+                      <SelectItem value="bac">Bids and Awards Committee</SelectItem>
                       <SelectItem value="user">User</SelectItem>
                     </SelectContent>
                   </Select>
 
-                  <IconButton className="bg-blue-500 hover:bg-blue-600" onClick={() => {
+                  <IconButton className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
                       if (bulkRole) updateRole(selected, bulkRole);
                     }} disabled={selected.length === 0 || loading}>
                     <Save />
@@ -263,6 +278,9 @@ export default function AccountsTable() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="superadmin">Super Admin</SelectItem>
+                          <SelectItem value="csd">Consumer Services Department</SelectItem>
+                          <SelectItem value="mrbc">Meter Reading and Billing Collection Division</SelectItem>
+                          <SelectItem value="bac">Bids and Awards Committee</SelectItem>
                           <SelectItem value="user">User</SelectItem>
                         </SelectContent>
                       </Select>
@@ -339,3 +357,4 @@ export default function AccountsTable() {
     </div>
   );
 }
+
