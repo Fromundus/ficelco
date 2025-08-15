@@ -1,10 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* 
 * {
-  /* font-family: "Poppins", sans-serif; */
-}
+  font-family: "Poppins", sans-serif;
+} */
 
 /* FICELCO Design System - Electric Cooperative Professional Theme */
 
@@ -24,7 +24,8 @@
     --popover-foreground: 222.2 84% 4.9%;
 
     /* Professional government blue */
-    --primary: 214 84% 56%;
+    /* --primary: 214 84% 56%; */
+    --primary: 46 85% 48%;
     --primary-foreground: 0 0% 100%;
     --primary-muted: 214 32% 91%;
 
@@ -100,7 +101,7 @@
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 50%;
     --destructive-foreground: 210 40% 98%;
 
     /* --border: 217.2 32.6% 17.5%; */

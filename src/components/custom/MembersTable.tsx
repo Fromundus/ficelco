@@ -202,6 +202,7 @@ import {
 import { MoreVertical, Trash } from "lucide-react";
 import { Badge } from "../ui/badge";
 import IconButton from "./IconButton";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 interface Member {
   id: number;
@@ -272,117 +273,132 @@ export default function MembersTable() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Search + Actions */}
-      <div className="flex flex-col lg:justify-between lg:flex-row gap-2">
-        <Input
-          placeholder="Search members..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="max-w-xs"
-        />
-        {selected.length > 0 && <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
-          <Trash />
-        </IconButton>}
+      <div>
+        <h2 className="text-2xl font-bold">Member Management</h2>
+        <p className="text-muted-foreground">Manage member information and records</p>
       </div>
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex flex-col w-full lg:justify-between lg:flex-row gap-2">
+            <Input
+              placeholder="Search members..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full"
+            />
+            {selected.length > 0 && <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
+              <Trash />
+            </IconButton>}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Table */}
-      <div className="">
-        <Table className="bg-card">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[50px]">
-                <Checkbox
-                  checked={selected.length === members.length && members.length > 0}
-                  onCheckedChange={selectAll}
-                />
-              </TableHead>
-              <TableHead>Account Number</TableHead>
-              <TableHead>Book</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Address</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {loading ? (
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            Member Records
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
               <TableRow>
-                <TableCell colSpan={7} className="text-center">
-                  Loading...
-                </TableCell>
+                <TableHead className="w-[50px]">
+                  <Checkbox
+                    checked={selected.length === members.length && members.length > 0}
+                    onCheckedChange={selectAll}
+                  />
+                </TableHead>
+                <TableHead>Account Number</TableHead>
+                <TableHead>Book</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Address</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
-            ) : members.length > 0 ? (
-              members.map((m) => (
-                <TableRow key={m.id}>
-                  <TableCell>
-                    <Checkbox
-                      checked={selected.includes(m.id)}
-                      onCheckedChange={() => toggleSelect(m.id)}
-                    />
-                  </TableCell>
-                  <TableCell>{m.account_number}</TableCell>
-                  <TableCell>{m.book}</TableCell>
-                  <TableCell>{m.name}</TableCell>
-                  <TableCell>{m.address}</TableCell>
-                  <TableCell>{m.status ?
-                    <Badge className="bg-green-500 text-white hover:bg-green-600">
-                      Registered
-                    </Badge>
-                    :
-                    <Badge className="text-nowrap" variant="destructive">
-                      Not Registered
-                    </Badge>
-                  }</TableCell>
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="hover:bg-secondary hover:text-foreground">
-                          <MoreVertical />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem>View</DropdownMenuItem>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+            </TableHeader>
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center">
+                    Loading...
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={7} className="text-center">
-                  No members found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              ) : members.length > 0 ? (
+                members.map((m) => (
+                  <TableRow key={m.id}>
+                    <TableCell>
+                      <Checkbox
+                        checked={selected.includes(m.id)}
+                        onCheckedChange={() => toggleSelect(m.id)}
+                      />
+                    </TableCell>
+                    <TableCell>{m.account_number}</TableCell>
+                    <TableCell>{m.book}</TableCell>
+                    <TableCell>{m.name}</TableCell>
+                    <TableCell>{m.address}</TableCell>
+                    <TableCell>{m.status ?
+                      <Badge className="bg-green-500 text-white hover:bg-green-600">
+                        Registered
+                      </Badge>
+                      :
+                      <Badge className="text-nowrap" variant="destructive">
+                        Not Registered
+                      </Badge>
+                    }</TableCell>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="hover:bg-secondary hover:text-foreground">
+                            <MoreVertical />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem>View</DropdownMenuItem>
+                          <DropdownMenuItem>Edit</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center">
+                    No members found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          {/* Pagination */}
+          <div className="flex justify-between gap-4 w-full mt-4">
+            <span className="text-sm text-muted-foreground">{selected.length} of {members.length} row(s) selected.</span>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1}
+              >
+                Prev
+              </Button>
+              <span className="px-4 text-sm flex items-center bg-background border rounded h-full">
+                Page {page} of {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Pagination */}
-      <div className="flex justify-between gap-4 w-full">
-        <span className="text-sm text-muted-foreground">{selected.length} of {members.length} row(s) selected.</span>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-          >
-            Prev
-          </Button>
-          <span className="px-4 text-sm flex items-center border rounded h-full">
-            Page {page} of {totalPages}
-          </span>
-          <Button
-            variant="outline"
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
     </div>
   );
 }

@@ -19,6 +19,7 @@ import IconButton from "./IconButton";
 import { Link, useNavigate } from "react-router-dom";
 import User from "@/types/User";
 import { Badge } from "../ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 export default function AccountsTable() {
   const [users, setUsers] = useState<User[]>([]);
@@ -157,166 +158,184 @@ export default function AccountsTable() {
   const navigate = useNavigate();
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Search + Bulk Actions */}
-      <div className="flex flex-col lg:justify-between lg:flex-row gap-4">
-        <Input
-          placeholder="Search users..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="max-w-xs"
-        />
-
-        <div className="flex items-center gap-2">
-          {selected.length > 0 && (
-            <>
-              <Select onValueChange={setBulkRole} value={bulkRole}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Set role..." />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="superadmin">Super Admin</SelectItem>
-                  <SelectItem value="user">User</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <IconButton className="bg-blue-500 hover:bg-blue-600" onClick={() => {
-                  if (bulkRole) updateRole(selected, bulkRole);
-                }} disabled={selected.length === 0 || loading}>
-                <Save />
-              </IconButton>
-              <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
-                <Trash />
-              </IconButton>
-            </>
-          )}
-          <Button>
-            <Link className="flex items-center gap-2" to={'add'}>
-              <PlusCircle /> Add Account
-            </Link>
-          </Button>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold">Account Management</h2>
+          <p className="text-muted-foreground">Manage account information and records</p>
         </div>
+        <Button>
+          <Link className="flex items-center gap-2" to={'add'}>
+            <Plus /> Add Account
+          </Link>
+        </Button>
       </div>
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex flex-col lg:justify-between lg:flex-row gap-4">
+            <Input
+              placeholder="Search users..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full"
+            />
 
-      {/* Table */}
-      <div className="">
-        <Table className="bg-card">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[50px]">
-                <Checkbox
-                  checked={selected.length === users.length && users.length > 0}
-                  onCheckedChange={selectAll}
-                />
-              </TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Account Number</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {loading ? (
+            <div className="flex items-center gap-2">
+              {selected.length > 0 && (
+                <>
+                  <Select onValueChange={setBulkRole} value={bulkRole}>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Set role..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="superadmin">Super Admin</SelectItem>
+                      <SelectItem value="user">User</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <IconButton className="bg-blue-500 hover:bg-blue-600" onClick={() => {
+                      if (bulkRole) updateRole(selected, bulkRole);
+                    }} disabled={selected.length === 0 || loading}>
+                    <Save />
+                  </IconButton>
+                  <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
+                    <Trash />
+                  </IconButton>
+                </>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            Account Records
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Table */}
+          <Table>
+            <TableHeader>
               <TableRow>
-                <TableCell colSpan={7} className="text-center">
-                  Loading...
-                </TableCell>
+                <TableHead className="w-[50px]">
+                  <Checkbox
+                    checked={selected.length === users.length && users.length > 0}
+                    onCheckedChange={selectAll}
+                  />
+                </TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Account Number</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
-            ) : users.length > 0 ? (
-              users.map((u) => (
-                <TableRow key={u.id}>
-                  <TableCell>
-                    <Checkbox
-                      checked={selected.includes(u.id)}
-                      onCheckedChange={() => toggleSelect(u.id)}
-                    />
-                  </TableCell>
-                  <TableCell>{u.name}</TableCell>
-                  <TableCell>{u.email}</TableCell>
-                  <TableCell>{u.account_number}</TableCell>
-                  <TableCell>
-                    <Select
-                      value={u.role}
-                      onValueChange={(role) => updateRole([u.id], role)}
-                    >
-                      <SelectTrigger className="w-[130px]">
-                        <SelectValue placeholder="Select role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="superadmin">Super Admin</SelectItem>
-                        <SelectItem value="user">User</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-
-                  <TableCell>{u.email_verified_at ? 
-                    <Badge className="bg-green-500 text-white hover:bg-green-600">Verified</Badge>
-                    :
-                    <Badge className="text-nowrap" variant="destructive">Not Verified</Badge>
-                  }</TableCell>
-
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="hover:bg-secondary hover:text-foreground">
-                          <MoreVertical />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() => navigate(`${u.id}`)}
-                        >View</DropdownMenuItem>
-                        {/* <DropdownMenuItem>Edit</DropdownMenuItem> */}
-
-                        {u.email_verified_at && <DropdownMenuItem onClick={() => resetPassword(u.email)}>
-                          Reset Password
-                        </DropdownMenuItem>}
-
-                        {!u.email_verified_at && <DropdownMenuItem onClick={() => resendVerification(u.email)}>
-                          Resend Verification
-                        </DropdownMenuItem>}
-
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+            </TableHeader>
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center">
+                    Loading...
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={7} className="text-center">
-                  No users found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              ) : users.length > 0 ? (
+                users.map((u) => (
+                  <TableRow key={u.id}>
+                    <TableCell>
+                      <Checkbox
+                        checked={selected.includes(u.id)}
+                        onCheckedChange={() => toggleSelect(u.id)}
+                      />
+                    </TableCell>
+                    <TableCell>{u.name}</TableCell>
+                    <TableCell>{u.email}</TableCell>
+                    <TableCell>{u.account_number}</TableCell>
+                    <TableCell>
+                      <Select
+                        value={u.role}
+                        onValueChange={(role) => updateRole([u.id], role)}
+                      >
+                        <SelectTrigger className="w-[130px]">
+                          <SelectValue placeholder="Select role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="superadmin">Super Admin</SelectItem>
+                          <SelectItem value="user">User</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
 
-      {/* Pagination */}
-      <div className="flex justify-between gap-4 w-full">
-        <span className="text-sm text-muted-foreground">{selected.length} of {users.length} row(s) selected.</span>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-          >
-            Prev
-          </Button>
-          <span className="px-4 text-sm flex items-center border h-full rounded">
-            Page {page} of {totalPages}
-          </span>
-          <Button
-            variant="outline"
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
+                    <TableCell>{u.email_verified_at ? 
+                      <Badge className="bg-green-500 text-white hover:bg-green-600">Verified</Badge>
+                      :
+                      <Badge className="text-nowrap" variant="destructive">Not Verified</Badge>
+                    }</TableCell>
+
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="hover:bg-secondary hover:text-foreground">
+                            <MoreVertical />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem
+                            onClick={() => navigate(`${u.id}`)}
+                          >View</DropdownMenuItem>
+                          {/* <DropdownMenuItem>Edit</DropdownMenuItem> */}
+
+                          {u.email_verified_at && <DropdownMenuItem onClick={() => resetPassword(u.email)}>
+                            Reset Password
+                          </DropdownMenuItem>}
+
+                          {!u.email_verified_at && <DropdownMenuItem onClick={() => resendVerification(u.email)}>
+                            Resend Verification
+                          </DropdownMenuItem>}
+
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center">
+                    No users found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          {/* Pagination */}
+          <div className="flex justify-between gap-4 w-full mt-4">
+            <span className="text-sm text-muted-foreground">{selected.length} of {users.length} row(s) selected.</span>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1}
+              >
+                Prev
+              </Button>
+              <span className="px-4 text-sm flex items-center bg-background border h-full rounded">
+                Page {page} of {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+
     </div>
   );
 }

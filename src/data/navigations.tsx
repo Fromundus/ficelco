@@ -1,39 +1,37 @@
 import NavItem from "@/types/NavItem";
-import { Bell, Coins, Home, LayoutDashboard, Settings, Users } from "lucide-react";
+import { Bell, Coins } from "lucide-react";
 
-export const superadminNavigations: NavItem[] = [
-    {
-        name: "Dashboard",
-        href: "/superadmin",
-        end: true,
-        icon: (
-            <LayoutDashboard className="h-5 w-5" />
-        )
-    },
-    {
-        name: "Members",
-        href: "/superadmin/members",
-        end: false,
-        icon: (
-            <Users className="h-5 w-5" />
-        )
-    },
-    {
-        name: "Accounts",
-        href: "/superadmin/accounts",
-        end: false,
-        icon: (
-            <Users className="h-5 w-5" />
-        )
-    },
-    {
-        name: "Settings",
-        href: "/superadmin/settings",
-        end: false,
-        icon: (
-            <Settings className="h-5 w-5" />
-        )
-    },
+import {
+  LayoutDashboard,
+  Users,
+  Home,
+  FileText,
+  ClipboardCheck,
+  UserCheck,
+  Building,
+  BarChart3,
+  Settings,
+} from "lucide-react";
+
+export const superadminNavigations = [
+  {
+    title: "Dashboard",
+    url: "/superadmin",
+    icon: LayoutDashboard,
+    group: "Main"
+  },
+  {
+    title: "Members",
+    url: "members",
+    icon: Users,
+    group: "Management"
+  },
+  {
+    title: "Accounts",
+    url: "accounts",
+    icon: Settings,
+    group: "Management"
+  }
 ];
 
 export const userNavigations: NavItem[] = [

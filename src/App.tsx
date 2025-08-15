@@ -18,7 +18,6 @@ import GuestLayout from "./layouts/GuestLayout";
 import { useAuth } from "./store/auth";
 import React from "react";
 import Register from "./pages/Register";
-import Dashboard from "./components/Dashboard";
 import EmailVerification from "./pages/EmailVerification";
 import ForgotPassword from "./pages/ForgotPassword";
 import PasswordReset from "./pages/PasswordReset";
@@ -31,7 +30,7 @@ import UserLayout from "./layouts/UserLayout";
 import Test from "./pages/Test";
 import AddAccount from "./pages/Admin/AddAccount";
 import Account from "./pages/Admin/Account";
-import { Layout } from "./components/Layout";
+import Dashboard from "./components/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -88,7 +87,7 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword /> } />
           <Route path="/password-reset/:token" element={<PasswordReset /> } />
 
-          <Route path="/dashboard" element={<Layout /> } />
+          {/* <Route path="/dashboard" element={<Dashboard /> } /> */}
 
           <Route path="/test" element={<Test />} />
 

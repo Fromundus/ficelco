@@ -21,6 +21,9 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+import { superadminNavigations } from "@/data/navigations";
+import { useAuth } from "@/store/auth";
+import logo from "../assets/logo.png";
 
 const menuItems = [
   {
@@ -79,24 +82,33 @@ const menuItems = [
   }
 ];
 
-const groupedItems = menuItems.reduce((acc, item) => {
-  if (!acc[item.group]) {
-    acc[item.group] = [];
-  }
-  acc[item.group].push(item);
-  return acc;
-}, {} as Record<string, typeof menuItems>);
-
 export function AppSidebar() {
+  const { user } = useAuth();
+
+  let navigations: typeof menuItems = [];
+
+  if(user.role === "superadmin"){
+    navigations = superadminNavigations;
+  }
+
+  const groupedItems = navigations.reduce((acc, item) => {
+    if (!acc[item.group]) {
+      acc[item.group] = [];
+    }
+    acc[item.group].push(item);
+    return acc;
+  }, {} as Record<string, typeof menuItems>);
+
   return (
     <Sidebar className="border-r">
       <SidebarHeader className="p-6">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">B</span>
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+            {/* <span className="text-primary-foreground font-bold text-sm">F</span> */}
+            <img className="w-8" src={logo} alt="" />
           </div>
           <div>
-            <h2 className="font-semibold text-lg">Barangay</h2>
+            <h2 className="font-semibold text-lg">FICELCO</h2>
             <p className="text-xs text-muted-foreground">Management System</p>
           </div>
         </div>

@@ -4,7 +4,7 @@ import React from 'react'
 
 const SuperadminLayout = () => {
   return (
-    <Dashboard navItems={superadminNavigations} />
+    <Dashboard />
   )
 }
 
