@@ -185,7 +185,7 @@ export default function AccountsTable() {
       </div>
       <Card>
         <CardContent className="p-6">
-          <div className="flex flex-col lg:justify-between lg:flex-row gap-4">
+          <div className="flex flex-col w-full lg:justify-between lg:flex-row gap-2">
             <Input
               placeholder="Search users..."
               value={search}
@@ -193,8 +193,8 @@ export default function AccountsTable() {
               className="w-full"
             />
 
+            {selected.length > 0 && (
             <div className="flex items-center gap-2">
-              {selected.length > 0 && (
                 <>
                   <Select onValueChange={setBulkRole} value={bulkRole}>
                     <SelectTrigger className="w-[180px]">
@@ -218,8 +218,8 @@ export default function AccountsTable() {
                     <Trash />
                   </IconButton>
                 </>
-              )}
             </div>
+            )}
           </div>
         </CardContent>
       </Card>
