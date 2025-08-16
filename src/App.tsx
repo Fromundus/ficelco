@@ -30,6 +30,7 @@ import UserLayout from "./layouts/UserLayout";
 import Test from "./pages/Test";
 import Account from "./pages/Admin/Account";
 import Dashboard from "./components/Dashboard";
+import Logs from "./pages/Admin/Logs";
 
 const queryClient = new QueryClient();
 
@@ -75,6 +76,7 @@ const App = () => {
               <Route path="members" element={<Members />} />
               <Route path="accounts" element={<Accounts />} />
               <Route path="accounts/:id" element={<Account />} />
+              <Route path="logs" element={<Logs />} />
             </Route>
           </Route>
 

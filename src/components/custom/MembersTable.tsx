@@ -199,10 +199,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { MoreVertical, Trash } from "lucide-react";
+import { MoreVertical, Search, Trash, User, UserCheck, UserX } from "lucide-react";
 import { Badge } from "../ui/badge";
 import IconButton from "./IconButton";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 interface Member {
   id: number;
@@ -222,23 +223,40 @@ export default function MembersTable() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [selectedStatus, setSelectedStatus] = useState("all");
+
+  const [fetchTotal, setFetchTotal] = useState();
+
+  const [counts, setCounts] = useState({
+    total: 0,
+    registered: 0,
+    notregistered: 0,
+  });
+
   // For debounce
   const [debouncedSearch, setDebouncedSearch] = useState(search);
 
   const fetchMembers = async (searchQuery = debouncedSearch) => {
     setLoading(true);
     const res = await api.get(`/api/members`, {
-      params: { page, per_page: perPage, search: searchQuery },
+      params: { 
+        page, 
+        per_page: perPage, 
+        search: searchQuery,
+        status: selectedStatus,
+      },
     });
-    setMembers(res.data.data);
-    setTotalPages(res.data.last_page);
+    setMembers(res.data.members.data);
+    setTotalPages(res.data.members.last_page);
+    setFetchTotal(res.data.members.total);
+    setCounts(res.data.counts);
     setLoading(false);
   };
 
   // Fetch when page changes
   useEffect(() => {
     fetchMembers();
-  }, [page, debouncedSearch]);
+  }, [page, debouncedSearch, selectedStatus]);
 
   // Debounce search input
   useEffect(() => {
@@ -279,15 +297,66 @@ export default function MembersTable() {
         <h2 className="text-2xl font-bold">Member Management</h2>
         <p className="text-muted-foreground">Manage member information and records</p>
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Total Members</p>
+                <p className="text-2xl font-bold">{counts.total}</p>
+              </div>
+              <User className="h-8 w-8 text-primary" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Registered</p>
+                <p className="text-2xl font-bold">{counts.registered}</p>
+              </div>
+              <UserCheck className="h-8 w-8 text-green-500" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Not Registered</p>
+                <p className="text-2xl font-bold">{counts.notregistered}</p>
+              </div>
+              <UserX className="h-8 w-8 text-destructive" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       <Card>
         <CardContent className="p-6">
           <div className="flex flex-col w-full lg:justify-between lg:flex-row gap-2">
-            <Input
-              placeholder="Search members..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full"
-            />
+            <div className="relative w-full">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search members..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-10"
+              />
+            </div>
+            <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by Role" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="registered">Registered</SelectItem>
+                <SelectItem value="notregistered">Not Registered</SelectItem>
+              </SelectContent>
+            </Select>
+
             {selected.length > 0 && <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
               <Trash />
             </IconButton>}
@@ -374,8 +443,8 @@ export default function MembersTable() {
             </TableBody>
           </Table>
           {/* Pagination */}
-          <div className="flex justify-between gap-4 w-full mt-4">
-            <span className="text-sm text-muted-foreground">{selected.length} of {members.length} row(s) selected.</span>
+          <div className="flex items-center justify-between gap-4 w-full mt-4">
+            <span className="text-sm text-muted-foreground">{selected.length} of {fetchTotal} row(s) selected.</span>
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
@@ -384,7 +453,7 @@ export default function MembersTable() {
               >
                 Prev
               </Button>
-              <span className="px-4 text-sm flex items-center bg-background border rounded h-full">
+              <span className="px-4 text-sm flex items-center bg-background border p-2 rounded">
                 Page {page} of {totalPages}
               </span>
               <Button

@@ -29,7 +29,7 @@ export default function PrivateRoute({
     return <Loading />; // spinner
   }
 
-  if (!user) return <Navigate to="/" />;
+  if (!user) return <Navigate to="/login" />;
 
   if (requiredRole && user.role !== requiredRole) {
     return <Navigate to="/unauthorized" />;

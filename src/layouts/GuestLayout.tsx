@@ -10,12 +10,12 @@ const GuestLayout = () => {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        if (user && user.role) {
+        if (!loading && user && user.role) {
             navigate(`/${user.role}`);
         }
 
         window.scrollTo(0, 0);
-    }, [user, navigate]);
+    }, [loading, user, navigate]);
 
     if(loading){
         return (

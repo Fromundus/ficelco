@@ -77,8 +77,16 @@ export const useAuth = create<AuthState>((set) => ({
   },
 
   logout: async () => {
-    const res = await api.post("/api/logout");
-    set({ user: null });
-    return res;
+    try {
+      const res = await api.post("/api/logout");
+      set({ user: null });
+
+      return res;
+
+    } catch (err) {
+      set({ user: null });
+
+      return err;
+    }
   },
 }));

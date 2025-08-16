@@ -1,5 +1,5 @@
 import NavItem from "@/types/NavItem";
-import { Bell, Coins } from "lucide-react";
+import { Bell, Coins, Logs } from "lucide-react";
 
 import {
   LayoutDashboard,
@@ -31,6 +31,12 @@ export const superadminNavigations = [
     url: "accounts",
     icon: Settings,
     group: "Management"
+  },
+  {
+    title: "Activiy Logs",
+    url: "logs",
+    icon: Logs,
+    group: "System"
   }
 ];
 

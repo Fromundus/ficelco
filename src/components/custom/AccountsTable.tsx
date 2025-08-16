@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/table";
 import api, { getCsrf } from "@/api/axios";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { MoreVertical, Plus, PlusCircle, Save, Trash } from "lucide-react";
+import { MoreVertical, Plus, PlusCircle, Save, Shield, Trash, User as UserIcon, UserCheck, Search } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import IconButton from "./IconButton";
 import { Link, useNavigate } from "react-router-dom";
@@ -37,23 +37,46 @@ export default function AccountsTable() {
   const [debouncedSearch, setDebouncedSearch] = useState(search); // new
   const [loading, setLoading] = useState(false);
   const [bulkRole, setBulkRole] = useState("");
+
+  const [selectedRole, setSelectedRole] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
+
+  const [fetchTotal, setFetchTotal] = useState();
+
+  const [counts, setCounts] = useState({
+    total: 0,
+    superadmin: 0,
+    csd: 0,
+    mrbc: 0,
+    bac: 0,
+    user: 0,
+  });
   
-  console.log(users);
+  console.log(counts);
 
   const fetchUsers = async (searchQuery = debouncedSearch) => {
     setLoading(true);
     const res = await api.get(`/api/users`, {
-      params: { page, per_page: perPage, search: searchQuery },
+      params: { 
+        page, 
+        per_page: perPage, 
+        search: searchQuery,
+        role: selectedRole,
+        status: selectedStatus,
+      },
     });
-    setUsers(res.data.data);
-    setTotalPages(res.data.last_page);
+    console.log(res);
+    setUsers(res.data.users.data);
+    setTotalPages(res.data.users.last_page);
+    setFetchTotal(res.data.users.total);
+    setCounts(res.data.counts);
     setLoading(false);
   };
 
   // Fetch when page or search changes
   useEffect(() => {
     fetchUsers();
-  }, [page, debouncedSearch]);
+  }, [page, debouncedSearch, selectedRole, selectedStatus]);
 
   // Debounce search
   useEffect(() => {
@@ -144,6 +167,25 @@ export default function AccountsTable() {
     }
   };
 
+  const resetPasswordDefault = async (id: number) => {
+    setLoading(true);
+    try {
+      await getCsrf();
+      await api.post('/api/reset-password-default/', { id });
+
+      toast({
+        title: "Password Reset Success",
+      });
+
+      setLoading(false);
+
+      // fetchUsers();
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
   const resendVerification = async (email: string) => {
     setLoading(true);
     try {
@@ -161,12 +203,34 @@ export default function AccountsTable() {
     }
   };
 
+  const verifyEmail = async (id: number) => {
+    setLoading(true);
+    try {
+      await getCsrf();
+      const res = await api.post("/api/email-verify", { id });
+
+      toast({
+        title: "Verified",
+      });
+
+      fetchUsers();
+
+      console.log(res);
+    } catch (err){
+      toast({
+        title: err.response.data.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const navigate = useNavigate();
 
   return (
     <div className="space-y-6">
       {/* Search + Bulk Actions */}
-      <div className="flex items-center justify-between">
+      <div className="flex gap-6 flex-col lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h2 className="text-2xl font-bold">Account Management</h2>
           <p className="text-muted-foreground">Manage account information and records</p>
@@ -183,15 +247,90 @@ export default function AccountsTable() {
           <AddAdmin refetch={fetchUsers} />
         </div>
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Super Admins</p>
+                <p className="text-2xl font-bold">{counts.superadmin}</p>
+              </div>
+              <Shield className="h-8 w-8 text-destructive" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Admins</p>
+                <p className="text-2xl font-bold">{counts.bac + counts.csd + counts.mrbc}</p>
+              </div>
+              <UserCheck className="h-8 w-8 text-blue-500" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Users</p>
+                <p className="text-2xl font-bold">{counts.user}</p>
+              </div>
+              <UserIcon className="h-8 w-8 text-green-500" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Total Users</p>
+                <p className="text-2xl font-bold">{counts.total}</p>
+              </div>
+              <UserIcon className="h-8 w-8 text-foreground" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       <Card>
         <CardContent className="p-6">
           <div className="flex flex-col w-full lg:justify-between lg:flex-row gap-2">
-            <Input
-              placeholder="Search users..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full"
-            />
+            <div className="relative w-full">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search users..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-10"
+              />
+            </div>
+
+            <Select value={selectedRole} onValueChange={setSelectedRole}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by Role" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="superadmin">Super Admin</SelectItem>
+                <SelectItem value="csd">Consumer Services Department</SelectItem>
+                <SelectItem value="mrbc">Meter Reading and Billing Collection Division</SelectItem>
+                <SelectItem value="bac">Bids and Awards Committee</SelectItem>
+                <SelectItem value="user">User</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Filter by Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="verified">Verified</SelectItem>
+                <SelectItem value="notverified">Not Verified</SelectItem>
+              </SelectContent>
+            </Select>
 
             {selected.length > 0 && (
             <div className="flex items-center gap-2">
@@ -306,11 +445,19 @@ export default function AccountsTable() {
                           {/* <DropdownMenuItem>Edit</DropdownMenuItem> */}
 
                           {u.email_verified_at && <DropdownMenuItem onClick={() => resetPassword(u.email)}>
+                            Reset Password (Email)
+                          </DropdownMenuItem>}
+
+                          {u.email_verified_at && <DropdownMenuItem onClick={() => resetPasswordDefault(u.id)}>
                             Reset Password
                           </DropdownMenuItem>}
 
                           {!u.email_verified_at && <DropdownMenuItem onClick={() => resendVerification(u.email)}>
-                            Resend Verification
+                            Resend Verification (Email)
+                          </DropdownMenuItem>}
+
+                          {!u.email_verified_at && <DropdownMenuItem onClick={() => verifyEmail(u.id)}>
+                            Verify
                           </DropdownMenuItem>}
 
                         </DropdownMenuContent>
@@ -328,8 +475,8 @@ export default function AccountsTable() {
             </TableBody>
           </Table>
           {/* Pagination */}
-          <div className="flex justify-between gap-4 w-full mt-4">
-            <span className="text-sm text-muted-foreground">{selected.length} of {users.length} row(s) selected.</span>
+          <div className="flex items-center justify-between gap-4 w-full mt-4">
+            <span className="text-sm text-muted-foreground">{selected.length} of {fetchTotal} row(s) selected.</span>
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
@@ -338,7 +485,7 @@ export default function AccountsTable() {
               >
                 Prev
               </Button>
-              <span className="px-4 text-sm flex items-center bg-background border h-full rounded">
+              <span className="px-4 text-sm flex items-center bg-background border p-2 rounded">
                 Page {page} of {totalPages}
               </span>
               <Button
