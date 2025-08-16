@@ -1,112 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { Input } from "@/components/ui/input";
-// import { Button } from "@/components/ui/button";
-// import { Label } from "@/components/ui/label";
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-// import { useToast } from "@/components/ui/use-toast";
-// import axios from "axios";
-// import { useParams } from "react-router-dom";
-// import User from "@/types/User";
-// import api from "@/api/axios";
-
-// const Account: React.FC = () => {
-//   const { id } = useParams<{ id: string }>();
-//   const [user, setUser] = useState<User | null>(null);
-//   const [imagePreview, setImagePreview] = useState<string | null>(null);
-//   const [loading, setLoading] = useState(false);
-//   const { toast } = useToast();
-
-//   useEffect(() => {
-//     api.get(`/api/users/${id}`).then((res) => {
-//       setUser(res.data);
-//     });
-//   }, [id]);
-
-//   const handleChange = (field: keyof User, value: string) => {
-//     setUser((prev) => prev ? { ...prev, [field]: value } : prev);
-//   };
-
-//   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     if (e.target.files && e.target.files[0]) {
-//       setImagePreview(URL.createObjectURL(e.target.files[0]));
-//       setUser((prev) =>
-//         prev ? { ...prev, profile_picture: e.target.files![0] as any } : prev
-//       );
-//     }
-//   };
-
-//   const handleSave = async () => {
-//     if (!user) return;
-//     const formData = new FormData();
-//     Object.entries(user).forEach(([key, value]) => {
-//       formData.append(key, value as any);
-//     });
-
-//     setLoading(true);
-//     try {
-//       await api.post(`/api/users/${id}`, formData, {
-//         headers: { "Content-Type": "multipart/form-data" },
-//       });
-//       toast({ title: "Profile updated successfully" });
-//     } catch (err) {
-//       toast({ title: "Error updating profile", variant: "destructive" });
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   if (!user) return <p>Loading...</p>;
-
-//   return (
-//     <Card className="max-w-4xl mx-auto mt-8 p-4">
-//       <CardHeader>
-//         {/* <CardTitle>Viewing Profile: {user.name}</CardTitle> */}
-//       </CardHeader>
-//       <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-//         {/* Left Column: Profile Picture */}
-//         <div className="flex flex-col items-center">
-//           <Avatar className="w-32 h-32">
-//             <AvatarImage src={imagePreview || `/storage/${user.profile_picture}`} />
-//             <AvatarFallback>{user.name}</AvatarFallback>
-//           </Avatar>
-//           <Input type="file" accept="image/*" onChange={handleImageChange} className="mt-3" />
-//         </div>
-
-//         {/* Right Column: User Details */}
-//         <div className="md:col-span-2 space-y-4">
-//           {[
-//             ["name", "Name"],
-//             ["email", "Email"],
-//             ["role", "Role"],
-//             ["account_number", "Account Number"],
-//             ["book", "Book"],
-//             ["occupant", "Occupant"],
-//             ["address", "Address"],
-//             ["phone_number", "Phone Number"],
-//           ].map(([field, label]) => (
-//             <div key={field}>
-//               <Label htmlFor={field}>{label}</Label>
-//               <Input
-//                 id={field}
-//                 value={(user as any)[field] || ""}
-//                 onChange={(e) => handleChange(field as keyof User, e.target.value)}
-//               />
-//             </div>
-//           ))}
-
-//           <Button onClick={handleSave} disabled={loading}>
-//             {loading ? "Saving..." : "Save Changes"}
-//           </Button>
-//         </div>
-//       </CardContent>
-//     </Card>
-//   );
-// };
-
-// export default Account;
-
 import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -136,6 +27,8 @@ const Account: React.FC = () => {
         setUser(res.data);
         });
     }, [id]);
+
+    console.log(user);
 
     const userName = user?.name?.split("").slice(0, 2).join("").toUpperCase();
 
