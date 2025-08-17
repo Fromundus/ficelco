@@ -173,9 +173,4 @@
   .bg-subtle-gradient {
     background: var(--gradient-subtle);
   }
-
-  .bg-footer {
-    background-color: hsl(215 20% 20%);
-    color: hsl(0 0% 98%);
-  }
 }

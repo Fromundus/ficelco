@@ -1,5 +1,5 @@
 import NavItem from "@/types/NavItem";
-import { Bell, Coins, Logs } from "lucide-react";
+import { Bell, Briefcase, Coins, FolderOpen, Inbox, Logs, Megaphone, Zap } from "lucide-react";
 
 import {
   LayoutDashboard,
@@ -20,6 +20,8 @@ export const superadminNavigations = [
     icon: LayoutDashboard,
     group: "Main"
   },
+
+  //MANAGEMENT
   {
     title: "Members",
     url: "members",
@@ -31,6 +33,44 @@ export const superadminNavigations = [
     url: "accounts",
     icon: Settings,
     group: "Management"
+  },
+
+  //CONTENT MANAGEMENT
+  {
+    title: "Monthly Rates",
+    url: "monthly-rates",
+    icon: FileText,
+    group: "Content Management"
+  },
+  {
+    title: "Announcements",
+    url: "announcements",
+    icon: Megaphone,
+    group: "Content Management"
+  },
+  {
+    title: "Job Openings",
+    url: "jobs",
+    icon: Briefcase,
+    group: "Content Management"
+  },
+  {
+    title: "Power Advisories",
+    url: "power-advisories",
+    icon: Zap,
+    group: "Content Management"
+  },
+  {
+    title: "Service Requests",
+    url: "service-requests",
+    icon: Inbox,
+    group: "Content Management"
+  },
+  {
+    title: "Documents",
+    url: "documents",
+    icon: FolderOpen,
+    group: "Content Management"
   },
   {
     title: "Activiy Logs",
