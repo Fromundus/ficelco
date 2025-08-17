@@ -41,6 +41,8 @@ export default function AccountsTable() {
   const [selectedRole, setSelectedRole] = useState("all");
   const [selectedStatus, setSelectedStatus] = useState("all");
 
+  const [deleteModal, setDeleteModal] = useState(false);
+
   const [fetchTotal, setFetchTotal] = useState();
 
   const [counts, setCounts] = useState({
@@ -52,7 +54,7 @@ export default function AccountsTable() {
     user: 0,
   });
   
-  console.log(counts);
+  // console.log(counts);
 
   const fetchUsers = async (searchQuery = debouncedSearch) => {
     setLoading(true);
@@ -104,7 +106,8 @@ export default function AccountsTable() {
 
   const bulkDelete = async () => {
     if (!selected.length) return;
-
+    setLoading(true);
+    
     try {
       await getCsrf();
       await api.delete("/api/users", { data: { ids: selected } });
@@ -114,6 +117,7 @@ export default function AccountsTable() {
       });
 
       setSelected([]);
+      setDeleteModal(false);
       fetchUsers();
 
     } catch (err) {
@@ -128,6 +132,8 @@ export default function AccountsTable() {
 
   const updateRole = async (ids: number[], role: string) => {
     if (!ids.length) return;
+    setLoading(true);
+
     try {
       await getCsrf();
       await api.put("/api/users/role", { ids, role });
@@ -136,6 +142,7 @@ export default function AccountsTable() {
         title: "Updated Successfully",
       });
 
+      setBulkRole("");
       setSelected([]);
       fetchUsers();
     } catch (err) {
@@ -220,8 +227,6 @@ export default function AccountsTable() {
       toast({
         title: err.response.data.message,
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -308,7 +313,7 @@ export default function AccountsTable() {
               />
             </div>
 
-            <Select value={selectedRole} onValueChange={setSelectedRole}>
+            <Select value={selectedRole} onValueChange={setSelectedRole} disabled={loading}>
               <SelectTrigger className="w-[150px]">
                 <SelectValue placeholder="Filter by Role" />
               </SelectTrigger>
@@ -321,7 +326,7 @@ export default function AccountsTable() {
                 <SelectItem value="user">User</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+            <Select value={selectedStatus} onValueChange={setSelectedStatus} disabled={loading}>
               <SelectTrigger className="w-[150px]">
                 <SelectValue placeholder="Filter by Status" />
               </SelectTrigger>
@@ -331,43 +336,54 @@ export default function AccountsTable() {
                 <SelectItem value="notverified">Not Verified</SelectItem>
               </SelectContent>
             </Select>
-
-            {selected.length > 0 && (
-            <div className="flex items-center gap-2">
-                <>
-                  <Select onValueChange={setBulkRole} value={bulkRole}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Set role..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="superadmin">Super Admin</SelectItem>
-                      <SelectItem value="csd">Consumer Services Department</SelectItem>
-                      <SelectItem value="mrbc">Meter Reading and Billing Collection Division</SelectItem>
-                      <SelectItem value="bac">Bids and Awards Committee</SelectItem>
-                      <SelectItem value="user">User</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <IconButton className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
-                      if (bulkRole) updateRole(selected, bulkRole);
-                    }} disabled={selected.length === 0 || loading}>
-                    <Save />
-                  </IconButton>
-                  <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
-                    <Trash />
-                  </IconButton>
-                </>
-            </div>
-            )}
           </div>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>
-            Account Records
-          </CardTitle>
+          <div className="w-full flex flex-col gap-6 lg:flex-row lg:justify-between lg:items-center">
+            <CardTitle>
+              Account Records
+            </CardTitle>
+              <div className="flex items-center gap-2">
+                  <>
+                    <Select onValueChange={setBulkRole} value={bulkRole} disabled={selected.length === 0 || loading}>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Set role..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="superadmin">Super Admin</SelectItem>
+                        <SelectItem value="csd">Consumer Services Department</SelectItem>
+                        <SelectItem value="mrbc">Meter Reading and Billing Collection Division</SelectItem>
+                        <SelectItem value="bac">Bids and Awards Committee</SelectItem>
+                        <SelectItem value="user">User</SelectItem>
+                      </SelectContent>
+                    </Select>
+
+                    <IconButton className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
+                        if (bulkRole) updateRole(selected, bulkRole);
+                      }} disabled={selected.length === 0 || loading}>
+                      <Save />
+                    </IconButton>
+                    <Modal disabled={selected.length === 0 || loading} title="Delete Accounts" buttonLabel={<Trash />} buttonClassName="w-10 h-10 bg-destructive text-white hover:bg-destructive/50" open={deleteModal} setOpen={setDeleteModal}>
+                      <p>Are you sure you want to delete?</p>
+                      <div className="w-full grid grid-cols-2 gap-2">
+                        <ButtonWithLoading className="w-full" loading={loading} disabled={loading || selected.length === 0} onClick={bulkDelete}>
+                          Yes
+                        </ButtonWithLoading>
+                        <Button variant="outline" onClick={() => setDeleteModal(false)}>
+                          Cancel
+                        </Button>
+                      </div>
+                    </Modal>
+
+                    {/* <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
+                      <Trash />
+                    </IconButton> */}
+                  </>
+              </div>
+          </div>
         </CardHeader>
         <CardContent>
           {/* Table */}
@@ -411,6 +427,7 @@ export default function AccountsTable() {
                       <Select
                         value={u.role}
                         onValueChange={(role) => updateRole([u.id], role)}
+                        disabled={loading}
                       >
                         <SelectTrigger className="w-[130px]">
                           <SelectValue placeholder="Select role" />

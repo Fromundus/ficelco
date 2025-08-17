@@ -25,13 +25,30 @@ const pageNames: Record<string, string> = {
   
   "/superadmin/members": "Member Management",
   "/superadmin/accounts": "Account Management",
+  "superadmin/accounts/": "Account Management",
+
 
   "/superadmin/logs": "Activity Logs",
 };
 
 export default function Dashboard() {
-  const location = useLocation();
-  const currentPageName = pageNames[location.pathname] || "Dashboard";
+  
+  function useCurrentPageName() {
+    const location = useLocation();
+    const pathname = location.pathname;
+
+    // Sort keys by length (longest first) so specific routes match before generic
+    const match = Object.keys(pageNames)
+      .sort((a, b) => b.length - a.length)
+      .find((route) => pathname.startsWith(route));
+
+    return match ? pageNames[match] : "Dashboard";
+  }
+  
+  // usage
+  const currentPageName = useCurrentPageName();
+
+  // const currentPageName = pageNames[location.pathname] || "Dashboard";
 
   const { logout, user } = useAuth();
 

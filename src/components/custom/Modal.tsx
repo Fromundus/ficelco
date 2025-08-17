@@ -4,22 +4,23 @@ import { Button } from '../ui/button'
 import { Plus } from 'lucide-react'
 
 type Props = {
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    title: string;
-    children: React.ReactNode;
-    buttonLabel: React.ReactNode;
+    open?: boolean;
+    setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+    title?: string;
+    children?: React.ReactNode;
+    buttonLabel?: React.ReactNode;
     buttonClassName?: string;
+    disabled?: boolean;
 }
 
-const Modal = ({ open, setOpen, title, buttonLabel, buttonClassName, children }: Props) => {
+const Modal = ({ open, setOpen, title, buttonLabel, buttonClassName, children, disabled }: Props) => {
   return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-                <Button className={`${buttonClassName}`}>
+            {/* <DialogTrigger asChild> */}
+                <Button className={`${buttonClassName}`} disabled={disabled} onClick={() => setOpen(true)}>
                     {buttonLabel}
                 </Button>
-            </DialogTrigger>
+            {/* </DialogTrigger> */}
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>

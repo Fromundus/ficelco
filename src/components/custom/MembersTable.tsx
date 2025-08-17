@@ -23,6 +23,10 @@ import IconButton from "./IconButton";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import Member from "@/types/Member";
+import AddMember from "./add-account-components/AddMember";
+import Modal from "./Modal";
+import ButtonWithLoading from "./ButtonWithLoading";
+import { toast } from "@/hooks/use-toast";
 
 export default function MembersTable() {
   const [members, setMembers] = useState<Member[]>([]);
@@ -34,6 +38,8 @@ export default function MembersTable() {
   const [loading, setLoading] = useState(false);
 
   const [selectedStatus, setSelectedStatus] = useState("all");
+
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const [fetchTotal, setFetchTotal] = useState();
 
@@ -94,18 +100,32 @@ export default function MembersTable() {
 
   const bulkDelete = async () => {
     if (!selected.length) return;
-    await getCsrf();
-    await api.delete("/api/members", { data: { ids: selected } });
-    setSelected([]);
-    fetchMembers();
+    setLoading(true);
+
+    try {
+      await getCsrf();
+      await api.delete("/api/members", { data: { ids: selected } });
+      toast({
+        title: "Deleted Successfully"
+      });
+      setSelected([]);
+      setDeleteModal(false);
+      fetchMembers();
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="space-y-6">
       {/* Search + Actions */}
-      <div>
-        <h2 className="text-2xl font-bold">Member Management</h2>
-        <p className="text-muted-foreground">Manage member information and records</p>
+      <div className="flex gap-6 flex-col lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <h2 className="text-2xl font-bold">Member Management</h2>
+          <p className="text-muted-foreground">Manage member information and records</p>
+        </div>
+        
+        <AddMember refetch={fetchMembers} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -156,7 +176,7 @@ export default function MembersTable() {
                 className="w-full pl-10"
               />
             </div>
-            <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+            <Select value={selectedStatus} onValueChange={setSelectedStatus} disabled={loading}>
               <SelectTrigger className="w-[150px]">
                 <SelectValue placeholder="Filter by Role" />
               </SelectTrigger>
@@ -166,10 +186,6 @@ export default function MembersTable() {
                 <SelectItem value="notregistered">Not Registered</SelectItem>
               </SelectContent>
             </Select>
-
-            {selected.length > 0 && <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
-              <Trash />
-            </IconButton>}
           </div>
         </CardContent>
       </Card>
@@ -177,9 +193,25 @@ export default function MembersTable() {
       {/* Table */}
       <Card>
         <CardHeader>
-          <CardTitle>
-            Member Records
-          </CardTitle>
+          <div className="w-full flex flex-col gap-6 lg:flex-row lg:justify-between lg:items-center">
+            <CardTitle>
+              Member Records
+            </CardTitle>
+            <Modal disabled={selected.length === 0 || loading} title="Delete Members" buttonLabel={<Trash />} buttonClassName="w-10 h-10 bg-destructive text-white hover:bg-destructive/50" open={deleteModal} setOpen={setDeleteModal}>
+              <p>Are you sure you want to delete?</p>
+              <div className="w-full grid grid-cols-2 gap-2">
+                <ButtonWithLoading className="w-full" loading={loading} disabled={loading || selected.length === 0} onClick={bulkDelete}>
+                  Yes
+                </ButtonWithLoading>
+                <Button variant="outline" onClick={() => setDeleteModal(false)}>
+                  Cancel
+                </Button>
+              </div>
+            </Modal>
+            {/* <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
+              <Trash />
+            </IconButton> */}
+          </div>
         </CardHeader>
         <CardContent>
           <Table>

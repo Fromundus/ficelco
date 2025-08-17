@@ -1,5 +1,5 @@
 import api, { getCsrf } from '@/api/axios';
-import React, { ChangeEvent, FormEvent } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect } from 'react'
 import Modal from '../Modal';
 import { Plus } from 'lucide-react';
 import InputWithLabel from '../InputWithLabel';
@@ -209,12 +209,21 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
         try {
             await getCsrf();
             const res = await api.post("/api/email/resend", { email: formData.email });
+
+            toast({
+                title: "Successfully Resent"
+            });
+
             console.log(res);
         } catch {
         } finally {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        setFormData({});
+    }, [openModal]);
 
     return (
         <>

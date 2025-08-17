@@ -11,22 +11,28 @@ type Props = {
     backbuttonAction?: () => void;
     title?: string;
     description?: string;
+    titleAction?: React.ReactNode;
 }
 
-const AdminPage = ({ children, className, withBackButton, backbuttonAction, title, description }: Props) => {
+const AdminPage = ({ children, className, withBackButton, backbuttonAction, title, description, titleAction }: Props) => {
     const navigate = useNavigate();
     
     return (
         <div className={`${className}`}>
-            {withBackButton && <div className='w-full'>
-                <Button variant='outline' onClick={() => backbuttonAction ? backbuttonAction : navigate(-1)}>
-                    <ArrowLeft /> Back
-                </Button>
+            {withBackButton && <div className='w-full flex items-center justify-between gap-4'>
+                <div className='flex items-center gap-4'>
+                    <Button variant='outline' type='button' onClick={() => backbuttonAction ? backbuttonAction : navigate(-1)}>
+                        <ArrowLeft /> Back
+                    </Button>
+                    <div>
+                        <h2 className="text-2xl font-bold">{title}</h2>
+                        <p className="text-muted-foreground uppercase">{description}</p>
+                    </div>
+                </div>
+                <div>
+                    {titleAction}
+                </div>
             </div>}
-            <div className='mt-6'>
-                <h2 className="text-2xl font-bold">{title}</h2>
-                <p className="text-muted-foreground">{description}</p>
-            </div>
             <div className={`${withBackButton && "mt-6"} flex flex-col gap-6`}>
                 {children}
             </div>

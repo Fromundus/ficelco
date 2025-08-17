@@ -1,6 +1,6 @@
 import api, { getCsrf } from '@/api/axios';
 import { toast } from '@/hooks/use-toast';
-import React, { ChangeEvent, FormEvent } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect } from 'react'
 import Modal from '../Modal';
 import InputWithLabel from '../InputWithLabel';
 import { Plus } from 'lucide-react';
@@ -88,6 +88,10 @@ const AddAdmin = ({ refetch }: { refetch: () => void }) => {
             setLoading(false);
         }
     }
+
+    useEffect(() => {
+        setFormData({});
+    }, [addModal]);
 
     return (
         <Modal title={"Add Admin Account"} buttonLabel={<><Plus/> Add Admin</>} open={addModal} setOpen={setAddModal} >

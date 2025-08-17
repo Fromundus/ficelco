@@ -10,6 +10,7 @@ type User = {
   occupant: string;
   phone_number: string;
   role: string;
+  created_at?: string;
 
   profile_picture: string;
 } | null;
