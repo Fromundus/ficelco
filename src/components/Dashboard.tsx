@@ -26,9 +26,9 @@ const pageNames: Record<string, string> = {
   "/superadmin/members": "Member Management",
   "/superadmin/accounts": "Account Management",
   "superadmin/accounts/": "Account Management",
-
-
   "/superadmin/logs": "Activity Logs",
+
+  "/superadmin/monthly-rates": "Monthly Rates",
 };
 
 export default function Dashboard() {

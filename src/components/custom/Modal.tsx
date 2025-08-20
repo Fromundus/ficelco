@@ -21,7 +21,7 @@ const Modal = ({ open, setOpen, title, buttonLabel, buttonClassName, children, d
                     {buttonLabel}
                 </Button>
             {/* </DialogTrigger> */}
-            <DialogContent>
+            <DialogContent aria-describedby=''>
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
                 </DialogHeader>

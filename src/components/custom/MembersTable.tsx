@@ -23,7 +23,7 @@ import IconButton from "./IconButton";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import Member from "@/types/Member";
-import AddMember from "./add-account-components/AddMember";
+import AddMember from "./add-modals/AddMember";
 import Modal from "./Modal";
 import ButtonWithLoading from "./ButtonWithLoading";
 import { toast } from "@/hooks/use-toast";

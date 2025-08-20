@@ -26,7 +26,7 @@ const AdminPage = ({ children, className, withBackButton, backbuttonAction, titl
                     </Button>
                     <div>
                         <h2 className="text-2xl font-bold">{title}</h2>
-                        <p className="text-muted-foreground uppercase">{description}</p>
+                        <p className="text-muted-foreground">{description}</p>
                     </div>
                 </div>
                 <div>

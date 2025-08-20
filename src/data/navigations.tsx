@@ -1,5 +1,5 @@
 import NavItem from "@/types/NavItem";
-import { Bell, Briefcase, Coins, FolderOpen, Inbox, Logs, Megaphone, Zap } from "lucide-react";
+import { Archive, Bell, Briefcase, Coins, Database, Download, FileSignature, FolderOpen, Inbox, Logs, Megaphone, Upload, Zap } from "lucide-react";
 
 import {
   LayoutDashboard,
@@ -72,6 +72,66 @@ export const superadminNavigations = [
     icon: FolderOpen,
     group: "Content Management"
   },
+
+  // Billing & Data Management
+  {
+    title: "Billing Data",
+    url: "billing-data",
+    icon: Database,
+    group: "Billing & Data Management"
+  },
+  {
+    title: "Bulk Uploads",
+    url: "bulk-uploads",
+    icon: Upload,
+    group: "Billing & Data Management"
+  },
+  {
+    title: "Upload Logs",
+    url: "upload-logs",
+    icon: Logs,
+    group: "Billing & Data Management"
+  },
+  {
+    title: "Backup & Downloads",
+    url: "backups",
+    icon: Download,
+    group: "Billing & Data Management"
+  },
+
+  // Procurement Management
+  {
+    title: "Invitations to Bid",
+    url: "itb",
+    icon: FileSignature,
+    group: "Procurement Management"
+  },
+  {
+    title: "Notice of Award",
+    url: "noa",
+    icon: FileText,
+    group: "Procurement Management"
+  },
+  {
+    title: "Bid Documents",
+    url: "bid-documents",
+    icon: FolderOpen,
+    group: "Procurement Management"
+  },
+  {
+    title: "Procurement Schedules",
+    url: "procurement-schedules",
+    icon: FileText,
+    group: "Procurement Management"
+  },
+  {
+    title: "Bid Archives",
+    url: "bid-archives",
+    icon: Archive,
+    group: "Procurement Management"
+  },
+
+  //LOGS
   {
     title: "Activiy Logs",
     url: "logs",

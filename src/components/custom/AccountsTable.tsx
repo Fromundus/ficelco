@@ -24,8 +24,8 @@ import Modal from "./Modal";
 import InputWithLabel from "./InputWithLabel";
 import { Label } from "../ui/label";
 import ButtonWithLoading from "./ButtonWithLoading";
-import AddAdmin from "./add-account-components/AddAdmin";
-import AddUser from "./add-account-components/AddUser";
+import AddAdmin from "./add-modals/AddAdmin";
+import AddUser from "./add-modals/AddUser";
 
 export default function AccountsTable() {
   const [users, setUsers] = useState<User[]>([]);

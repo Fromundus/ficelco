@@ -16,7 +16,7 @@ import { Badge } from "@/components/ui/badge";
 const stats = [
   {
     title: "Total Members",
-    value: "2,847",
+    value: "61,293",
     change: "+12%",
     trending: "up",
     icon: Users,
@@ -195,7 +195,7 @@ export function DashboardOverview() {
                 <p className="text-xs text-muted-foreground mt-1">{task.dueDate}</p>
               </div>
             ))}
-            <Button className="w-full electric-gradient text-white hover:opacity-90 transition-opacity">
+            <Button className="w-full electric-gradient hover:opacity-90 transition-opacity">
               View All Tasks
             </Button>
           </CardContent>
