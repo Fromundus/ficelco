@@ -114,7 +114,7 @@ export function AddRates() {
     } catch (error) {
       console.error("Upload failed", error);
       setErrors(error.response.data.errors);
-      toast({ title: "Upload failed", variant: "destructive" });
+      toast({ title: error.response.data.message, variant: "destructive" });
     } finally {
       setLoading(false);
     }

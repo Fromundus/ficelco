@@ -22,7 +22,7 @@ const RateCard = ({ item }) => {
             <div className='space-y-4'>
               <div className='flex items-start justify-between'>
                 <div className='flex flex-col'>
-                  <span className='text-lg font-semibold'>Month of {item?.month}</span>
+                  <span className='text-lg font-semibold'>Month of {item?.month}, {item?.year}</span>
                   <span className='text-muted-foreground text-sm'>Posted: {format(new Date(item?.created_at), 'PPpp')}</span>
                 </div>
                 <div className='flex items-center gap-2'>
@@ -40,7 +40,7 @@ const RateCard = ({ item }) => {
               </div>
               <div>
                 {isImageFirstItem &&
-                  <img src={files[0]?.url} alt="" />
+                  <img className='rounded-lg border' src={files[0]?.url} alt="" />
                 }
                 {notImageFiles?.length > 0 && <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">

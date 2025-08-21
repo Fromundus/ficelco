@@ -62,7 +62,7 @@ const Rates = () => {
 
   const renderRates = rates?.map((item) => {
     return (
-      <RateCard item={item} />
+      <RateCard key={item.id} item={item} />
     )
   });
 
