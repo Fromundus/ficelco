@@ -17,13 +17,23 @@ import { CircleX, Eye, FileUp, Trash, X } from "lucide-react";
 import municipalities from "@/data/municipalities";
 import { toast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import api from "@/api/axios";
+import ButtonWithLoading from "@/components/custom/ButtonWithLoading";
+import FileUpload from "@/components/custom/FileUpload";
+import { useNavigate } from "react-router-dom";
 
 interface RateRow {
   municipalities: string[];
   residential: number | "";
   commercial: number | "";
-  publicBldg: number | "";
+  public_building: number | "";
   streetlight: number | "";
+}
+
+type Errors = {
+  month: string;
+  year: string;
+  rows: string;
 }
 
 export function AddRates() {
@@ -32,61 +42,21 @@ export function AddRates() {
   const [year, setYear] = useState<number | "">(Number(format(new Date(Date.now()), "yyyy")));
   const [rows, setRows] = useState<RateRow[]>([]);
 
-  // multiple files upload
   const [files, setFiles] = useState<File[]>([]);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  console.log(rows);
+  const navigate = useNavigate();
 
-  // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files) {
-  //     const selectedFiles = Array.from(e.target.files);
-  //     setFiles((prev) => [...prev, ...selectedFiles]); // append files
-  //   }
-  // };
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selectedFiles = Array.from(e.target.files);
-
-      // validate: keep only image files
-      const validImages = selectedFiles.filter(file =>
-        file.type.startsWith("image/")
-      );
-
-      if (validImages.length !== selectedFiles.length) {
-        toast({
-          title: "Only images are allowed!",
-        });
-      }
-
-      setFiles((prev) => [...prev, ...validImages]);
-    }
-  };
-
-
-  const removeFile = (index: number) => {
-    const updated = files.filter((_, i) => i !== index);
-    setFiles(updated);
-
-    // reset input if no files remain
-    if (updated.length === 0 && fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
-  const clearAllFiles = () => {
-    setFiles([]);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
+  const [errors, setErrors] = useState<Errors>({
+      month: "",
+      year: "",
+      rows: "",
+  });
 
   const usedMunicipalities = rows.flatMap(r => r.municipalities);
 
   const addRow = () => {
     if (usedMunicipalities.length >= municipalities.length) return; // prevent extra rows
-    setRows([...rows, { municipalities: [], residential: "", commercial: "", publicBldg: "", streetlight: "" }]);
+    setRows([...rows, { municipalities: [], residential: "", commercial: "", public_building: "", streetlight: "" }]);
   };
 
   const updateRow = (index: number, key: keyof RateRow, value: any) => {
@@ -119,6 +89,40 @@ export function AddRates() {
     setRows(rows.filter((_, i) => i !== index));
   };
 
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("month", month);
+    formData.append("year", year.toString());
+
+    formData.append("rows", JSON.stringify(rows));
+
+    files.forEach((file) => {
+      formData.append("files[]", file);
+    });
+
+    setLoading(true);
+    setErrors(null);
+
+    try {
+      const res = await api.post('/api/monthly-rate', formData);
+      console.log("Upload success:", res);
+      toast({ title: res.data.message || "Uploaded successfully!" });
+
+      setFiles([]);
+      setRows([]);
+      navigate(-1);
+    } catch (error) {
+      console.error("Upload failed", error);
+      setErrors(error.response.data.errors);
+      toast({ title: "Upload failed", variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // console.log(errors);
+
+
   return (
     <AdminPage withBackButton={true} title={"Add Monthly Power Rates"} description={"Upload consumer monthly rates."}>
       <div className="space-y-6">
@@ -130,25 +134,36 @@ export function AddRates() {
 
             {/* Month & Year */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="month">
-                  Month
-                </Label>
-                <Select onValueChange={(value) => setMonth(value)} value={month}>
-                  <SelectTrigger id="month" className="w-full" disabled={loading}>
-                    <SelectValue placeholder="Select Month" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <div className="grid grid-cols-2">
-                      {[
-                        "January","February","March","April","May","June",
-                        "July","August","September","October","November","December"
-                      ].map(item => (
-                        <SelectItem key={item} value={item}>{item}</SelectItem>
-                      ))}
-                    </div>
-                  </SelectContent>
-                </Select>
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="month">
+                    Month
+                  </Label>
+                  <Select onValueChange={(value) => {
+                    setErrors((prev) => {
+                      return {
+                        ...prev,
+                        month: "",
+                      }
+                    });
+                    setMonth(value);
+                  }} value={month}>
+                    <SelectTrigger id="month" className="w-full" disabled={loading}>
+                      <SelectValue placeholder="Select Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <div className="grid grid-cols-2">
+                        {[
+                          "January","February","March","April","May","June",
+                          "July","August","September","October","November","December"
+                        ].map(item => (
+                          <SelectItem key={item} value={item}>{item}</SelectItem>
+                        ))}
+                      </div>
+                    </SelectContent>
+                  </Select>
+                </div>
+                {errors?.month && <span className="text-destructive text-sm">{errors?.month}</span>}
               </div>
               <InputWithLabel
                 label="Year"
@@ -156,7 +171,17 @@ export function AddRates() {
                 type="number"
                 placeholder={format(new Date(Date.now()), "yyyy")}
                 value={year}
-                onChange={(e) => setYear(Number(e.target.value))}
+                onChange={(e) => {
+                  setErrors((prev) => {
+                    return {
+                      ...prev,
+                      year: "",
+                    }
+                  });
+                  setYear(Number(e.target.value));
+                }}
+                error={errors?.year}
+                disabled={loading}
               />
             </div>
 
@@ -224,8 +249,8 @@ export function AddRates() {
                         <Input
                           type="number"
                           step="0.0001"
-                          value={row.publicBldg}
-                          onChange={(e) => updateRow(idx, "publicBldg", e.target.value)}
+                          value={row.public_building}
+                          onChange={(e) => updateRow(idx, "public_building", e.target.value)}
                           placeholder="Public Bldg."
                         />
                       </div>
@@ -263,75 +288,20 @@ export function AddRates() {
               </Button>
             </div>
 
-            {/* Upload Photos */}
-            <div className="flex flex-col gap-3">
-              <Label>
-                Upload Photos
-              </Label>
-              <Label htmlFor="photos">
-                <Card className="bg-background">
-                  <CardContent className="p-6">
-                    <div className="w-full flex flex-col gap-4 items-center">
-                      <FileUp />
-                      <span>Click to upload photos.</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Label>
-              <Input
-                ref={fileInputRef}
-                id="photos"
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleFileChange}
-                className="hidden"
-              />
-
-              {files.length > 0 && (
-                <div className="flex flex-col gap-4">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {files.map((file, idx) => (
-                      <div key={idx} className="relative">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <div className="flex flex-col gap-2 items-center border rounded-md">
-                              <img
-                                src={URL.createObjectURL(file)}
-                                alt={`Preview ${idx}`}
-                                className="w-full h-40 object-cover rounded-md border"
-                              />
-                              {/* <p className="text-xs text-center truncate w-full px-4">{file.name}</p> */}
-                            </div>
-                          </DialogTrigger>
-                          <DialogContent aria-describedby="">
-                            <DialogTitle>
-
-                            </DialogTitle>
-                            <div className="flex justify-center w-full">
-                              <img
-                                src={URL.createObjectURL(file)}
-                                alt={`Preview ${idx}`}
-                                className="rounded-md border"
-                              />
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                        <div className="bg-destructive w-fit rounded-full absolute top-2 right-2 p-0.5">
-                          <X className="size-5 cursor-pointer" onClick={() => removeFile(idx)}/>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <Button variant="outline" onClick={clearAllFiles}>
-                    <Trash /> Remove All
-                  </Button>
-                </div>
-              )}
-            </div>
+            <FileUpload 
+              files={files} 
+              setFiles={setFiles}
+              // accept="application/pdf"
+            />
           </CardContent>
           <CardFooter className="w-full flex justify-end">
-            <Button>Upload</Button>
+            <ButtonWithLoading 
+              onClick={handleSubmit}
+              loading={loading}
+              disabled={loading}
+            >
+              Upload
+            </ButtonWithLoading>
           </CardFooter>
         </Card>
       </div>
