@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Label } from '@/components/ui/label'
+import { PowerRate } from '@/types/PowerRate'
 import { format } from 'date-fns'
 import { Eye, MoreHorizontal, Plus, X } from 'lucide-react'
 import React from 'react'
@@ -15,7 +16,7 @@ import { Link } from 'react-router-dom'
 
 const Rates = () => {
   const [loading, setLoading] = React.useState(false);
-  const [rates, setRates] = React.useState(null);
+  const [rates, setRates] = React.useState<PowerRate[]>(null);
   const [years, setYears] = React.useState(null);
   const [year, setYear] = React.useState('all');
   const [tabs, setTabs] = React.useState([

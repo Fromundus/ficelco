@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, CardContent } from './ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Eye, MoreHorizontal, X } from 'lucide-react';
@@ -7,14 +7,28 @@ import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import PdfPreview from './custom/PdfPreview';
 import { format } from 'date-fns';
+import Modal from './custom/Modal';
+import ButtonWithLoading from './custom/ButtonWithLoading';
+import { PowerRate } from '@/types/PowerRate';
 
-const RateCard = ({ item }) => {
+type Props = {
+  refetch?: () => void;
+  item: PowerRate;
+}
+
+const RateCard = ({ item }: Props) => {
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [loading, setLoading] = useState(false);
     const files = item?.files;
     const isImageFirstItem = files[0]?.mime_type.startsWith("image/");
     
     const notImageFiles = files.filter(item => !item?.mime_type.startsWith("image/"));
 
     const rates = item?.rows;
+
+    const handleDelete = () => {
+
+    };
 
     return (
       <Card key={item?.id} className='md:max-w-lg w-full mx-auto'>
@@ -35,7 +49,18 @@ const RateCard = ({ item }) => {
                       <DropdownMenuItem>Edit</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                  <X className='size-7 cursor-pointer hover:bg-secondary hover:text-foreground rounded-full p-1' />
+                  
+                  <Modal disabled={loading} title={`Delete Power Rates for ${item?.month}, ${item?.year}`} labelIsNotButton={true} buttonLabel={<X className='size-7 cursor-pointer hover:bg-secondary hover:text-foreground rounded-full p-1' />} buttonClassName="w-10 h-10 bg-destructive text-white hover:bg-destructive/50" open={deleteModal} setOpen={setDeleteModal}>
+                    <p>Are you sure you want to delete?</p>
+                    <div className="w-full grid grid-cols-2 gap-2">
+                      <ButtonWithLoading className="w-full" loading={loading} disabled={loading} onClick={handleDelete}>
+                        Yes
+                      </ButtonWithLoading>
+                      <Button variant="outline" onClick={() => setDeleteModal(false)}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </Modal>
                 </div>
               </div>
               <div>

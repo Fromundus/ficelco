@@ -11,15 +11,21 @@ type Props = {
     buttonLabel?: React.ReactNode;
     buttonClassName?: string;
     disabled?: boolean;
+    labelIsNotButton?: boolean;
 }
 
-const Modal = ({ open, setOpen, title, buttonLabel, buttonClassName, children, disabled }: Props) => {
+const Modal = ({ open, setOpen, title, buttonLabel, buttonClassName, children, disabled, labelIsNotButton }: Props) => {
   return (
         <Dialog open={open} onOpenChange={setOpen}>
             {/* <DialogTrigger asChild> */}
+                {labelIsNotButton ? 
+                <button onClick={() => setOpen(true)} disabled={disabled}>
+                    {buttonLabel}   
+                </button>
+                :
                 <Button className={`${buttonClassName}`} disabled={disabled} onClick={() => setOpen(true)}>
                     {buttonLabel}
-                </Button>
+                </Button>}
             {/* </DialogTrigger> */}
             <DialogContent aria-describedby=''>
                 <DialogHeader>

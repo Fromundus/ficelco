@@ -1,5 +1,5 @@
 import NavItem from "@/types/NavItem";
-import { Archive, Bell, Briefcase, Coins, Database, Download, FileSignature, FolderOpen, Inbox, Logs, Megaphone, Upload, Zap } from "lucide-react";
+import { Archive, Award, Bell, Briefcase, Calendar, Coins, CreditCard, Database, DollarSign, Download, FileSignature, FolderOpen, HelpCircle, Inbox, Logs, Megaphone, Upload, UploadCloud, Zap } from "lucide-react";
 
 import {
   LayoutDashboard,
@@ -31,7 +31,7 @@ export const superadminNavigations = [
   {
     title: "Accounts",
     url: "accounts",
-    icon: Settings,
+    icon: CreditCard,
     group: "Management"
   },
 
@@ -39,7 +39,7 @@ export const superadminNavigations = [
   {
     title: "Monthly Rates",
     url: "monthly-rates",
-    icon: FileText,
+    icon: DollarSign,
     group: "Content Management"
   },
   {
@@ -63,7 +63,7 @@ export const superadminNavigations = [
   {
     title: "Service Requests",
     url: "service-requests",
-    icon: Inbox,
+    icon: HelpCircle,
     group: "Content Management"
   },
   {
@@ -89,13 +89,13 @@ export const superadminNavigations = [
   {
     title: "Upload Logs",
     url: "upload-logs",
-    icon: Logs,
+    icon: UploadCloud,
     group: "Billing & Data Management"
   },
   {
     title: "Backup & Downloads",
     url: "backups",
-    icon: Download,
+    icon: Archive,
     group: "Billing & Data Management"
   },
 
@@ -109,7 +109,7 @@ export const superadminNavigations = [
   {
     title: "Notice of Award",
     url: "noa",
-    icon: FileText,
+    icon: Award,
     group: "Procurement Management"
   },
   {
@@ -121,7 +121,7 @@ export const superadminNavigations = [
   {
     title: "Procurement Schedules",
     url: "procurement-schedules",
-    icon: FileText,
+    icon: Calendar,
     group: "Procurement Management"
   },
   {
