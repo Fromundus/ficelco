@@ -5,24 +5,30 @@ import PdfPreview from '@/components/custom/PdfPreview'
 import RateCard from '@/components/RateCard'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Label } from '@/components/ui/label'
 import { PowerRate } from '@/types/PowerRate'
 import { format } from 'date-fns'
-import { Eye, MoreHorizontal, Plus, X } from 'lucide-react'
-import React from 'react'
+import { Eye, MoreHorizontal, Plus, Search, X } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from '@/components/ui/input'
 
 const Rates = () => {
   const [loading, setLoading] = React.useState(false);
   const [rates, setRates] = React.useState<PowerRate[]>(null);
   const [years, setYears] = React.useState(null);
+  const [months, setMonths] = React.useState(null);
+
   const [year, setYear] = React.useState('all');
-  const [tabs, setTabs] = React.useState([
-    {value: "all", label: "All"},
-  ]);
+  const [month, setMonth] = React.useState('all');
   const [buttonLoading, setButtonLoading] = React.useState(false);
+
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState(search); // new
+
 
   const [page, setPage] = React.useState(1);
   const [hasMore, setHasMore] = React.useState(true);
@@ -32,7 +38,7 @@ const Rates = () => {
     setButtonLoading(true)
     try {
       const res = await api.get(`/api/monthly-rates`, {
-        params: { year, page: pageNumber },
+        params: { search, year, month, page: pageNumber },
       });
 
       console.log(res);
@@ -44,13 +50,10 @@ const Rates = () => {
         setRates((prev) => [...prev, ...res.data.data.data]);
       }
 
-      const availableYears = res.data.years || [];
-
       setPage(res.data.data.current_page);
       setHasMore(res.data.data.current_page < res.data.data.last_page);
       setYears(res.data.years);
-
-      setTabs([{value: "all", label: "All"}, ...availableYears]);
+      setMonths(res.data.months);
     } finally {
       setLoading(false);
       setButtonLoading(false);
@@ -59,7 +62,17 @@ const Rates = () => {
 
   React.useEffect(() => {
     fetchRates();
-  }, [year]);
+  }, [year, month, debouncedSearch]);
+
+  // Debounce search
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+      setPage(1);
+    }, 1000); // 1 second debounce
+
+    return () => clearTimeout(handler);
+  }, [search]);
 
   const renderRates = rates?.map((item) => {
     return (
@@ -68,24 +81,67 @@ const Rates = () => {
   });
 
   return (
-    <AdminPageMain title='Monthly Rates' description='Manage consumer monthly rates.' topAction={
+    <AdminPageMain title='Monthly Rates Management' description='Configure and update electricity rates for different customer types' topAction={
         <Button>
           <Link className='flex items-center gap-2' to={'add'}>
             <Plus /> Add Monthly Rates
           </Link>
         </Button>
     }>
-        {tabs && <div className='w-fit'>
-          <CustomTabs tabs={tabs} value={year} onChange={setYear} />
-        </div>}
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex flex-col w-full lg:justify-between lg:flex-row gap-2">
+              <div className="relative w-full">
+                <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search logs..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full pl-10"
+                />
+              </div>
 
-        <Card className='bg-background border-0'>
-          <CardHeader className='px-0'>
+              <Select value={year} onValueChange={setYear} disabled={loading}>
+                <SelectTrigger className="w-[150px] capitalize">
+                  <SelectValue placeholder="Filter by Year" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  {years?.map((item, index) => {
+                    return (
+                      <SelectItem key={index} className='capitalize' value={item}>{item}</SelectItem>
+                    )
+                  })}
+                </SelectContent>
+              </Select>
+
+              <Select value={month} onValueChange={setMonth} disabled={loading}>
+                <SelectTrigger className="w-[150px] capitalize">
+                  <SelectValue placeholder="Filter by Month" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  {months?.map((item, index) => {
+                    return (
+                      <SelectItem key={index} className='capitalize' value={item}>{item}</SelectItem>
+                    )
+                  })}
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
             <CardTitle>
               Power Rates History
             </CardTitle>
+            <CardDescription>
+              Historical electricity rates and adjustments
+            </CardDescription>
           </CardHeader>
-          <CardContent className='px-0'>
+          <CardContent>
             <div className='flex flex-col gap-4'>
               {renderRates}
             </div>

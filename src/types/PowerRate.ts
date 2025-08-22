@@ -13,7 +13,7 @@ export type PowerRate = {
 export type PowerRateRow = {
   id: number;
   monthly_rate_id: number;
-  municipalities: string[];
+  municipalities: string;
   residential: string;
   commercial: string;
   public_building: string;

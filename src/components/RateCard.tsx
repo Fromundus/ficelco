@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import Modal from './custom/Modal';
 import ButtonWithLoading from './custom/ButtonWithLoading';
 import { PowerRate } from '@/types/PowerRate';
+import { Badge } from './ui/badge';
 
 type Props = {
   refetch?: () => void;
@@ -31,13 +32,15 @@ const RateCard = ({ item }: Props) => {
     };
 
     return (
-      <Card key={item?.id} className='md:max-w-lg w-full mx-auto'>
-        <CardContent className='p-6'>
+      <Card key={item?.id} className='w-full bg-secondary/20 hover:bg-secondary/50'>
+        <CardContent className='p-4'>
             <div className='space-y-4'>
               <div className='flex items-start justify-between'>
-                <div className='flex flex-col'>
-                  <span className='text-lg font-semibold'>Month of {item?.month}, {item?.year}</span>
-                  <span className='text-muted-foreground text-sm'>Posted: {format(new Date(item?.created_at), 'PPpp')}</span>
+                <div className='flex flex-col gap-2'>
+                  <div className='flex items-center gap-2'>
+                    <span className='font-semibold'>Month of {item?.month}, {item?.year}</span>
+                  </div>
+                  <span className='text-muted-foreground text-xs'>Posted: {format(new Date(item?.created_at), 'PPp')}</span>
                 </div>
                 <div className='flex items-center gap-2'>
                   <DropdownMenu>
@@ -63,6 +66,44 @@ const RateCard = ({ item }: Props) => {
                   </Modal>
                 </div>
               </div>
+              {rates?.length > 0 && <div className='flex flex-col gap-2'>
+                <div className='flex flex-col gap-2'>
+                  {rates?.map((item) => {
+                    const municipalities = JSON.parse(item.municipalities);
+                    return (
+                      <div className='grid md:grid-cols-5 gap-2 items-center border p-4 rounded-lg text-sm'>
+                        <div>
+                          <span className='text-muted-foreground'>Municipalities</span>
+                          {municipalities?.map((m) => {
+                            return (
+                              <div>
+                                <span>{m}</span>
+                              </div>
+                            )
+                          })}
+                        </div>
+                        <div className='flex flex-col'>
+                          <span className='text-muted-foreground'>Residential</span>
+                          <span>₱{item.residential}</span>
+                        </div>
+                        <div className='flex flex-col'>
+                          <span className='text-muted-foreground'>Commercial</span>
+                          <span>₱{item.commercial}</span>
+                        </div>
+                        <div className='flex flex-col'>
+                          <span className='text-muted-foreground'>Public Building</span>
+                          <span>₱{item.public_building}</span>
+                        </div>
+                        <div className='flex flex-col'>
+                          <span className='text-muted-foreground'>Streetlight</span>
+                          <span>₱{item.streetlight}</span>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+              </div>}
               <div>
                 {isImageFirstItem &&
                   <img className='rounded-lg border' src={files[0]?.url} alt="" />
@@ -79,13 +120,6 @@ const RateCard = ({ item }: Props) => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>}
-              </div>
-              <div>
-                <Button variant='outline' className='w-full'>
-                  <Link className='flex items-center gap-2' to={`${item.id}`}>
-                      <Eye /> See More
-                  </Link>
-                </Button>
               </div>
             </div>
         </CardContent>
