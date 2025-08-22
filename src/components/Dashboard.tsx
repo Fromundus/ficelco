@@ -77,7 +77,7 @@ export default function Dashboard() {
               <SidebarTrigger />
               <div>
                 <h1 className="text-xl font-semibold text-foreground">
-                  {currentPageName}
+                  {/* {currentPageName} */}
                 </h1>
                 {/* <p className="text-sm text-muted-foreground">
                   Barangay Information Management System

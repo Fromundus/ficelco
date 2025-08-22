@@ -1,7 +1,8 @@
 import { useAuth } from '@/store/auth'
-import { formatDistanceToNow } from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
 import { KeyRound, User, UserCircle } from 'lucide-react'
 import React from 'react'
+import { Badge } from '../ui/badge'
 
 const LogComponent = ({ log }) => {
     const { user } = useAuth();
@@ -13,10 +14,28 @@ const LogComponent = ({ log }) => {
     } else {
         u = `#${log.user_id} ${log.user?.name} (${log.user?.role})`
     }
-    // console.log(log);
+    let badgeStyle: string | null = null;
+    let variant: "outline" | "default" | "secondary" | "destructive" = "outline";
+
+    if(log.type === "auth"){
+        if(log.action === "verify"){
+            badgeStyle = "bg-green-500 text-white";
+        } else if (log.action === "reset"){
+            variant = "default";
+        } else if (log.action === "logout"){
+            variant = "destructive";
+        }
+    } else {
+        if(log.action === "update"){
+            badgeStyle = "bg-blue-500 text-white";
+        } else if(log.action === "delete"){
+            variant = "destructive";
+        }
+    }
+
     return (
         <>
-            {log.type === "auth" && 
+            {/* {log.type === "auth" && 
                 <div className='flex items-start p-2 bg-secondary/20 hover:bg-secondary/50 border rounded-lg'>
                     <div className='p-2'>
                         <KeyRound className={`w-4 h-4
@@ -139,7 +158,22 @@ const LogComponent = ({ log }) => {
                         </span>
                     </div>
                 </div>
-            }
+            } */}
+
+            <div className='bg-secondary/20 hover:bg-secondary/50 border rounded-lg p-4 flex flex-col gap-2'>
+                <div className='flex items-center gap-2'>
+                    <span className='capitalize font-semibold'>{log?.type}</span> <Badge className={`${badgeStyle}`} variant={variant}>{log?.action}</Badge>
+                </div>
+                <div className='text-sm text-muted-foreground'>
+                    {log?.description && <p>{log?.description}</p>}
+                </div>
+                <div className='text-xs text-muted-foreground flex gap-2 flex-wrap'>
+                    {log?.user?.name && <p>User name: {log?.user?.name}</p>}
+                    {log?.user?.email && <p>User email: {log?.user?.email}</p>}
+                    {log?.ip_address && <p>IP: {log?.ip_address}</p>}
+                    <p>Date: {format(new Date(log?.created_at), "PP - p")}</p>
+                </div>
+            </div>
         </>
     )
 }
