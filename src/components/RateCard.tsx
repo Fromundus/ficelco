@@ -11,6 +11,7 @@ import Modal from './custom/Modal';
 import ButtonWithLoading from './custom/ButtonWithLoading';
 import { PowerRate } from '@/types/PowerRate';
 import { Badge } from './ui/badge';
+import ImagePreview from './custom/ImagePreview';
 
 type Props = {
   refetch?: () => void;
@@ -23,6 +24,8 @@ const RateCard = ({ item }: Props) => {
     const files = item?.files;
     const isImageFirstItem = files[0]?.mime_type.startsWith("image/");
     
+    const images = files.filter(item => item.mime_type.startsWith("image/"));
+
     const notImageFiles = files.filter(item => !item?.mime_type.startsWith("image/"));
 
     const rates = item?.rows;
@@ -71,12 +74,12 @@ const RateCard = ({ item }: Props) => {
                   {rates?.map((item) => {
                     const municipalities = JSON.parse(item.municipalities);
                     return (
-                      <div className='grid md:grid-cols-5 gap-2 items-center border p-4 rounded-lg text-sm'>
+                      <div key={item.id} className='grid md:grid-cols-5 gap-2 items-center border p-4 rounded-lg text-sm'>
                         <div>
                           <span className='text-muted-foreground'>Municipalities</span>
-                          {municipalities?.map((m) => {
+                          {municipalities?.map((m, index) => {
                             return (
-                              <div>
+                              <div key={index}>
                                 <span>{m}</span>
                               </div>
                             )
@@ -105,9 +108,19 @@ const RateCard = ({ item }: Props) => {
 
               </div>}
               <div>
-                {isImageFirstItem &&
-                  <img className='rounded-lg border' src={files[0]?.url} alt="" />
-                }
+                {/* {isImageFirstItem &&
+                  <img className='rounded-lg border w-52' src={files[0]?.url} alt="" />
+                } */}
+                <div className='grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
+                  {images?.length > 0 && images?.map((item) => {
+                    return (
+                      // <div className='h-52' key={item.id}>
+                      //   <img className='rounded-lg w-full h-full border object object-cover' loading='lazy' src={item?.url} alt="" />
+                      // </div>
+                      <ImagePreview image={item} />
+                    )
+                  })}
+                </div>
                 {notImageFiles?.length > 0 && <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
                     <AccordionTrigger className='font-normal text-sm'>Show Attached Files</AccordionTrigger>
