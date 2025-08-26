@@ -72,6 +72,7 @@ const RateCard = ({ item, maxVisible = 4 }: Props) => {
                   </Modal>
                 </div>
               </div>
+              
               {rates?.length > 0 && <div className='flex flex-col gap-2'>
                 <div className='flex flex-col gap-2'>
                   {rates?.map((item) => {
@@ -111,18 +112,11 @@ const RateCard = ({ item, maxVisible = 4 }: Props) => {
 
               </div>}
               <div>
-                <div className='grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
+                <div className='grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                   {images?.length > 0 && visibleImages?.map((item, index) => {
                     return (
-                      <div>
+                      <div key={item.id}>
                         <ImagePreview key={item.id} image={item} isLast={index === visibleImages.length - 1 && extraCount > 0} extraCount={extraCount} />
-                        {/* {index === visibleImages.length - 1 && extraCount > 0 && (
-                          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-md">
-                            <span className="text-white text-xl font-bold">
-                              +{extraCount}
-                            </span>
-                          </div>
-                        )} */}
                       </div>
                     )
                   })}

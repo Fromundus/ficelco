@@ -1,11 +1,12 @@
 import React, { ChangeEvent, useRef } from 'react'
 import { Button } from '../ui/button';
-import { FileIcon, FileText, FileUp, Trash, X } from 'lucide-react';
+import { FileIcon, FileText, FileUp, Trash, X, ZoomIn, ZoomOut } from 'lucide-react';
 import { Label } from '../ui/label';
 import { Card, CardContent } from '../ui/card';
 import { Input } from '../ui/input';
 import { toast } from '@/hooks/use-toast';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 type Props = {
     files: File[];
@@ -88,7 +89,7 @@ const FileUpload = ({ files, setFiles, multiple = true, accept = "*/*" }: Props)
 
             {files.length > 0 && (
             <div className="flex flex-col gap-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {files.map((file, idx) => {
                         const isImage = file.type.startsWith("image/");
                         const isPDF = file.type === "application/pdf";
@@ -102,17 +103,17 @@ const FileUpload = ({ files, setFiles, multiple = true, accept = "*/*" }: Props)
                                     <img
                                         src={URL.createObjectURL(file)}
                                         alt={`Preview ${idx}`}
-                                        className="w-full h-40 object-cover rounded-md border"
+                                        className="w-full h-52 object-cover rounded-md border"
                                     />
                                     ) : isPDF ? (
-                                    <div className="flex flex-col gap-4 items-center justify-center h-40 rounded-md w-full">
+                                    <div className="flex flex-col gap-4 items-center justify-center h-52 rounded-md w-full">
                                         <FileText className="w-10 h-10 text-red-500" />
                                         <div className='w-full text-center'>
                                             <p className="text-xs truncate px-2">{file.name}</p>
                                         </div>
                                     </div>
                                     ) : (
-                                    <div className="flex flex-col gap-4 items-center justify-center h-40 rounded-md w-full">
+                                    <div className="flex flex-col gap-4 items-center justify-center h-52 rounded-md w-full">
                                         <FileIcon className="w-10 h-10" />
                                         <div className='w-full text-center'>
                                             <p className="text-xs truncate px-2">{file.name}</p>
@@ -128,11 +129,55 @@ const FileUpload = ({ files, setFiles, multiple = true, accept = "*/*" }: Props)
                                 </DialogTitle>
                                 <div className="flex justify-center w-full">
                                     {isImage ? (
-                                    <img
-                                        src={URL.createObjectURL(file)}
-                                        alt={`Preview ${idx}`}
-                                        className="rounded-md border max-h-[80vh]"
-                                    />
+                                    // <img
+                                    //     src={URL.createObjectURL(file)}
+                                    //     alt={`Preview ${idx}`}
+                                    //     className="rounded-md border max-h-[80vh]"
+                                    // />
+                                    <div className='flex flex-col gap-4'>
+                                        <TransformWrapper initialScale={1}>
+                                        {({ zoomIn, zoomOut, resetTransform }) => (
+                                            <>
+                                            {/* Image */}
+                                            <div className="border rounded-lg w-full flex justify-center items-center cursor-grab">
+                                                <TransformComponent wrapperClass="w-full">
+                                                    <img
+                                                        src={URL.createObjectURL(file)}
+                                                        alt={`Preview ${idx}`}
+                                                        className="h-[70vh] w-full object-contain"
+                                                    />
+                                                </TransformComponent>
+                                            </div>
+
+                                            {/* Controls */}
+                                            <div className="flex gap-2 w-full justify-end">
+                                                <Button
+                                                onClick={() => resetTransform()}
+                                                className=""
+                                                variant="outline"
+                                                >
+                                                Reset Zoom
+                                                </Button>
+                                                <Button
+                                                onClick={() => zoomOut()}
+                                                className=""
+                                                variant="outline"
+                                                >
+                                                <ZoomOut />
+                                                </Button>
+                                                <Button
+                                                onClick={() => zoomIn()}
+                                                className=""
+                                                variant="outline"
+                                                >
+                                                <ZoomIn />
+                                                </Button>
+                                            </div>
+                                            </>
+                                        )}
+                                        </TransformWrapper>
+
+                                    </div>
                                     ) : isPDF ? (
                                     <iframe
                                         src={URL.createObjectURL(file)}
