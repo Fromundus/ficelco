@@ -16,6 +16,7 @@ import apiBaseUrl from '@/apiBaseUrl';
 import axios from 'axios';
 import { toast } from '@/components/ui/use-toast'; // shadcn toast hook
 import { useAuth } from '@/store/auth';
+import { stat } from 'fs';
 
 const api = axios.create({
   baseURL: `${apiBaseUrl}`,
@@ -65,7 +66,7 @@ api.interceptors.response.use(
     if (status === 401 || status === 403 || status === 419) {
       const { setState } = useAuth;
       setState({ user: null, loading: false });
-    } else {
+    } else if (status !== 404) {
       toast({
         variant: 'destructive',
         title: 'Error',

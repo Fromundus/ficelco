@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import {
   Card, CardHeader, CardTitle, CardContent, CardFooter
 } from "@/components/ui/card";
@@ -20,125 +20,180 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import api from "@/api/axios";
 import ButtonWithLoading from "@/components/custom/ButtonWithLoading";
 import FileUpload from "@/components/custom/FileUpload";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { PowerRate } from "@/types/PowerRate";
+import QueryLoadingPage from "@/pages/StatusPages/QueryLoadingPage";
+import QueryNotFound from "@/pages/StatusPages/QueryNotFound";
+import OldFilePreview from "@/components/custom/OldFilePreview";
+
+type OldFile = {
+    id: number;
+    filename: string;
+    mime_type: string;
+    size: number;
+    fileable_id: number;
+    fileable_type: string;
+    url: string;
+} | null;
 
 interface RateRow {
-  municipalities: string[];
+//   municipalities: string[];
   residential: number | "";
   commercial: number | "";
   public_building: number | "";
   streetlight: number | "";
 }
 
-// type Errors = {
-//   month: string;
-//   year: string;
-//   rows: string;
-// }
-
 type Errors = Record<string, string>;
 
-export function AddRates() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [month, setMonth] = useState(format(new Date(Date.now()), "LLLL"));
-  const [year, setYear] = useState<number | "">(Number(format(new Date(Date.now()), "yyyy")));
-  const [rows, setRows] = useState<RateRow[]>([]);
+export function EditRates() {
+    const { id } = useParams();
+    const [rate, setRate] = useState<PowerRate>(null);
 
-  const [files, setFiles] = useState<File[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [buttonLoading, setButtonLoading] = useState<boolean>(false);
+    const [month, setMonth] = useState(format(new Date(Date.now()), "LLLL"));
+    const [year, setYear] = useState<number | "">(Number(format(new Date(Date.now()), "yyyy")));
+    const [rows, setRows] = useState([]);
 
-  const navigate = useNavigate();
+    const [files, setFiles] = useState<File[]>([]);
 
-  const [errors, setErrors] = useState<Errors>({
-      month: "",
-      year: "",
-      rows: "",
-  });
+    const [oldFiles, setOldFiles] = useState<OldFile[]>();
 
-  console.log(rows);
+    const navigate = useNavigate();
 
-  const usedMunicipalities = rows.flatMap(r => r.municipalities);
-
-  const addRow = () => {
-    setErrors(null);
-    if (usedMunicipalities.length >= municipalities.length) return; // prevent extra rows
-    setRows([...rows, { municipalities: [], residential: "", commercial: "", public_building: "", streetlight: "" }]);
-  };
-
-  const updateRow = (index: number, key: keyof RateRow, value: any) => {
-    setErrors(null);
-    const updated = [...rows];
-    updated[index][key] = value;
-    setRows(updated);
-  };
-
-  const toggleMunicipality = (index: number, mun: string) => {
-    setErrors(null);
-    const updated = [...rows];
-    const already = updated[index].municipalities.includes(mun);
-
-    if (already) {
-      updated[index].municipalities = updated[index].municipalities.filter(m => m !== mun);
-    } else {
-      updated[index].municipalities = [...updated[index].municipalities, mun];
-    }
-
-    const allSelected = updated.flatMap(r => r.municipalities);
-
-    const cleaned = updated.filter(row => {
-      const available = municipalities.filter(m => !allSelected.includes(m) || row.municipalities.includes(m));
-      return available.length > 0 || row.municipalities.length > 0;
+    const [errors, setErrors] = useState<Errors>({
+        month: "",
+        year: "",
+        rows: "",
     });
 
-    setRows(cleaned);
-  };
+    console.log(rows);
 
-  const removeRow = (index: number) => {
-    setRows(rows.filter((_, i) => i !== index));
-  };
+    const fetchRate = async () => {
+        setLoading(true);
+        try {
+            const res = await api.get(`/api/monthly-rate/${id}`);
+            console.log(res);
+            setRate(res.data);
+            setMonth(res.data.month);
+            setYear(res.data.year);
+            setOldFiles(res.data.files);
+            
+            const fetchedRows = res.data.rows;
+            const newRows = [];
+            
+            fetchedRows.forEach((item) => {
+                const municipalities = JSON.parse(item.municipalities);
+                console.log(item);
+                newRows.push({
+                    ...item,
+                    municipalities,
+                });
+            });
 
-  const handleSubmit = async () => {
-    const formData = new FormData();
-    formData.append("month", month);
-    formData.append("year", year.toString());
-
-    formData.append("rows", JSON.stringify(rows));
-
-    files.forEach((file) => {
-      formData.append("files[]", file);
-    });
-
-    setLoading(true);
-    setErrors(null);
-
-    try {
-      const res = await api.post('/api/monthly-rate', formData);
-      console.log("Upload success:", res);
-      toast({ title: res.data.message || "Uploaded successfully!" });
-
-      setFiles([]);
-      setRows([]);
-      navigate(-1);
-    } catch (error: any) {
-      console.error("Upload failed", error);
-      // setErrors(error.response.data.errors);
-      if (error.response?.data?.errors) {
-        setErrors(error.response.data.errors);
-      }
-      toast({ title: error.response.data.message || "Upload Failed", variant: "destructive" });
-    } finally {
-      setLoading(false);
+            setRows(newRows);
+            setLoading(false);
+        } catch (err) {
+            console.log(err);
+            setLoading(false);
+        }
     }
-  };
+
+    useEffect(() => {
+        fetchRate();
+    }, [id]);
+
+    const usedMunicipalities = rows.flatMap(r => r.municipalities);
+
+    const addRow = () => {
+        setErrors(null);
+        if (usedMunicipalities.length >= municipalities.length) return; // prevent extra rows
+        setRows([...rows, { municipalities: [], residential: "", commercial: "", public_building: "", streetlight: "" }]);
+    };
+
+    const updateRow = (index: number, key: keyof RateRow, value: any) => {
+        setErrors(null);
+        const updated = [...rows];
+        updated[index][key] = value;
+        setRows(updated);
+    };
+
+    const toggleMunicipality = (index: number, mun: string) => {
+        setErrors(null);
+        const updated = [...rows];
+        const already = updated[index].municipalities.includes(mun);
+
+        if (already) {
+        updated[index].municipalities = updated[index].municipalities.filter(m => m !== mun);
+        } else {
+        updated[index].municipalities = [...updated[index].municipalities, mun];
+        }
+
+        const allSelected = updated.flatMap(r => r.municipalities);
+
+        const cleaned = updated.filter(row => {
+        const available = municipalities.filter(m => !allSelected.includes(m) || row.municipalities.includes(m));
+        return available.length > 0 || row.municipalities.length > 0;
+        });
+
+        setRows(cleaned);
+    };
+
+    const removeRow = (index: number) => {
+        setRows(rows.filter((_, i) => i !== index));
+    };
+
+    const handleSubmit = async () => {
+        const formData = new FormData();
+        formData.append("month", month);
+        formData.append("year", year.toString());
+
+        formData.append("rows", JSON.stringify(rows));
+
+        files.forEach((file) => {
+        formData.append("files[]", file);
+        });
+
+        setButtonLoading(true);
+        setErrors(null);
+
+        try {
+        const res = await api.post(`/api/monthly-rate/${id}`, formData);
+        console.log("Upload success:", res);
+        toast({ title: res.data.message || "Uploaded successfully!" });
+
+        setFiles([]);
+        setRows([]);
+        navigate(-1);
+        } catch (error: any) {
+        console.error("Upload failed", error);
+        // setErrors(error.response.data.errors);
+        if (error.response?.data?.errors) {
+            setErrors(error.response.data.errors);
+        }
+        toast({ title: error.response.data.message || "Upload Failed", variant: "destructive" });
+        } finally {
+        setButtonLoading(false);
+        }
+    };
 
   // console.log(errors);
 
+    if (loading) return <QueryLoadingPage />
+
+    if (!loading && !rate) {
+    return (
+        <QueryNotFound message="Rate Not Found" />   
+    );
+    }
 
   return (
-    <AdminPage withBackButton={true} title={"Add Monthly Power Rates"} description={"Upload consumer monthly rates."}>
+    <AdminPage withBackButton={true} title={`Edit Monthly Power Rates for ${rate.month}, ${rate.year}`} description={"Update consumer monthly rates."}>
       <div className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Add Rates</CardTitle>
+            <CardTitle>Edit Rates</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
 
@@ -158,7 +213,7 @@ export function AddRates() {
                     });
                     setMonth(value);
                   }} value={month}>
-                    <SelectTrigger id="month" className="w-full" disabled={loading}>
+                    <SelectTrigger id="month" className="w-full" disabled={buttonLoading || loading}>
                       <SelectValue placeholder="Select Month" />
                     </SelectTrigger>
                     <SelectContent>
@@ -191,7 +246,7 @@ export function AddRates() {
                   setYear(Number(e.target.value));
                 }}
                 error={errors?.year}
-                disabled={loading}
+                disabled={loading || buttonLoading}
               />
             </div>
 
@@ -242,6 +297,7 @@ export function AddRates() {
                       <div className="flex flex-col gap-3">
                         <Label>Residential</Label>
                         <Input
+                          disabled={buttonLoading}
                           type="number"
                           step="0.0001"
                           value={row.residential}
@@ -257,6 +313,7 @@ export function AddRates() {
                       <div className="flex flex-col gap-3">
                         <Label>Commercial</Label>
                         <Input
+                          disabled={buttonLoading}
                           type="number"
                           step="0.0001"
                           value={row.commercial}
@@ -272,6 +329,7 @@ export function AddRates() {
                       <div className="flex flex-col gap-3">
                         <Label>Public Bldg.</Label>
                         <Input
+                          disabled={buttonLoading}
                           type="number"
                           step="0.0001"
                           value={row.public_building}
@@ -287,6 +345,7 @@ export function AddRates() {
                       <div className="flex flex-col gap-3">
                         <Label>Streetlight</Label>
                         <Input
+                          disabled={buttonLoading}
                           type="number"
                           step="0.0001"
                           value={row.streetlight}
@@ -307,6 +366,7 @@ export function AddRates() {
                         variant="destructive"
                         size="sm"
                         onClick={() => removeRow(idx)}
+                        disabled={buttonLoading || loading}
                       >
                         <Trash /> Remove
                       </Button>
@@ -328,6 +388,11 @@ export function AddRates() {
 
             </div>
 
+            {oldFiles?.length > 0 && <OldFilePreview
+                oldFiles={oldFiles}
+                setOldFiles={setOldFiles}
+            />}
+
             <FileUpload 
               files={files} 
               setFiles={setFiles}
@@ -339,10 +404,10 @@ export function AddRates() {
           <CardFooter className="w-full flex justify-end">
             <ButtonWithLoading 
               onClick={handleSubmit}
-              loading={loading}
-              disabled={loading}
+              loading={buttonLoading || loading}
+              disabled={buttonLoading || loading}
             >
-              Upload
+              Update
             </ButtonWithLoading>
           </CardFooter>
         </Card>

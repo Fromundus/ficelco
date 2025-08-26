@@ -33,6 +33,8 @@ import Dashboard from "./components/Dashboard";
 import Logs from "./pages/Admin/Logs";
 import Rates from "./pages/Admin/CSD/Rates";
 import { AddRates } from "./pages/Admin/CSD/AddRates";
+import Rate from "./pages/Admin/CSD/Rate";
+import { EditRates } from "./pages/Admin/CSD/EditRates";
 
 const queryClient = new QueryClient();
 
@@ -83,6 +85,8 @@ const App = () => {
               {/* CSD */}
               <Route path="monthly-rates" element={<Rates />} />
               <Route path="monthly-rates/add" element={<AddRates />} />
+              <Route path="monthly-rates/:id" element={<Rate />} />
+              <Route path="monthly-rates/:id/edit" element={<EditRates />} />
             </Route>
           </Route>
 

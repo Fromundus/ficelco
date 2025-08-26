@@ -7,50 +7,21 @@ import { Input } from '../ui/input';
 import { toast } from '@/hooks/use-toast';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import File from '@/types/File';
 
 type Errors = Record<string, string>;
 
 type Props = {
-    files: File[];
-    setFiles: React.Dispatch<React.SetStateAction<File[]>>;
-    multiple?: boolean;
-    accept?: string;
-    errors?: Errors;
-    setErrors?: React.Dispatch<React.SetStateAction<Errors>>;
+    oldFiles: File[];
+    setOldFiles: React.Dispatch<React.SetStateAction<File[]>>
 }
 
-const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accept = "*/*" }: Props) => {
+const OldFilePreview = ({ oldFiles, setOldFiles }: Props) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setErrors(null);
-        if (e.target.files) {
-            const selectedFiles = Array.from(e.target.files);
-
-            // validate: keep only image files
-            if(accept !== "*/*"){
-                const validFiles = selectedFiles.filter(file =>
-                    file.type.startsWith(accept)
-                );
-    
-                if (validFiles.length !== selectedFiles.length) {
-                    toast({
-                        title: `Only ${accept} are allowed!`,
-                    });
-                }
-
-                setFiles((prev) => [...prev, ...validFiles]);
-            } else {
-                setFiles((prev) => [...prev, ...selectedFiles]);
-            }
-        }
-    };
-
-
     const removeFile = (index: number) => {
-        setErrors(null);
-        const updated = files.filter((_, i) => i !== index);
-        setFiles(updated);
+        const updated = oldFiles.filter((_, i) => i !== index);
+        setOldFiles(updated);
 
         // reset input if no files remain
         if (updated.length === 0 && fileInputRef.current) {
@@ -59,8 +30,7 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
     };
 
     const clearAllFiles = () => {
-        setFiles([]);
-        setErrors(null);
+        setOldFiles([]);
         if (fileInputRef.current) {
         fileInputRef.current.value = "";
         }
@@ -70,36 +40,16 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
         <div className="flex flex-col gap-4">
             <div className='flex flex-col gap-3'>
                 <Label>
-                    Upload Files
-                </Label>
-                <Label className="cursor-pointer" htmlFor="photos">
-                    <Card className="bg-background">
-                        <CardContent className="p-6">
-                        <div className="w-full flex flex-col gap-4 items-center">
-                            <FileUp />
-                            <span>Click to upload files.</span>
-                        </div>
-                        </CardContent>
-                    </Card>
+                    Existing Files
                 </Label>
             </div>
 
-            <Input
-                ref={fileInputRef}
-                id="photos"
-                type="file"
-                accept={accept}
-                multiple={multiple}
-                onChange={handleFileChange}
-                className="hidden"
-            />
-
-            {files.length > 0 && (
+            {oldFiles.length > 0 && (
             <div className="flex flex-col gap-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {files.map((file, idx) => {
-                        const isImage = file.type.startsWith("image/");
-                        const isPDF = file.type === "application/pdf";
+                    {oldFiles.map((file, idx) => {
+                        const isImage = file.mime_type.startsWith("image/");
+                        const isPDF = file.mime_type === "application/pdf";
 
                         return (
                             <div key={idx} className="relative w-full">
@@ -109,7 +59,7 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
                                         <div className="flex flex-col gap-2 items-center border rounded-md p-2 cursor-pointer w-full">
                                             {isImage ? (
                                             <img
-                                                src={URL.createObjectURL(file)}
+                                                src={file.url}
                                                 alt={`Preview ${idx}`}
                                                 className="w-full h-52 object-cover rounded-md border"
                                             />
@@ -117,35 +67,30 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
                                             <div className="flex flex-col gap-4 items-center justify-center h-52 rounded-md w-full">
                                                 <FileText className="w-10 h-10 text-red-500" />
                                                 <div className='w-full text-center'>
-                                                    <p className="text-xs truncate px-2">{file.name}</p>
+                                                    <p className="text-xs truncate px-2">{file.filename}</p>
                                                 </div>
                                             </div>
                                             ) : (
                                             <div className="flex flex-col gap-4 items-center justify-center h-52 rounded-md w-full">
                                                 <FileIcon className="w-10 h-10" />
                                                 <div className='w-full text-center'>
-                                                    <p className="text-xs truncate px-2">{file.name}</p>
+                                                    <p className="text-xs truncate px-2">{file.filename}</p>
                                                 </div>
                                             </div>
                                             )}
 
                                         </div>
-                                        {errors?.[`files.${idx}`] && (
-                                            <span className="text-destructive text-xs">
-                                                {errors[`files.${idx}`]}
-                                            </span>
-                                        )}
                                     </div>
                                 </DialogTrigger>
 
                                 <DialogContent aria-describedby="">
                                 <DialogTitle>
-                                    <p className='text-sm truncate'>{file.name}</p>
+                                    <p className='text-sm truncate'>{file.filename}</p>
                                 </DialogTitle>
                                 <div className="flex justify-center w-full">
                                     {isImage ? (
                                     // <img
-                                    //     src={URL.createObjectURL(file)}
+                                    //     src={file.url}
                                     //     alt={`Preview ${idx}`}
                                     //     className="rounded-md border max-h-[80vh]"
                                     // />
@@ -157,7 +102,7 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
                                             <div className="border rounded-lg w-full flex justify-center items-center cursor-grab">
                                                 <TransformComponent wrapperClass="w-full">
                                                     <img
-                                                        src={URL.createObjectURL(file)}
+                                                        src={file.url}
                                                         alt={`Preview ${idx}`}
                                                         className="h-[70vh] w-full object-contain"
                                                     />
@@ -195,14 +140,14 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
                                     </div>
                                     ) : isPDF ? (
                                     <iframe
-                                        src={URL.createObjectURL(file)}
+                                        src={file.url}
                                         className="w-full h-[80vh] rounded-md"
-                                        title={file.name}
+                                        title={file.filename}
                                     />
                                     ) : (
                                     <div className="flex flex-col items-center justify-center w-full h-[40vh] rounded-md">
                                         <FileIcon className="w-12 h-12 text-gray-500" />
-                                        <p className="mt-2 text-sm">{file.name}</p>
+                                        <p className="mt-2 text-sm">{file.filename}</p>
                                     </div>
                                     )}
                                 </div>
@@ -230,4 +175,4 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
     )
 }
 
-export default FileUpload
+export default OldFilePreview

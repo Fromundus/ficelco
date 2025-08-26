@@ -15,16 +15,17 @@ import { useNavigate } from "react-router-dom";
 type Props = {
     image: File;
     extraCount?: number;
-    isLast: boolean;
+    isLast?: boolean;
+    isMaxHeight?: boolean;
 }
 
-const ImagePreview = ({ image, isLast, extraCount }: Props) => {
+const ImagePreview = ({ image, isLast, extraCount, isMaxHeight }: Props) => {
     const navigate = useNavigate();
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="h-52 relative" onClick={() => isLast && extraCount > 0 && navigate(`${image.id}`)}>
+        {!isMaxHeight ? <div className="h-52 relative" onClick={() => isLast && extraCount > 0 && navigate(`${image.id}`)}>
           <img
             className="rounded-lg w-full h-full border object-cover cursor-pointer"
             loading="lazy"
@@ -32,11 +33,16 @@ const ImagePreview = ({ image, isLast, extraCount }: Props) => {
             alt=""
           />
             {isLast && extraCount > 0 && <div className="absolute cursor-pointer inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
-                <span className="text-white text-2xl flex items-center gap-1">
-                    + {extraCount}
+                <span className="text-white text-2xl">
+                    +{extraCount}
                 </span>
             </div>}
         </div>
+        :
+        <div className="border p-4 rounded-lg">
+          <img src={image?.url} className="w-full max-h-[80vh] object-contain object" alt="" />
+        </div>
+        }
       </DialogTrigger>
 
       <DialogContent className="flex flex-col items-center">

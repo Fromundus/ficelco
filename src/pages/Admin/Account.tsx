@@ -10,7 +10,7 @@ import User from "@/types/User";
 import api from "@/api/axios";
 import AdminPage from "@/components/custom/AdminPage";
 import CustomTabs from "@/components/custom/CustomTabs";
-import { ArrowLeft, Mail, MapPin, Phone, SquarePen } from "lucide-react";
+import { ArrowLeft, Mail, MapPin, PenBox, Phone, SquarePen } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import IconButton from "@/components/custom/IconButton";
 import Loading from "@/components/Loading";
@@ -19,6 +19,8 @@ import InputWithLabel from "@/components/custom/InputWithLabel";
 import ButtonWithLoading from "@/components/custom/ButtonWithLoading";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
+import QueryNotFound from "../StatusPages/QueryNotFound";
+import QueryLoadingPage from "../StatusPages/QueryLoadingPage";
 
 type FormData = {
     account_number?: string;
@@ -158,19 +160,11 @@ const Account: React.FC = () => {
         }
     };
 
-    if (loading) return <div className="flex items-center justify-center min-h-[80vh]">Loading...</div>;
+    if (loading) return <QueryLoadingPage />;
 
     if (!loading && !user) {
     return (
-        <AdminPage withBackButton={true}>
-            <div className="min-h-[60vh] flex items-center justify-center w-full">
-                <Card>
-                    <CardContent className="pt-6">
-                        <p className="text-center">Resident not found</p>
-                    </CardContent>
-                </Card>
-            </div>
-        </AdminPage>    
+        <QueryNotFound message="Account Not Found" />
     );
     }
 
@@ -178,7 +172,7 @@ const Account: React.FC = () => {
         <AdminPage withBackButton={true} title={user.name} description={user.role} titleAction={
             <Modal title={"Update"} open={editModal} setOpen={setEditModal} buttonLabel={
                 <>
-                    <SquarePen /> Update Account
+                    <PenBox /> Update Account
                 </>
             }>
                 <form onSubmit={handleSave} className="space-y-6">

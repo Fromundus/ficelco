@@ -76,7 +76,7 @@ const Rates = () => {
 
   const renderRates = rates?.map((item) => {
     return (
-      <RateCard key={item.id} item={item} />
+      <RateCard key={item.id} item={item} refetch={fetchRates} />
     )
   });
 
