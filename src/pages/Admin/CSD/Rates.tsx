@@ -33,8 +33,8 @@ const Rates = () => {
   const [page, setPage] = React.useState(1);
   const [hasMore, setHasMore] = React.useState(true);
   
-  const fetchRates = async (pageNumber = 1, loading = true) => {
-    setLoading(loading);
+  const fetchRates = async (pageNumber = 1) => {
+    setLoading(true);
     setButtonLoading(true)
     try {
       const res = await api.get(`/api/monthly-rates`, {
@@ -142,8 +142,16 @@ const Rates = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className='flex flex-col gap-4'>
-              {renderRates}
+            <div className='flex flex-col gap-4 items-center'>
+              {loading ? 
+                <span>Loading...</span>
+                : rates?.length > 0 ? 
+                renderRates
+                :
+                <span>No rates found.</span>
+                
+              }
+              {/* {renderRates} */}
             </div>
           </CardContent>
         </Card>

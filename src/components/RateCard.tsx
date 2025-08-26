@@ -16,17 +16,20 @@ import ImagePreview from './custom/ImagePreview';
 type Props = {
   refetch?: () => void;
   item: PowerRate;
+  maxVisible?: number;
 }
 
-const RateCard = ({ item }: Props) => {
+const RateCard = ({ item, maxVisible = 4 }: Props) => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const files = item?.files;
-    const isImageFirstItem = files[0]?.mime_type.startsWith("image/");
     
+    const notImageFiles = files.filter(item => !item?.mime_type.startsWith("image/"));
     const images = files.filter(item => item.mime_type.startsWith("image/"));
 
-    const notImageFiles = files.filter(item => !item?.mime_type.startsWith("image/"));
+    const visibleImages = images.slice(0, maxVisible);
+    const extraCount = images.length - visibleImages.length;
+
 
     const rates = item?.rows;
 
@@ -108,16 +111,19 @@ const RateCard = ({ item }: Props) => {
 
               </div>}
               <div>
-                {/* {isImageFirstItem &&
-                  <img className='rounded-lg border w-52' src={files[0]?.url} alt="" />
-                } */}
                 <div className='grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
-                  {images?.length > 0 && images?.map((item) => {
+                  {images?.length > 0 && visibleImages?.map((item, index) => {
                     return (
-                      // <div className='h-52' key={item.id}>
-                      //   <img className='rounded-lg w-full h-full border object object-cover' loading='lazy' src={item?.url} alt="" />
-                      // </div>
-                      <ImagePreview image={item} />
+                      <div>
+                        <ImagePreview key={item.id} image={item} isLast={index === visibleImages.length - 1 && extraCount > 0} extraCount={extraCount} />
+                        {/* {index === visibleImages.length - 1 && extraCount > 0 && (
+                          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-md">
+                            <span className="text-white text-xl font-bold">
+                              +{extraCount}
+                            </span>
+                          </div>
+                        )} */}
+                      </div>
                     )
                   })}
                 </div>
