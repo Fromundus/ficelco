@@ -1,13 +1,16 @@
 import React from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { Button } from '../ui/button'
+import { Badge } from '../ui/badge'
 
 const PdfPreview = ({ file }) => {
   return (
     <>
         <Dialog>
             <DialogTrigger asChild>
-                <span className='cursor-pointer text-blue-500 underline'>{file.filename}</span>
+                <Badge className={`w-fit cursor-pointer h-8 px-4`}>
+                    {file.filename}
+                </Badge>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

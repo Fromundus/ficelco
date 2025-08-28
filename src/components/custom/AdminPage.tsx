@@ -19,9 +19,9 @@ const AdminPage = ({ children, className, withBackButton, backbuttonAction, titl
     
     return (
         <div className={`${className}`}>
-            {withBackButton && <div className='w-full flex items-center justify-between gap-4'>
-                <div className='flex items-center gap-4'>
-                    <Button variant='outline' type='button' onClick={() => backbuttonAction ? backbuttonAction : navigate(-1)}>
+            {withBackButton && <div className='flex gap-6 flex-col lg:flex-row lg:items-center lg:justify-between'>
+                <div className='flex gap-4 flex-col lg:flex-row lg:items-center lg:justify-between'>
+                    <Button className='w-fit' variant='outline' type='button' onClick={() => backbuttonAction ? backbuttonAction : navigate(-1)}>
                         <ArrowLeft /> Back
                     </Button>
                     <div>

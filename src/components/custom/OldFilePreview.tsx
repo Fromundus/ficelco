@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 import { Button } from '../ui/button';
 import { FileIcon, FileText, FileUp, Trash, X, ZoomIn, ZoomOut } from 'lucide-react';
 import { Label } from '../ui/label';
@@ -8,40 +8,93 @@ import { toast } from '@/hooks/use-toast';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import File from '@/types/File';
+import { Checkbox } from '../ui/checkbox';
+import ButtonWithLoading from './ButtonWithLoading';
+import Modal from './Modal';
+import api, { getCsrf } from '@/api/axios';
 
 type Errors = Record<string, string>;
 
 type Props = {
     oldFiles: File[];
-    setOldFiles: React.Dispatch<React.SetStateAction<File[]>>
+    setOldFiles: React.Dispatch<React.SetStateAction<File[]>>;
+    refetch: () => void;
 }
 
-const OldFilePreview = ({ oldFiles, setOldFiles }: Props) => {
+const OldFilePreview = ({ oldFiles, setOldFiles, refetch }: Props) => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [deleteModal, setDeleteModal] = useState<boolean>(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [selected, setSelected] = useState<number[]>([]);
 
-    const removeFile = (index: number) => {
-        const updated = oldFiles.filter((_, i) => i !== index);
-        setOldFiles(updated);
+    const toggleSelect = (id: number) => {
+        setSelected((prev) =>
+        prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id]
+        );
+    };
 
-        // reset input if no files remain
-        if (updated.length === 0 && fileInputRef.current) {
-        fileInputRef.current.value = "";
+    const selectAll = () => {
+        if (selected.length === oldFiles.length) {
+        setSelected([]);
+        } else {
+        setSelected(oldFiles.map((u) => u.id));
         }
     };
 
-    const clearAllFiles = () => {
-        setOldFiles([]);
-        if (fileInputRef.current) {
-        fileInputRef.current.value = "";
+    const bulkDelete = async () => {
+        if (!selected.length) return;
+        setLoading(true);
+        
+        try {
+        await getCsrf();
+        await api.delete("/api/files", { data: { ids: selected } });
+    
+        toast({
+            title: "Deleted Successfully",
+        });
+    
+        setSelected([]);
+
+        setDeleteModal(false);
+        refetch();
+    
+        } catch (err) {
+        console.log(err);
+        toast({
+            title: err.response.status,
+            description: err.response.data.message,
+            variant: "destructive",
+        });
+        setLoading(false);
         }
     };
     
     return (
         <div className="flex flex-col gap-4">
-            <div className='flex flex-col gap-3'>
+            <div className='flex flex-col gap-2'>
                 <Label>
                     Existing Files
                 </Label>
+                <div className='flex items-center justify-between'>
+                    <Label className='flex items-center gap-2 cursor-pointer'>
+                        <Checkbox
+                            checked={selected.length === oldFiles.length && oldFiles.length > 0}
+                            onCheckedChange={selectAll}
+                        />
+                        Select All
+                    </Label>
+                    <Modal disabled={selected.length === 0 || loading} title="Delete Accounts" buttonLabel={<Trash />} buttonClassName="w-10 h-10 bg-destructive text-white hover:bg-destructive/50" open={deleteModal} setOpen={setDeleteModal}>
+                        <p>Are you sure you want to delete?</p>
+                        <div className="w-full grid grid-cols-2 gap-2">
+                        <ButtonWithLoading className="w-full" loading={loading} disabled={loading || selected.length === 0} onClick={bulkDelete}>
+                            Yes
+                        </ButtonWithLoading>
+                        <Button variant="outline" onClick={() => setDeleteModal(false)}>
+                            Cancel
+                        </Button>
+                        </div>
+                    </Modal>
+                </div>
             </div>
 
             {oldFiles.length > 0 && (
@@ -155,10 +208,16 @@ const OldFilePreview = ({ oldFiles, setOldFiles }: Props) => {
                             </Dialog>
 
                             {/* Remove button */}
-                            <div className="bg-destructive w-fit rounded-full absolute top-2 right-2 p-0.5">
+                            {/* <div className="bg-destructive w-fit rounded-full absolute top-2 right-2 p-0.5">
                                 <X
                                 className="size-5 cursor-pointer"
                                 onClick={() => removeFile(idx)}
+                                />
+                            </div> */}
+                            <div className='absolute top-4 left-4 bg-background p-1 flex items-center justify-center rounded bg-opacity-50'>
+                                <Checkbox
+                                    checked={selected.includes(file.id)}
+                                    onCheckedChange={() => toggleSelect(file.id)}
                                 />
                             </div>
                             </div>
@@ -166,9 +225,9 @@ const OldFilePreview = ({ oldFiles, setOldFiles }: Props) => {
                     })}
 
                 </div>
-                <Button variant="outline" onClick={clearAllFiles}>
+                {/* <Button variant="outline" onClick={clearAllFiles}>
                     <Trash /> Remove All
-                </Button>
+                </Button> */}
             </div>
             )}
         </div>

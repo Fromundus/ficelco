@@ -73,7 +73,7 @@ export function EditRates() {
     const fetchRate = async () => {
         setLoading(true);
         try {
-            const res = await api.get(`/api/monthly-rate/${id}`);
+            const res = await api.get(`/api/monthly-rates/${id}`);
             console.log(res);
             setRate(res.data);
             setMonth(res.data.month);
@@ -159,7 +159,7 @@ export function EditRates() {
         setErrors(null);
 
         try {
-        const res = await api.post(`/api/monthly-rate/${id}`, formData);
+        const res = await api.post(`/api/monthly-rates/${id}`, formData);
         console.log("Upload success:", res);
         toast({ title: res.data.message || "Uploaded successfully!" });
 
@@ -391,6 +391,7 @@ export function EditRates() {
             {oldFiles?.length > 0 && <OldFilePreview
                 oldFiles={oldFiles}
                 setOldFiles={setOldFiles}
+                refetch={fetchRate}
             />}
 
             <FileUpload 

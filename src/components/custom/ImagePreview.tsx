@@ -13,21 +13,22 @@ import File from "@/types/File";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-    image: File;
-    extraCount?: number;
-    isLast?: boolean;
-    isMaxHeight?: boolean;
+  rate_id?: number;
+  image: File;
+  extraCount?: number;
+  isLast?: boolean;
+  isMaxHeight?: boolean;
 }
 
-const ImagePreview = ({ image, isLast, extraCount, isMaxHeight }: Props) => {
-    const navigate = useNavigate();
+const ImagePreview = ({ rate_id, image, isLast, extraCount, isMaxHeight }: Props) => {
+  const navigate = useNavigate();
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {!isMaxHeight ? <div className="h-52 relative" onClick={() => isLast && extraCount > 0 && navigate(`${image.id}`)}>
+        {!isMaxHeight ? <div className="relative" onClick={() => isLast && extraCount > 0 && navigate(`${rate_id}`)}>
           <img
-            className="rounded-lg w-full h-full border object-cover cursor-pointer"
+            className="rounded-lg w-full aspect-square h-full border object-cover cursor-pointer"
             loading="lazy"
             src={image?.url}
             alt=""

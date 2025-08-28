@@ -111,7 +111,7 @@ export function AddRates() {
     setErrors(null);
 
     try {
-      const res = await api.post('/api/monthly-rate', formData);
+      const res = await api.post('/api/monthly-rates', formData);
       console.log("Upload success:", res);
       toast({ title: res.data.message || "Uploaded successfully!" });
 

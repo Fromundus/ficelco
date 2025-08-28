@@ -17,7 +17,7 @@ const Rate = () => {
     const fetchRate = async () => {
         setLoading(true);
         try {
-            const res = await api.get(`/api/monthly-rate/${id}`);
+            const res = await api.get(`/api/monthly-rates/${id}`);
             console.log(res);
             setRate(res.data);
 

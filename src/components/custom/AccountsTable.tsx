@@ -127,6 +127,7 @@ export default function AccountsTable() {
         description: err.response.data.message,
         variant: "destructive",
       });
+      setLoading(false);
     }
   };
 

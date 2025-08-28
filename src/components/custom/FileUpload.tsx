@@ -111,18 +111,18 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
                                             <img
                                                 src={URL.createObjectURL(file)}
                                                 alt={`Preview ${idx}`}
-                                                className="w-full h-52 object-cover rounded-md border"
+                                                className="w-full aspect-square object-cover rounded-md border"
                                             />
                                             ) : isPDF ? (
-                                            <div className="flex flex-col gap-4 items-center justify-center h-52 rounded-md w-full">
-                                                <FileText className="w-10 h-10 text-red-500" />
+                                            <div className="flex flex-col gap-4 items-center justify-center aspect-square rounded-md w-full">
+                                                <FileText className="w-14 h-14 text-red-500" />
                                                 <div className='w-full text-center'>
                                                     <p className="text-xs truncate px-2">{file.name}</p>
                                                 </div>
                                             </div>
                                             ) : (
-                                            <div className="flex flex-col gap-4 items-center justify-center h-52 rounded-md w-full">
-                                                <FileIcon className="w-10 h-10" />
+                                            <div className="flex flex-col gap-4 items-center justify-center aspect-square rounded-md w-full">
+                                                <FileIcon className="w-14 h-14" />
                                                 <div className='w-full text-center'>
                                                     <p className="text-xs truncate px-2">{file.name}</p>
                                                 </div>

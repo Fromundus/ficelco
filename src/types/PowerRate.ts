@@ -6,6 +6,7 @@ export type PowerRate = {
   year: string;
   files: File[];
   rows: PowerRateRow[];
+  status: string;
   created_at: string;
   updated_at: string;
 } | null;
