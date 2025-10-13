@@ -217,7 +217,7 @@ const RegisterComponent = ({ type }: { type?: string }) => {
     
     return (
         <div className={`${!type && "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"} w-full`}>
-            {!validated && !registered && <Card className={`${type === "user" ? "w-full" : "max-w-lg"} mx-auto w-full`}>
+            {!validated && !registered && <Card className={`${type === "user" ? "w-full" : "max-w-sm"} mx-auto w-full`}>
                 <CardHeader className='flex items-center'>
                     <CardTitle>
                         Validate

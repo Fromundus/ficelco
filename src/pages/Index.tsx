@@ -12,28 +12,24 @@ const Index = () => {
       description: "Check your electricity bill and payment status",
       icon: CreditCard,
       link: "/billing",
-      color: "text-primary"
     },
     {
       title: "Latest News",
       description: "Stay updated with announcements and advisories",
       icon: Newspaper,
       link: "/news",
-      color: "text-accent"
     },
     {
       title: "Member Services",
       description: "Access member-exclusive services and support",
       icon: Users,
       link: "/services",
-      color: "text-primary"
     },
     {
       title: "Contact Us",
       description: "Get in touch with our customer service team",
       icon: Phone,
       link: "/contact",
-      color: "text-accent"
     }
   ];
 
@@ -96,7 +92,7 @@ const Index = () => {
               <Card key={index} className="card-electric group cursor-pointer">
                 <Link to={item.link}>
                   <CardHeader className="text-center pb-4">
-                    <item.icon className={`w-12 h-12 mx-auto mb-4 ${item.color} group-hover:scale-110 transition-transform`} />
+                    <item.icon className={`w-12 h-12 mx-auto mb-4 group-hover:scale-110 transition-transform`} />
                     <CardTitle className="text-lg">{item.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -110,7 +106,7 @@ const Index = () => {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">Our Commitment</h2>
@@ -131,11 +127,11 @@ const Index = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Call to Action */}
       <section className="py-16 bg-hero-gradient">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Need Assistance?</h2>
           <p className="text-xl mb-8 opacity-90">
             Our customer service team is here to help with all your electrical needs.

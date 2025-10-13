@@ -120,16 +120,16 @@ const Navigation = () => {
 
   const mainNavItems = [
     { name: "Home", path: "/" },
-    { name: "News & Advisories", path: "/news" },
+    { name: "About", path: "/about" },
     { name: "Billing Inquiry", path: "/billing" },
+    { name: "Services", path: "/services" },
+    { name: "News & Advisories", path: "/news" },
     { name: "Biddings", path: "/biddings" },
     { name: "Downloads", path: "/downloads" },
-    { name: "Services", path: "/services" },
+    { name: "Contact Us", path: "/contact" },
   ];
   
   const infoItems = [
-    { name: "About", path: "/about" },
-    { name: "Contact Us", path: "/contact" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -137,7 +137,7 @@ const Navigation = () => {
   return (
     <nav className="bg-background shadow-[var(--shadow-card)] sticky top-0 z-50 border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-14">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center">
@@ -162,7 +162,7 @@ const Navigation = () => {
             ))}
 
             {/* Information Dropdown */}
-            <DropdownMenu>
+            {/* <DropdownMenu>
               <DropdownMenuTrigger className="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary flex items-center gap-1">
                 Information
                 <ChevronDown className="w-4 h-4" />
@@ -174,7 +174,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> */}
 
             <div className="ml-4 flex items-center gap-4">
               <ThemeToggle />
@@ -227,7 +227,7 @@ const Navigation = () => {
               ))}
 
               {/* Collapsible Info Section */}
-              <div>
+              {/* <div>
                 <button
                   onClick={() => setInfoOpen(!infoOpen)}
                   className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary hover:bg-secondary"
@@ -254,7 +254,7 @@ const Navigation = () => {
                     ))}
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         )}

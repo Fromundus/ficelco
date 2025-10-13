@@ -196,8 +196,8 @@ const Downloads = () => {
             
             <Card className="card-electric">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Download className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <Download className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">
                   {downloadItems.reduce((sum, item) => sum + item.downloadCount, 0)}
@@ -208,8 +208,8 @@ const Downloads = () => {
             
             <Card className="card-electric">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Folder className="w-6 h-6 text-secondary-foreground" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <Folder className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">
                   {categories.filter(cat => cat.name !== "All").length}
@@ -220,8 +220,8 @@ const Downloads = () => {
             
             <Card className="card-electric">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Calendar className="w-6 h-6 text-muted-foreground" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <Calendar className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-bold text-foreground">Weekly</h3>
                 <p className="text-sm text-muted-foreground">Update Frequency</p>
@@ -281,7 +281,7 @@ const Downloads = () => {
 
         {/* Help Section */}
         <section className="mt-16">
-          <Card className="card-electric bg-hero-gradient text-white">
+          <Card className="card-electric bg-hero-gradient">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Need Help with Downloads?</CardTitle>
               <p className="opacity-90">

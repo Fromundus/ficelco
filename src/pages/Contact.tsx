@@ -93,7 +93,6 @@ const Contact = () => {
 
   return (
     <GuestPage>
-        {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">Contact Us</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -102,8 +101,7 @@ const Contact = () => {
           </p>
         </div>
 
-        {/* Contact Information Cards */}
-        <section className="mb-16">
+        {/* <section className="mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactInfo.map((info, index) => (
               <Card key={index} className="card-electric text-center">
@@ -123,7 +121,7 @@ const Contact = () => {
               </Card>
             ))}
           </div>
-        </section>
+        </section> */}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}

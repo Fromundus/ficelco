@@ -1,8 +1,8 @@
-import { Mail, Phone, MapPin, Facebook, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-card">
+    <footer className="bg-card border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Contact Information */}
@@ -10,19 +10,23 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Contact Information</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <MapPin className="w-5 h-5 text-accent" />
+                <MapPin className="w-5 h-5" />
                 <span className="text-sm">
-                  Virac, Catanduanes<br />
-                  Philippines 4800
+                  FICELCO, Marinawa, Bato, Catanduanes<br />
+                  Philippines, 4801
                 </span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-accent" />
+              {/* <div className="flex items-center space-x-3">
+                <Phone className="w-5 h-5" />
                 <span className="text-sm">(052) 811-1234</span>
+              </div> */}
+              <div className="flex items-center space-x-3">
+                <Mail className="w-5 h-5" />
+                <span className="text-sm">ficelco01@yahoo.com</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-accent" />
-                <span className="text-sm">info@ficelco.coop</span>
+                <Mail className="w-5 h-5" />
+                <span className="text-sm">ficelco01@gmail.com</span>
               </div>
             </div>
           </div>
@@ -54,18 +58,18 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://www.facebook.com/ficelco" 
                 className="hover:text-muted-foreground transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
+                href="https" 
                 className="hover:text-muted-foreground transition-colors"
-                aria-label="Twitter"
+                aria-label="Messenger"
               >
-                <Twitter className="w-5 h-5" />
+                <MessageCircle className="w-5 h-5" />
               </a>
             </div>
           </div>

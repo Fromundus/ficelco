@@ -10,8 +10,25 @@ import GuestPage from "@/components/custom/GuestPage";
 
 const BillingInquiry = () => {
   const [accountNumber, setAccountNumber] = useState("");
+
+  const [data, setData] = useState({
+    account_number: "",
+    sequence: "",
+  });
+
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value
+      }
+    });
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,8 +63,9 @@ const BillingInquiry = () => {
           </p>
         </div>
 
-        {/* Search Form */}
-        <Card className="card-electric mb-8">
+        <span className="flex w-full justify-center">Coming soon...</span>
+
+        {/* <Card className="card-electric mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Search className="w-5 h-5 text-primary" />
@@ -57,22 +75,31 @@ const BillingInquiry = () => {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <InputWithLabel
-                  id="accountNumber"
+                  id="account_number"
+                  name="account_number"
                   type="text"
                   placeholder="Enter your account number"
                   value={accountNumber}
-                  onChange={(e) => setAccountNumber(e.target.value)}
+                  onChange={handleChange}
                   label="Account Number"
+              />
+              <InputWithLabel
+                  id="sequence"
+                  name="sequence"
+                  type="text"
+                  placeholder="Enter your sequence"
+                  value={accountNumber}
+                  onChange={handleChange}
+                  label="Sequence (First 4 characters)"
               />
               <Button type="submit" disabled={loading} className="w-full">
                 {loading ? "Searching..." : "Search Billing Information"}
               </Button>
             </form>
           </CardContent>
-        </Card>
+        </Card> */}
 
-        {/* Sample Billing Information */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <Card className="card-electric">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -84,7 +111,7 @@ const BillingInquiry = () => {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Amount Due:</span>
-                  <span className="font-semibold text-accent">₱2,450.00</span>
+                  <span className="font-semibold">₱2,450.00</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Due Date:</span>
@@ -105,7 +132,7 @@ const BillingInquiry = () => {
           <Card className="card-electric">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-accent" />
+                <Calendar className="w-5 h-5" />
                 Billing Period
               </CardTitle>
             </CardHeader>
@@ -132,7 +159,6 @@ const BillingInquiry = () => {
           </Card>
         </div>
 
-        {/* Payment Options */}
         <Card className="card-electric">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -162,7 +188,7 @@ const BillingInquiry = () => {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
     </GuestPage>
   );
 };

@@ -66,7 +66,6 @@ const MemberServices = () => {
   return (
     <GuestPage>
 
-        {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">Member Services</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -75,8 +74,9 @@ const MemberServices = () => {
           </p>
         </div>
 
-        {/* Service Categories */}
-        <section className="mb-16">
+        <span className="flex w-full justify-center">Coming soon...</span>
+
+        {/* <section className="mb-16">
           <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Available Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {services.map((service, index) => (
@@ -100,11 +100,9 @@ const MemberServices = () => {
               </Card>
             ))}
           </div>
-        </section>
+        </section> */}
 
-        {/* Service Hours & Contact Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {/* Service Hours */}
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           <Card className="card-electric">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -130,7 +128,6 @@ const MemberServices = () => {
             </CardContent>
           </Card>
 
-          {/* Emergency Contacts */}
           <Card className="card-electric">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -150,10 +147,9 @@ const MemberServices = () => {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
 
-        {/* Service Status */}
-        <section className="mb-16">
+        {/* <section className="mb-16">
           <Card className="card-electric">
             <CardHeader>
               <CardTitle className="text-center">Current Service Status</CardTitle>
@@ -184,10 +180,9 @@ const MemberServices = () => {
               </div>
             </CardContent>
           </Card>
-        </section>
+        </section> */}
 
-        {/* Call to Action */}
-        <section className="text-center">
+        {/* <section className="text-center">
           <div className="bg-hero-gradient rounded-lg p-8 text-white">
             <h2 className="text-3xl font-bold mb-4">Need Personal Assistance?</h2>
             <p className="text-xl mb-6 opacity-90">
@@ -202,7 +197,7 @@ const MemberServices = () => {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
     </GuestPage>
   );
 };

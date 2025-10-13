@@ -87,7 +87,7 @@ const Biddings = () => {
       case "equipment":
         return "text-primary bg-primary/10";
       case "services":
-        return "text-accent bg-accent/10";
+        return "text-primary bg-primary/10";
       case "construction":
         return "text-secondary-foreground bg-secondary";
       case "materials":
@@ -132,8 +132,8 @@ const Biddings = () => {
             
             <Card className="card-electric">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Clock className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <Clock className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">
                   {biddingItems.filter(item => item.status === "closing-soon").length}
@@ -154,8 +154,8 @@ const Biddings = () => {
             
             <Card className="card-electric">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <FileText className="w-6 h-6 text-secondary-foreground" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <FileText className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">4</h3>
                 <p className="text-sm text-muted-foreground">Categories</p>
@@ -258,7 +258,7 @@ const Biddings = () => {
 
         {/* Contact Information */}
         <section>
-          <Card className="card-electric bg-hero-gradient text-white">
+          <Card className="card-electric bg-hero-gradient">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Need More Information?</CardTitle>
               <p className="opacity-90">
@@ -270,7 +270,7 @@ const Biddings = () => {
                 <Button variant="secondary" size="lg">
                   Download Bid Documents
                 </Button>
-                <Button variant="outline" size="lg" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
+                <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   Contact Procurement Office
                 </Button>
               </div>

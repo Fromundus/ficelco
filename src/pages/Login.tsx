@@ -56,7 +56,7 @@ const Login = () => {
     return (
         <div className="min-h-screen py-12 flex items-center justify-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <Card className='max-w-lg mx-auto w-full'>
+                <Card className='max-w-sm mx-auto w-full'>
                     <CardHeader className='flex items-center'>
                         <CardTitle>
                             Login

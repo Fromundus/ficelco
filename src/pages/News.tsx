@@ -105,7 +105,7 @@ const News = () => {
         </div>
 
         {/* Urgent Notices */}
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-6">
             <h2 className="text-2xl font-bold text-destructive mb-4 flex items-center gap-2">
               <AlertTriangle className="w-6 h-6" />
@@ -129,7 +129,7 @@ const News = () => {
                 ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* All News */}
         <section>
@@ -139,7 +139,7 @@ const News = () => {
               <Card key={item.id} className="card-electric">
                 <CardHeader>
                   <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center gap-2 text-primary">
+                    <div className="flex items-center gap-2">
                       {getTypeIcon(item.type)}
                     </div>
                     {getTypeBadge(item.type, item.urgent)}
@@ -166,7 +166,7 @@ const News = () => {
         </section>
 
         {/* Newsletter Signup */}
-        <section className="mt-16">
+        {/* <section className="mt-16">
           <Card className="card-electric">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Stay Updated</CardTitle>
@@ -178,7 +178,7 @@ const News = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Megaphone className="w-6 h-6 text-primary" />
+                    <Megaphone className="w-6 h-6" />
                   </div>
                   <h3 className="font-semibold mb-2">Text Alerts</h3>
                   <p className="text-sm text-muted-foreground">
@@ -186,8 +186,8 @@ const News = () => {
                   </p>
                 </div>
                 <div>
-                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Clock className="w-6 h-6 text-accent" />
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <Clock className="w-6 h-6" />
                   </div>
                   <h3 className="font-semibold mb-2">Email Updates</h3>
                   <p className="text-sm text-muted-foreground">
@@ -196,7 +196,7 @@ const News = () => {
                 </div>
                 <div>
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Info className="w-6 h-6 text-primary" />
+                    <Info className="w-6 h-6" />
                   </div>
                   <h3 className="font-semibold mb-2">Website</h3>
                   <p className="text-sm text-muted-foreground">
@@ -209,7 +209,7 @@ const News = () => {
               </Button>
             </CardContent>
           </Card>
-        </section>
+        </section> */}
     </GuestPage>
   );
 };

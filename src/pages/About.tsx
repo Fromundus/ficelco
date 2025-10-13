@@ -61,7 +61,7 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <Card className="card-electric">
               <CardHeader className="text-center">
-                <Target className="w-12 h-12 text-primary mx-auto mb-4" />
+                <Target className="w-12 h-12 mx-auto mb-4" />
                 <CardTitle className="text-2xl">Our Mission</CardTitle>
               </CardHeader>
               <CardContent>
@@ -74,7 +74,7 @@ const About = () => {
 
             <Card className="card-electric">
               <CardHeader className="text-center">
-                <Eye className="w-12 h-12 text-accent mx-auto mb-4" />
+                <Eye className="w-12 h-12 mx-auto mb-4" />
                 <CardTitle className="text-2xl">Our Vision</CardTitle>
               </CardHeader>
               <CardContent>
@@ -87,7 +87,7 @@ const About = () => {
 
             <Card className="card-electric">
               <CardHeader className="text-center">
-                <Award className="w-12 h-12 text-primary mx-auto mb-4" />
+                <Award className="w-12 h-12 mx-auto mb-4" />
                 <CardTitle className="text-2xl">Our Values</CardTitle>
               </CardHeader>
               <CardContent>
