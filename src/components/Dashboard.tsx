@@ -77,21 +77,11 @@ export default function Dashboard() {
               <SidebarTrigger />
               <div>
                 <h1 className="text-xl font-semibold text-foreground">
-                  {/* {currentPageName} */}
                 </h1>
-                {/* <p className="text-sm text-muted-foreground">
-                  Barangay Information Management System
-                </p> */}
               </div>
             </div>
             <div className="flex items-center gap-4">
               <ThemeToggle />
-              {/* <div className="text-right">
-                <p className="text-sm font-medium">Administrator</p>
-                <p className="text-xs text-muted-foreground">
-                  {new Date().toLocaleDateString()}
-                </p>
-              </div> */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center gap-2">

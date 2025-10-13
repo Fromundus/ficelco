@@ -36,6 +36,7 @@ import { AddRates } from "./pages/Admin/CSD/AddRates";
 import Rate from "./pages/Admin/CSD/Rate";
 import { EditRates } from "./pages/Admin/CSD/EditRates";
 import Posts from "./pages/Admin/CSD/Posts";
+import Post from "./pages/Admin/CSD/Post";
 
 const queryClient = new QueryClient();
 
@@ -90,6 +91,7 @@ const App = () => {
               <Route path="monthly-rates/:id/edit" element={<EditRates />} /> */}
 
               <Route path="posts" element={<Posts />} />
+              <Route path="posts/:id" element={<Post />} />
 
               
             </Route>

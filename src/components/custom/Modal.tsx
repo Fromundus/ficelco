@@ -27,7 +27,7 @@ const Modal = ({ open, setOpen, title, buttonLabel, buttonClassName, children, d
                     {buttonLabel}
                 </Button>}
             {/* </DialogTrigger> */}
-            <DialogContent aria-describedby=''>
+            <DialogContent aria-describedby='' className='overflow-y-auto max-h-[550px]'>
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
                 </DialogHeader>

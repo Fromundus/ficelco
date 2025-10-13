@@ -66,13 +66,14 @@ api.interceptors.response.use(
     if (status === 401 || status === 403 || status === 419) {
       const { setState } = useAuth;
       setState({ user: null, loading: false });
-    } else if (status !== 404) {
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: message,
-      });
     }
+    // else if (status !== 404) {
+    //   toast({
+    //     variant: 'destructive',
+    //     title: 'Error',
+    //     description: message,
+    //   });
+    // }
 
     return Promise.reject(error);
   }

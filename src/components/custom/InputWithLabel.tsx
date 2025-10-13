@@ -36,7 +36,7 @@ const InputWithLabel = ({ label, containerClassName, labelClassName, inputClassN
             </>
           }
         </div>
-        {error && <span className='text-destructive text-sm'>{error}</span>}
+        {error && <span className='text-destructive text-xs'>{error}</span>}
     </div>
   )
 }

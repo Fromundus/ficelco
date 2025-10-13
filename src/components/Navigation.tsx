@@ -137,7 +137,7 @@ const Navigation = () => {
   return (
     <nav className="bg-background shadow-[var(--shadow-card)] sticky top-0 z-50 border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-14">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center">
@@ -153,7 +153,7 @@ const Navigation = () => {
                 key={item.name}
                 to={item.path}
                 className={cn(
-                  "nav-link px-3 py-2 rounded-md text-sm font-medium",
+                  "nav-link px-3 py-2 rounded-md text-xs font-medium",
                   isActive(item.path) && "nav-link-active"
                 )}
               >

@@ -199,7 +199,7 @@ const OldFilePreview = ({ oldFiles, setOldFiles, refetch }: Props) => {
                                     />
                                     ) : (
                                     <div className="flex flex-col items-center justify-center w-full h-[40vh] rounded-md">
-                                        <FileIcon className="w-12 h-12 text-gray-500" />
+                                        <FileIcon className="w-10 h-10 text-gray-500" />
                                         <p className="mt-2 text-sm">{file.filename}</p>
                                     </div>
                                     )}

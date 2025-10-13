@@ -106,7 +106,7 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <div className='flex flex-col gap-2'>
-                                        <div className="flex flex-col gap-2 items-center border rounded-md p-2 cursor-pointer w-full">
+                                        <div className="flex flex-col gap-2 items-center border rounded-md cursor-pointer w-full">
                                             {isImage ? (
                                             <img
                                                 src={URL.createObjectURL(file)}
@@ -115,14 +115,14 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
                                             />
                                             ) : isPDF ? (
                                             <div className="flex flex-col gap-4 items-center justify-center aspect-square rounded-md w-full">
-                                                <FileText className="w-14 h-14 text-red-500" />
+                                                <FileText className="w-10 h-10 text-red-500" />
                                                 <div className='w-full text-center'>
                                                     <p className="text-xs truncate px-2">{file.name}</p>
                                                 </div>
                                             </div>
                                             ) : (
                                             <div className="flex flex-col gap-4 items-center justify-center aspect-square rounded-md w-full">
-                                                <FileIcon className="w-14 h-14" />
+                                                <FileIcon className="w-10 h-10" />
                                                 <div className='w-full text-center'>
                                                     <p className="text-xs truncate px-2">{file.name}</p>
                                                 </div>
@@ -201,7 +201,7 @@ const FileUpload = ({ errors, setErrors, files, setFiles, multiple = true, accep
                                     />
                                     ) : (
                                     <div className="flex flex-col items-center justify-center w-full h-[40vh] rounded-md">
-                                        <FileIcon className="w-12 h-12 text-gray-500" />
+                                        <FileIcon className="w-10 h-10 text-gray-500" />
                                         <p className="mt-2 text-sm">{file.name}</p>
                                     </div>
                                     )}

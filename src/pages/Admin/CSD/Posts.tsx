@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label'
 import { PowerRate } from '@/types/PowerRate'
 import { format } from 'date-fns'
 import { Eye, MoreHorizontal, Plus, Search, X } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -20,13 +20,31 @@ import FileUpload from '@/components/custom/FileUpload'
 import InputWithLabel from '@/components/custom/InputWithLabel'
 import { Textarea } from '@/components/ui/textarea'
 import ButtonWithLoading from '@/components/custom/ButtonWithLoading'
+import { toast } from '@/hooks/use-toast'
+import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query'
+import PostCard from '@/components/custom/PostCard'
 
 type Error = Record<string, string>;
 
 type FormData = {
   title: string;
-  description: string;
+  caption: string;
   type: string;
+}
+
+const fetchPosts = async ({ pageParam, queryKey }) => {
+  const [_key, { perPage }] = queryKey;
+  const res = await api.get('/api/posts', {
+    params: {
+      page: pageParam,
+      per_page: perPage,
+    },
+  });
+
+  return {
+    data: res.data.data.data,
+    pagination: res.data.data,
+  }
 }
 
 const Posts = () => {
@@ -38,48 +56,134 @@ const Posts = () => {
 
   const [data, setData] = useState<FormData>({
     title: "",
-    description: "",
+    caption: "",
     type: "",
   });
+
+  const perPage = 10;
+
+  const {
+    data: postsData,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["posts", { perPage }],
+    queryFn: fetchPosts,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      const { current_page, last_page } = lastPage.pagination;
+      return current_page < last_page ? current_page + 1 : undefined;
+    },
+    enabled: true,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const posts = postsData?.pages.flatMap((page) => page.data) ?? [];
+
+  console.log(posts);
+
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!loadMoreRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 1 }
+    );
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value
+      }
+    })
+  }
+
+  const queryClient = useQueryClient();
 
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("title", data.title);
-    formData.append("description", data.description);
+    formData.append("caption", data.caption);
     formData.append("type", data.type);
 
     files.forEach((file) => {
       formData.append("files[]", file);
     });
 
+    setLoading(true);
+
     try {
       const res = await api.post('/api/posts', formData);
-
       console.log(res);
+      setData({
+        title: "",
+        caption: "",
+        type: "",
+      });
+
+      setFiles([]);
+
+      setAddModal(false);
+      toast({
+        title: res.data.message,
+      });
+
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+
+      setLoading(false);
+
     } catch (err) {
       console.log(err);
+      setErrors(err.response.data.errors);
+
+      setLoading(false);
     }
   }
 
   return (
     <AdminPageMain title='Posts' description='Configure and update posts.' topAction={
-        <Modal open={addModal} setOpen={setAddModal} title='Create new post' buttonLabel={"Add Post"}>
+        <Modal open={addModal} setOpen={setAddModal} title='Create new post' buttonLabel={
+          <>
+            <Plus /> Add Post
+          </>
+        }>
           <div className='space-y-4 w-full'>
             <InputWithLabel
               id='title'
               name='title'
               label='Title'
               placeholder='Enter title'
+              onChange={handleChange}
+              error={errors?.title}
+              disabled={loading}
             />
-            <div className='space-y-3'>
+            <div className='flex flex-col gap-3'>
               <Label>
                 Caption
               </Label>
-              <Textarea />
-              {errors?.caption && <span className='text-destructive text-sm'>{errors?.caption}</span>}
+              <Textarea id='caption' name='caption' onChange={(e) => {
+                setData((prev) => {
+                  return {
+                    ...prev,
+                    caption: e.target.value,
+                  }
+                })
+              }} value={data.caption}  />
+              {errors?.caption && <span className='text-destructive text-xs'>{errors?.caption}</span>}
             </div>
 
-            <div className='space-y-3'>
+            <div className='flex flex-col gap-3'>
               <Label>
                 Type
               </Label>
@@ -107,7 +211,7 @@ const Posts = () => {
                   <SelectItem value='job-post'>Job Post</SelectItem>
                 </SelectContent>
               </Select>
-              {errors?.type && <span className='text-destructive text-sm'>{errors?.type}</span>}
+              {errors?.type && <span className='text-destructive text-xs'>{errors?.type}</span>}
             </div>
 
             <FileUpload 
@@ -132,12 +236,12 @@ const Posts = () => {
         </Modal>
     }>
         <Card>
-          <CardContent className="p-6">
+          <CardContent className="p-4">
             <div className="flex flex-col w-full lg:justify-between lg:flex-row gap-2">
               <div className="relative w-full">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search rates..."
+                  placeholder="Search posts..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full pl-10"
@@ -146,6 +250,16 @@ const Posts = () => {
             </div>
           </CardContent>
         </Card>
+
+        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+          {posts?.map((item) => {
+            return (
+              <PostCard post={item} />
+            )
+          })}
+        </div>
+
+
     </AdminPageMain>
   )
 }
