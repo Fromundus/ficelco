@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreditCard, FileText, Newspaper, Users, Zap, Shield, Phone } from "lucide-react";
 import heroImage from "@/assets/hero-electric.jpg";
+import bghero from "@/assets/bghero.jfif";
 
 const Index = () => {
   const quickLinks = [
@@ -59,7 +60,7 @@ const Index = () => {
       {/* Hero Section */}
       <section 
         className="relative bg-cover bg-center h-screen flex items-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        style={{ backgroundImage: `url(${bghero})` }}
       >
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
@@ -71,7 +72,7 @@ const Index = () => {
             affordable electricity for homes and businesses.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild className="btn-hero text-white font-semibold">
+            <Button asChild className="font-semibold">
               <Link to="/billing">Check Your Bill</Link>
             </Button>
             <Button asChild className="bg-primary bg-blue-500 hover:bg-blue-600 text-white font-semibold">
