@@ -85,7 +85,7 @@ const RateCard = ({ item, maxVisible = 4, refetch, noActionButton }: Props) => {
       <CardContent className='p-4'>
           <div className='space-y-4'>
             <div className='flex items-start justify-between'>
-              <div className='flex flex-col gap-2'>
+              <div className='flex-1 min-w-0 flex flex-col gap-2'>
                 <div className='flex items-center gap-2'>
                   <span className='font-semibold'>Month of {item?.month}, {item?.year}</span>
                   {item?.status === "active" && <Badge className='bg-green-500 text-white'>
@@ -93,6 +93,10 @@ const RateCard = ({ item, maxVisible = 4, refetch, noActionButton }: Props) => {
                   </Badge>}
                 </div>
                 <span className='text-muted-foreground text-xs'>Posted: {format(new Date(item?.created_at), 'PPp')}</span>
+
+                <p className="line-clamp-2 break-words whitespace-normal text-sm">
+                  {item.description}
+                </p>
               </div>
               {!noActionButton && <div className='flex items-center gap-2'>
                 <DropdownMenu>

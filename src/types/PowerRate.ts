@@ -4,6 +4,7 @@ export type PowerRate = {
   id: number;
   month: string;
   year: string;
+  description: string;
   files: File[];
   rows: PowerRateRow[];
   status: string;

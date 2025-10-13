@@ -21,6 +21,7 @@ import api from "@/api/axios";
 import ButtonWithLoading from "@/components/custom/ButtonWithLoading";
 import FileUpload from "@/components/custom/FileUpload";
 import { useNavigate } from "react-router-dom";
+import { Textarea } from "@/components/ui/textarea";
 
 interface RateRow {
   municipalities: string[];
@@ -42,6 +43,7 @@ export function AddRates() {
   const [loading, setLoading] = useState<boolean>(false);
   const [month, setMonth] = useState(format(new Date(Date.now()), "LLLL"));
   const [year, setYear] = useState<number | "">(Number(format(new Date(Date.now()), "yyyy")));
+  const [description, setDescription] = useState("");
   const [rows, setRows] = useState<RateRow[]>([]);
 
   const [files, setFiles] = useState<File[]>([]);
@@ -100,6 +102,7 @@ export function AddRates() {
     const formData = new FormData();
     formData.append("month", month);
     formData.append("year", year.toString());
+    formData.append("description", description);
 
     formData.append("rows", JSON.stringify(rows));
 
@@ -193,6 +196,12 @@ export function AddRates() {
                 error={errors?.year}
                 disabled={loading}
               />
+            </div>
+            <div className="flex flex-col gap-3">
+              <Label>
+                Description
+              </Label>
+              <Textarea onChange={(e) => setDescription(e.target.value)} value={description} />
             </div>
 
             {/* Dynamic Rows */}

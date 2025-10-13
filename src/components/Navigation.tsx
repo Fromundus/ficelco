@@ -122,12 +122,12 @@ const Navigation = () => {
     { name: "Home", path: "/" },
     { name: "News & Advisories", path: "/news" },
     { name: "Billing Inquiry", path: "/billing" },
+    { name: "Biddings", path: "/biddings" },
+    { name: "Downloads", path: "/downloads" },
     { name: "Services", path: "/services" },
   ];
   
   const infoItems = [
-    { name: "Biddings", path: "/biddings" },
-    { name: "Downloads", path: "/downloads" },
     { name: "About", path: "/about" },
     { name: "Contact Us", path: "/contact" },
   ];

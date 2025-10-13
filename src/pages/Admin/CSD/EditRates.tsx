@@ -25,6 +25,7 @@ import { PowerRate } from "@/types/PowerRate";
 import QueryLoadingPage from "@/pages/StatusPages/QueryLoadingPage";
 import QueryNotFound from "@/pages/StatusPages/QueryNotFound";
 import OldFilePreview from "@/components/custom/OldFilePreview";
+import { Textarea } from "@/components/ui/textarea";
 
 type OldFile = {
     id: number;
@@ -54,6 +55,7 @@ export function EditRates() {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
     const [month, setMonth] = useState(format(new Date(Date.now()), "LLLL"));
     const [year, setYear] = useState<number | "">(Number(format(new Date(Date.now()), "yyyy")));
+    const [description, setDescription] = useState("");
     const [rows, setRows] = useState([]);
 
     const [files, setFiles] = useState<File[]>([]);
@@ -148,6 +150,7 @@ export function EditRates() {
         const formData = new FormData();
         formData.append("month", month);
         formData.append("year", year.toString());
+        formData.append("description", description);
 
         formData.append("rows", JSON.stringify(rows));
 
@@ -248,6 +251,12 @@ export function EditRates() {
                 error={errors?.year}
                 disabled={loading || buttonLoading}
               />
+            </div>
+            <div className="flex flex-col gap-3">
+              <Label>
+                Description
+              </Label>
+              <Textarea onChange={(e) => setDescription(e.target.value)} value={description} />
             </div>
 
             {/* Dynamic Rows */}
