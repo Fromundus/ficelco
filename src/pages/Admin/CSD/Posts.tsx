@@ -23,6 +23,8 @@ import ButtonWithLoading from '@/components/custom/ButtonWithLoading'
 import { toast } from '@/hooks/use-toast'
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query'
 import PostCard from '@/components/custom/PostCard'
+import { fetchPosts } from '@/api/post'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type Error = Record<string, string>;
 
@@ -30,21 +32,6 @@ type FormData = {
   title: string;
   caption: string;
   type: string;
-}
-
-const fetchPosts = async ({ pageParam, queryKey }) => {
-  const [_key, { perPage }] = queryKey;
-  const res = await api.get('/api/posts', {
-    params: {
-      page: pageParam,
-      per_page: perPage,
-    },
-  });
-
-  return {
-    data: res.data.data.data,
-    pagination: res.data.data,
-  }
 }
 
 const Posts = () => {
@@ -252,14 +239,36 @@ const Posts = () => {
         </Card>
 
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
-          {posts?.map((item) => {
-            return (
-              <PostCard post={item} />
-            )
-          })}
+          {isLoading ? 
+            <>
+              <Skeleton className="h-48 w-full" />
+              <Skeleton className="h-48 w-full" />
+              <Skeleton className="h-48 w-full" />
+            </>
+            : posts.length > 0 ?
+            posts?.map((item) => {
+              return (
+                <PostCard post={item} />
+              )
+            })
+            :
+            <span>No posts.</span>
+          }
+
+          {isFetchingNextPage &&
+            <>
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-48 w-full" />
+            </>
+          }
+
         </div>
-
-
+        <div ref={loadMoreRef} className="flex justify-center items-center py-4">
+            {!hasNextPage && !isFetchingNextPage && !isLoading && posts.length > 10 && (
+            <span className="text-muted-foreground">No more posts.</span>
+            )}
+        </div>
     </AdminPageMain>
   )
 }

@@ -3,95 +3,52 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, AlertTriangle, Info, Megaphone } from "lucide-react";
 import GuestPage from "@/components/custom/GuestPage";
-
-interface NewsItem {
-  id: number;
-  title: string;
-  summary: string;
-  date: string;
-  type: "announcement" | "advisory" | "alert";
-  urgent?: boolean;
-}
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { fetchPosts } from "@/api/post";
+import { useEffect, useRef } from "react";
+import PostCard from "@/components/custom/PostCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const News = () => {
-  const newsItems: NewsItem[] = [
-    {
-      id: 1,
-      title: "Scheduled Maintenance - Virac Area",
-      summary: "Power interruption scheduled for March 20, 2024, from 8:00 AM to 12:00 PM for routine maintenance in Virac area.",
-      date: "March 15, 2024",
-      type: "advisory",
-      urgent: true
-    },
-    {
-      id: 2,
-      title: "New Payment Center Opening",
-      summary: "FICELCO announces the opening of a new payment center in Bato municipality for member convenience.",
-      date: "March 12, 2024",
-      type: "announcement"
-    },
-    {
-      id: 3,
-      title: "Energy Conservation Tips",
-      summary: "Learn practical ways to reduce your electricity consumption and save on your monthly bills.",
-      date: "March 10, 2024",
-      type: "advisory"
-    },
-    {
-      id: 4,
-      title: "Safety Reminder: Electrical Hazards",
-      summary: "Important safety guidelines to prevent electrical accidents during the rainy season.",
-      date: "March 8, 2024",
-      type: "alert",
-      urgent: true
-    },
-    {
-      id: 5,
-      title: "Board Meeting Minutes Available",
-      summary: "February 2024 board meeting minutes are now available for member review in our office.",
-      date: "March 5, 2024",
-      type: "announcement"
-    },
-    {
-      id: 6,
-      title: "Rate Adjustment Notice",
-      summary: "Notice of upcoming rate adjustment effective April 1, 2024, following regulatory approval.",
-      date: "March 1, 2024",
-      type: "announcement"
-    }
-  ];
 
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case "announcement":
-        return <Megaphone className="w-5 h-5" />;
-      case "advisory":
-        return <Info className="w-5 h-5" />;
-      case "alert":
-        return <AlertTriangle className="w-5 h-5" />;
-      default:
-        return <Info className="w-5 h-5" />;
-    }
-  };
+  const perPage = 10;
 
-  const getTypeBadge = (type: string, urgent?: boolean) => {
-    const baseClasses = "capitalize";
-    
-    if (urgent) {
-      return <Badge variant="destructive" className={baseClasses}>Urgent {type}</Badge>;
-    }
-    
-    switch (type) {
-      case "announcement":
-        return <Badge variant="default" className={baseClasses}>{type}</Badge>;
-      case "advisory":
-        return <Badge variant="secondary" className={baseClasses}>{type}</Badge>;
-      case "alert":
-        return <Badge variant="destructive" className={baseClasses}>{type}</Badge>;
-      default:
-        return <Badge variant="outline" className={baseClasses}>{type}</Badge>;
-    }
-  };
+  const {
+    data: postsData,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["posts", { perPage }],
+    queryFn: fetchPosts,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      const { current_page, last_page } = lastPage.pagination;
+      return current_page < last_page ? current_page + 1 : undefined;
+    },
+    enabled: true,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const posts = postsData?.pages.flatMap((page) => page.data) ?? [];
+  
+  console.log(posts);
+
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!loadMoreRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 1 }
+    );
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <GuestPage>
@@ -131,37 +88,38 @@ const News = () => {
           </div>
         </section> */}
 
-        {/* All News */}
         <section>
           <h2 className="text-3xl font-bold text-foreground mb-8">Latest Updates</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {newsItems.map((item) => (
-              <Card key={item.id} className="card-electric">
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      {getTypeIcon(item.type)}
-                    </div>
-                    {getTypeBadge(item.type, item.urgent)}
-                  </div>
-                  <CardTitle className="text-lg line-clamp-2">{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                    {item.summary}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-muted-foreground">
-                      <Calendar className="w-3 h-3 mr-1" />
-                      {item.date}
-                    </div>
-                    <Button variant="outline" size="sm">
-                      Read More
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+            {isLoading ? 
+              <>
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-48 w-full" />
+              </>
+              : posts.length > 0 ?
+              posts?.map((item) => {
+                return (
+                  <PostCard post={item} />
+                )
+              })
+              :
+              <span>No posts.</span>
+            }
+
+            {isFetchingNextPage &&
+              <>
+                  <Skeleton className="h-48 w-full" />
+                  <Skeleton className="h-48 w-full" />
+                  <Skeleton className="h-48 w-full" />
+              </>
+            }
+
+          </div>
+          <div ref={loadMoreRef} className="flex justify-center items-center py-4">
+              {!hasNextPage && !isFetchingNextPage && !isLoading && posts.length > 10 && (
+              <span className="text-muted-foreground">No more posts.</span>
+              )}
           </div>
         </section>
 
