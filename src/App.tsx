@@ -37,6 +37,10 @@ import Rate from "./pages/Admin/CSD/Rate";
 import { EditRates } from "./pages/Admin/CSD/EditRates";
 import Posts from "./pages/Admin/CSD/Posts";
 import Post from "./pages/Admin/CSD/Post";
+import History from "./pages/About/History";
+import VisionMisionGoal from "./pages/About/VisionMisionGoal";
+import BOD from "./pages/About/BOD";
+import ManagementTeam from "./pages/About/ManagementTeam";
 
 const queryClient = new QueryClient();
 
@@ -57,7 +61,13 @@ const App = () => {
         <Routes>
           <Route path="/" element={<GuestLayout />}>
             <Route index element={<Index />} />
-            <Route path="about" element={<About />} />
+            {/* <Route path="about" element={<About />} /> */}
+            <Route path="/about">
+              <Route path="history" element={<History />} />
+              <Route path="vmg" element={<VisionMisionGoal />} />
+              <Route path="bod" element={<BOD />} />
+              <Route path="mt" element={<ManagementTeam />} />
+            </Route>
             <Route path="billing" element={<BillingInquiry />} />
             <Route path="services" element={<MemberServices />} />
             <Route path="news" element={<News />} />
