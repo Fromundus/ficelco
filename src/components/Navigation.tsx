@@ -234,7 +234,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center">
             {navItems.map((item) =>
               item.subItems ? (
                 <DropdownMenu key={item.name}>

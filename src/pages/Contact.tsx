@@ -12,7 +12,8 @@ import {
   Clock, 
   MessageSquare,
   User,
-  Send
+  Send,
+  Building
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import GuestPage from "@/components/custom/GuestPage";
@@ -123,14 +124,14 @@ const Contact = () => {
           </div>
         </section> */}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Office Information */}
           <div className="space-y-6">
             {/* Main Office */}
             <Card className="card-electric">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
+                  <MapPin className="w-5 h-5" />
                   Main Office
                 </CardTitle>
               </CardHeader>
@@ -139,53 +140,72 @@ const Contact = () => {
                   <div>
                     <h4 className="font-semibold text-foreground mb-2">FICELCO Headquarters</h4>
                     <p className="text-muted-foreground">
-                      Located in the heart of Virac, our main office serves as the 
+                      Located at Marinawa, Bato, Catanduanes, our main office serves as the 
                       central hub for all FICELCO operations and customer services.
                     </p>
-                  </div>
-                  <div className="border-t pt-4">
-                    <h5 className="font-medium text-foreground mb-2">Services Available:</h5>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>• Bill payment and inquiries</li>
-                      <li>• New connection applications</li>
-                      <li>• Technical support</li>
-                      <li>• Member services</li>
-                      <li>• Document requests</li>
-                    </ul>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Emergency Services */}
-            <Card className="card-electric bg-destructive/5 border-destructive/20">
+            <Card className="card-electric">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-destructive">
+                <CardTitle className="flex items-center gap-2">
                   <Phone className="w-5 h-5" />
-                  Emergency Services
+                  Our Contacts
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div>
-                    <h4 className="font-semibold text-foreground">24/7 Emergency Hotline</h4>
-                    <p className="text-lg font-mono text-destructive">(052) 811-HELP (4357)</p>
+                    <h4 className="font-semibold text-foreground">FICELCO Consumer Complaints and Request Hotline</h4>
+                    <p className="text-lg font-mono">09506791798</p>
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    <p className="mb-2">Call for:</p>
-                    <ul className="space-y-1">
-                      <li>• Power outages</li>
-                      <li>• Electrical emergencies</li>
-                      <li>• Downed power lines</li>
-                      <li>• Safety hazards</li>
-                    </ul>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Meter Reading & Billing</h4>
+                    <p className="text-lg font-mono">09494282140</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Email us</h4>
+                    <p className="text-lg font-mono">ficelco01@gmail.com</p>
+                  </div>
+                  <div className="border-t pt-4">
+                    <h5 className="font-bold text-foreground mb-2 flex items-center gap-2"><Building /> SERVICE CENTERS</h5>
+                    <div className="space-y-3 pt-4">
+                      <div className="space-y-1">
+                        <h4 className="text-foreground font-semibold">SAN ANDRES</h4>
+                        <p className="font-mono pt-2">DIVINO ROSTRO (POB.), SAN ANDRES, CATANDUANES</p>
+                        <p className="text-lg font-mono">09295501517</p>
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="text-foreground font-semibold">VIGA</h4>
+                        <p className="font-mono pt-2">SAN ISIDRO, VIGA, CATANDUANES</p>
+                        <p className="text-lg font-mono">09394925015</p>
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="text-foreground font-semibold">DATAG</h4>
+                        <p className="font-mono pt-2">DATAG WEST, CARAMORAN, CATANDUANES</p>
+                        <p className="text-lg font-mono">09291757156</p>
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="text-foreground font-semibold">PANDAN</h4>
+                        <p className="font-mono pt-2">SAN IGNACIO ST. PANDAN DEL NORTE, PANDAN, CATANDUANES</p>
+                        <p className="text-lg font-mono">09295501529</p>
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="text-foreground font-semibold">GIGMOTO</h4>
+                        <p className="font-mono pt-2">POBLACIO DISTRICT II, GIGMOTO, CATANDUANES</p>
+                        <p className="text-lg font-mono">09295501546</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Quick Tips */}
-            <Card className="card-electric">
+            {/* <Card className="card-electric">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <User className="w-5 h-5 text-accent" />
@@ -208,14 +228,14 @@ const Contact = () => {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
           {/* Contact Form */}
           <div>
             <Card className="card-electric">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-primary" />
+                  <MessageSquare className="w-5 h-5" />
                   Send us a Message
                 </CardTitle>
                 <p className="text-muted-foreground">

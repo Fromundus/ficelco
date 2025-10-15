@@ -14,8 +14,8 @@ const VisionMisionGoal = () => {
             </div>
 
             <section className="mb-16">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <Card className="card-electric">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <Card className="card-electric h-fit">
                     <CardHeader className="text-center">
                         <Eye className="w-12 h-12 mx-auto mb-4" />
                         <CardTitle className="text-2xl">Our Vision</CardTitle>
@@ -27,7 +27,7 @@ const VisionMisionGoal = () => {
                     </CardContent>
                     </Card>
 
-                    <Card className="card-electric">
+                    <Card className="card-electric h-fit">
                     <CardHeader className="text-center">
                         <Target className="w-12 h-12 mx-auto mb-4" />
                         <CardTitle className="text-2xl">Our Mission</CardTitle>
@@ -39,7 +39,7 @@ const VisionMisionGoal = () => {
                     </CardContent>
                     </Card>
 
-                    <Card className="card-electric">
+                    <Card className="card-electric h-fit">
                     <CardHeader className="text-center">
                         <Award className="w-12 h-12 mx-auto mb-4" />
                         <CardTitle className="text-2xl">Our Values</CardTitle>
@@ -54,29 +54,30 @@ const VisionMisionGoal = () => {
                         </ul>
                     </CardContent>
                     </Card>
-                </div>
-                </section>
 
-                <section className="mb-16">
-                <div className="bg-subtle-gradient rounded-lg p-8">
-                    <h2 className="text-3xl font-bold text-foreground mb-6 text-center">Our Goal</h2>
-                    <div className="prose prose-lg max-w-none">
-                    <p className="text-muted-foreground mb-4">
+                    <Card className="card-electric h-fit">
+                    <CardHeader className="text-center">
+                        <Award className="w-12 h-12 mx-auto mb-4" />
+                        <CardTitle className="text-2xl">Our Goals</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground mb-4">
                         <strong>1. </strong>To provide electricity in all “sitios” of Catanduanes.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        <strong>2. </strong>To improve system reliability, power quality and reduce system loss by upgrading and rehabilitation of existing distribution system;
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        <strong>3. </strong>To enhance Employee Competence Programs for professional and personal growth;
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        <strong>4. </strong>To improve Consumer-Relation programs by spearheading Corporate Social Responsibility (CSR) projects; and
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        <strong>5. </strong>To improve working facilities and upgrade Information Technology (IT) for service efficiency.
-                    </p>
-                    </div>
+                        </p>
+                        <p className="text-muted-foreground mb-4">
+                            <strong>2. </strong>To improve system reliability, power quality and reduce system loss by upgrading and rehabilitation of existing distribution system;
+                        </p>
+                        <p className="text-muted-foreground mb-4">
+                            <strong>3. </strong>To enhance Employee Competence Programs for professional and personal growth;
+                        </p>
+                        <p className="text-muted-foreground mb-4">
+                            <strong>4. </strong>To improve Consumer-Relation programs by spearheading Corporate Social Responsibility (CSR) projects; and
+                        </p>
+                        <p className="text-muted-foreground mb-4">
+                            <strong>5. </strong>To improve working facilities and upgrade Information Technology (IT) for service efficiency.
+                        </p>
+                    </CardContent>
+                    </Card>
                 </div>
             </section>
         </GuestPage>
