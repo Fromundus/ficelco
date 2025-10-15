@@ -14,10 +14,10 @@ const Index = () => {
       link: "/billing",
     },
     {
-      title: "Latest News",
+      title: "Announcements and Advisories",
       description: "Stay updated with announcements and advisories",
       icon: Newspaper,
-      link: "/news",
+      link: "/news/announcement-advisory",
     },
     {
       title: "Member Services",
@@ -64,8 +64,7 @@ const Index = () => {
             POWERING <span className="text-primary">CATANDUANES</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            First Catanduanes Electric Cooperative, Inc. - Your trusted partner in reliable, 
-            affordable electricity for homes and businesses.
+            Commited to Providing Affordable, Reliable, and Efficient Service
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild className="font-semibold p-6 text-lg">

@@ -153,6 +153,8 @@ const Downloads = () => {
           </p> */}
         </div>
 
+        <span className="flex w-full justify-center">Coming soon...</span>
+
         {/* Categories Filter */}
         {/* <section className="mb-12">
           <Card className="card-electric">
@@ -181,57 +183,8 @@ const Downloads = () => {
           </Card>
         </section> */}
 
-        {/* Download Stats */}
-        {/* <section className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <Card className="card-electric">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <FileText className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">{downloadItems.length}</h3>
-                <p className="text-sm text-muted-foreground">Total Documents</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="card-electric">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Download className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">
-                  {downloadItems.reduce((sum, item) => sum + item.downloadCount, 0)}
-                </h3>
-                <p className="text-sm text-muted-foreground">Total Downloads</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="card-electric">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Folder className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">
-                  {categories.filter(cat => cat.name !== "All").length}
-                </h3>
-                <p className="text-sm text-muted-foreground">Categories</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="card-electric">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Calendar className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-bold text-foreground">Weekly</h3>
-                <p className="text-sm text-muted-foreground">Update Frequency</p>
-              </CardContent>
-            </Card>
-          </div>
-        </section> */}
-
         {/* Downloads List */}
-        <section>
+        {/* <section>
           <h2 className="text-3xl font-bold text-foreground mb-8">Available Downloads</h2>
           <div className="grid grid-cols-1 gap-6">
             {downloadItems.map((item) => (
@@ -277,7 +230,7 @@ const Downloads = () => {
               </Card>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Help Section */}
         {/* <section className="mt-16">

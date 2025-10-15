@@ -115,6 +115,8 @@ const Biddings = () => {
           </p> */}
         </div>
 
+        <span className="flex w-full justify-center">Coming soon...</span>
+
         {/* Quick Stats */}
         {/* <section className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -164,7 +166,7 @@ const Biddings = () => {
           </div>
         </section> */}
 
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <h2 className="text-3xl font-bold text-foreground mb-8">Current Opportunities</h2>
           <div className="space-y-6">
             {biddingItems
@@ -222,7 +224,7 @@ const Biddings = () => {
                 </Card>
               ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Guidelines */}
         {/* <section className="mb-12">
