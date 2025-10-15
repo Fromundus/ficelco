@@ -132,53 +132,50 @@ const Contact = () => {
             <Card className="card-electric">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5" />
+                  {/* <MapPin className="w-5 h-5" /> */}
                   Main Office
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">FICELCO Headquarters</h4>
-                    <p className="text-muted-foreground">
-                      Located at Marinawa, Bato, Catanduanes, our main office serves as the 
-                      central hub for all FICELCO operations and customer services.
-                    </p>
+                <div className="space-y-6">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-foreground">FICELCO Headquarters</h4>
+                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><MapPin className="w-5 h-5" /> Marinawa, Bato, Catanduanes, Philippines, 4801</p>
+                    </div>
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-foreground">FICELCO Consumer Complaints and Request Hotline</h4>
+                      <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0950-679-1798</p>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-foreground">Meter Reading & Billing</h4>
+                      <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0949-428-2140</p>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-foreground">Email us</h4>
+                      <p className="text-sm flex items-center gap-2 text-muted-foreground"><Mail className="w-5 h-5" /> ficelco01@gmail.com</p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Emergency Services */}
-            <Card className="card-electric">
+            {/* <Card className="card-electric">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Phone className="w-5 h-5" />
                   Our Contacts
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-6">
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-foreground">FICELCO Consumer Complaints and Request Hotline</h4>
-                    <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0950-679-1798</p>
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-foreground">Meter Reading & Billing</h4>
-                    <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0949-428-2140</p>
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-foreground">Email us</h4>
-                    <p className="text-sm flex items-center gap-2 text-muted-foreground"><Mail className="w-5 h-5" /> ficelco01@gmail.com</p>
-                  </div>
-                </div>
+                
               </CardContent>
-            </Card>
+            </Card> */}
 
             <Card className="card-electric">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Building className="w-5 h-5" />
+                  {/* <Building className="w-5 h-5" /> */}
                   Service Centers
                 </CardTitle>
               </CardHeader>
@@ -228,7 +225,7 @@ const Contact = () => {
             <Card className="card-electric">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5" />
+                  {/* <MessageSquare className="w-5 h-5" /> */}
                   Send us a Message
                 </CardTitle>
                 <p className="text-muted-foreground">

@@ -226,7 +226,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-4">
             <div className="w-10 h-10 flex items-center justify-center">
               <img src={logo} alt="FICELCO Logo" />
             </div>
@@ -274,18 +274,18 @@ const Navigation = () => {
 
             <div className="ml-4 flex items-center gap-4">
               <ThemeToggle />
-              <Button>
+              {/* <Button>
                 <Link to="/login">Login</Link>
-              </Button>
+              </Button> */}
             </div>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center space-x-4">
             <ThemeToggle />
-            <Button>
+            {/* <Button>
               <Link to="/login">Login</Link>
-            </Button>
+            </Button> */}
             <Button
               variant="ghost"
               size="sm"
