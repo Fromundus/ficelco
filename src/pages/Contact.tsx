@@ -68,41 +68,33 @@ const Contact = () => {
   const serviceCenters = [
     {
       name: "SAN ANDRES",
-      address: "DIVINO ROSTRO (POB.), SAN ANDRES, CATANDUANES",
+      address: "Divino Rostro (Pob.), San Andres, Catanduanes",
       contact_number: "0929-550-1517",
     },
     {
       name: "VIGA",
-      address: "SAN ISIDRO, VIGA, CATANDUANES",
+      address: "San Isidro, Viga, Catanduanes",
       contact_number: "0939-492-5015",
     },
     {
       name: "DATAG",
-      address: "DATAG WEST, CARAMORAN, CATANDUANES",
+      address: "Datag West, Caramoran, Catanduanes",
       contact_number: "0929-175-7156",
     },
     {
       name: "PANDAN",
-      address: "SAN IGNACIO ST. PANDAN DEL NORTE, PANDAN, CATANDUANES",
+      address: "San Ignacio St. Pandan Del Norte, Pandan, Catanduanes",
       contact_number: "0929-550-1529",
     },
     {
       name: "GIGMOTO",
-      address: "POBLACIO DISTRICT II, GIGMOTO, CATANDUANES",
+      address: "Poblacion District II, Gigmoto, Catanduanes",
       contact_number: "0929-550-1546",
     },
   ]
 
   return (
-    <GuestPage>
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Contact Us</h1>
-          {/* <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Get in touch with FICELCO. We're here to help with your electrical 
-            service needs, questions, and concerns.
-          </p> */}
-        </div>
-
+    <GuestPage title="Contact Us">
         {/* <section className="mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactInfo.map((info, index) => (
@@ -145,15 +137,15 @@ const Contact = () => {
                   <div className="space-y-6">
                     <div className="space-y-2">
                       <h4 className="font-semibold text-foreground">FICELCO Consumer Complaints and Request Hotline</h4>
-                      <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0950-679-1798</p>
+                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0950-679-1798</p>
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-semibold text-foreground">Meter Reading & Billing</h4>
-                      <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0949-428-2140</p>
+                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0949-428-2140</p>
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-semibold text-foreground">Email us</h4>
-                      <p className="text-sm flex items-center gap-2 text-muted-foreground"><Mail className="w-5 h-5" /> ficelco01@gmail.com</p>
+                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Mail className="w-5 h-5" /> ficelco01@gmail.com</p>
                     </div>
                   </div>
                 </div>

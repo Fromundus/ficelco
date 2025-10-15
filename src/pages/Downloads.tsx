@@ -143,16 +143,7 @@ const Downloads = () => {
   };
 
   return (
-    <GuestPage>
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Downloads</h1>
-          {/* <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Access important documents, forms, and resources from FICELCO. 
-            Download what you need for membership, services, and compliance.
-          </p> */}
-        </div>
-
+    <GuestPage title="Downloads">
         <span className="flex w-full justify-center">Coming soon...</span>
 
         {/* Categories Filter */}

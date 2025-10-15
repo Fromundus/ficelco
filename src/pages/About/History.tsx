@@ -1,110 +1,215 @@
 import GuestPage from '@/components/custom/GuestPage'
+import { Circle } from 'lucide-react';
 import React from 'react'
+import first from "../../assets/history/ficelco-history1-1.png";
+import second from "../../assets/history/ficelco-history-1975-300x225.png";
+import third from "../../assets/history/ficelco-history-construction-300x225.png";
+import fourth from "../../assets/history/ficelco-history-plant-300x225.png";
+import fifth from "../../assets/history/ficelco-history-contract-signing-300x225.png";
+
+// const timeline = [
+//   {
+//     year: "1971",
+//     title: "FICELCO Founded",
+//     image: first,
+//     body:
+//       "First Electric Cooperative, Inc. (FICELCO) was established under PD 6. It was organized by provincial officers to bring power to Catanduanes.",
+//   },
+//   {
+//     year: "1972",
+//     title: "USAID Equipment & First Operations",
+//     body:
+//       "FICELCO received its first USAID power equipment and began operations in Virac and Bato through a lease with the provincial government.",
+//   },
+//   {
+//     year: "1973",
+//     title: "Fuel Crisis and Strategy Shift",
+//     body:
+//       "Fuel price hikes forced FICELCO to pause expansion, restructure priorities, and explore alternative local energy sources.",
+//   },
+//   {
+//     year: "1975 – 1979",
+//     title: "Infrastructure Expansion",
+//     body:
+//       "Power plant and headquarters completed (1975); new lines energized across Virac, Bato, San Andres, San Miguel (1976); Gigmoto (1978) and Viga (1979).",
+//   },
+//   {
+//     year: "1982 – 1984",
+//     title: "Hydro & Dendro Projects",
+//     image: second,
+//     body:
+//       "Construction of the Balongbong Mini-Hydro Plant and a 600-hectare ipil-ipil plantation for the Dendro Thermal Project began.",
+//   },
+//   {
+//     year: "1983",
+//     title: "Typhoon ‘Warling’ and Recovery",
+//     image: third,
+//     body:
+//       "The Balongbong Project was damaged by Typhoon Warling, but rehabilitation was completed in 1984 through local contractor partnerships.",
+//   },
+//   {
+//     year: "1986 – 1989",
+//     title: "Recovery & Growth",
+//     body:
+//       "FICELCO expanded to Pandan and Caramoran, improved operations with NEA support, and achieved 97% collection efficiency by 1989.",
+//   },
+//   {
+//     year: "1998",
+//     title: "Typhoon ‘Loleng’ Restoration",
+//     body:
+//       "Massive system damage was repaired with help from CEBECO and ‘Task Force Catanduanes’ led by GM Fr. Francisco G. Silva.",
+//   },
+//   {
+//     year: "2002 – 2004",
+//     title: "Temporary Gensets & EPIRA Reforms",
+//     body:
+//       "Monark gensets were commissioned to solve power shortages; later, EPIRA reforms introduced unbundled rates and consumer rights seminars.",
+//   },
+//   {
+//     year: "2006",
+//     title: "Typhoon ‘Reming’ Recovery",
+//     body:
+//       "Severe storm damage restored within three months through combined efforts of management, employees, and member-consumers.",
+//   },
+//   {
+//     year: "Today",
+//     title: "100% Energization & Service Excellence",
+//     body:
+//       "FICELCO now serves 38,000+ members across 11 municipalities, continuing its mission of affordable, dependable, and efficient service.",
+//   },
+// ];
+
+export const timeline = [
+    {
+        year: 1971,
+        title: "FICELCO Founded",
+        image: first,
+        body: "On October 28, 1971, the First Catanduanes Electric Cooperative, Inc. (FICELCO) was established under Presidential Decree No. 6, spearheaded by provincial officers from various sectors of Catanduanes.",
+    },
+    {
+        year: 1972,
+        title: "USAID Power Equipment and Lease Agreement",
+        body: "FICELCO received its first shipment of power generating equipment from USAID and entered a lease agreement with the Provincial Government to operate the Magsaysay Electric Distribution System in Virac and Bato.",
+    },
+    {
+        year: 1973,
+        title: "Fuel Price Hike and Strategic Reorientation",
+        body: "A global fuel price hike disrupted operations, forcing FICELCO to slow expansion plans, restructure priorities, and begin exploring alternative energy sources.",
+    },
+    {
+        year: 1975,
+        title: "Construction of Power Plant and Headquarters",
+        body: "FICELCO completed the construction of its power plant and headquarters in May 1975, preparing to meet the growing power demands of its members.",
+    },
+    {
+        year: 1976,
+        title: "Expansion to More Municipalities",
+        body: "New line extensions in Virac, Bato, San Andres, and San Miguel were inaugurated in August 1976, expanding FICELCO’s service coverage.",
+    },
+    {
+        year: 1978,
+        title: "Service Expansion to Gigmoto",
+        body: "FICELCO inaugurated its service in the municipality of Gigmoto in May 1978, continuing its province-wide electrification push.",
+    },
+    {
+        year: 1979,
+        title: "Viga Interim Power Plant",
+        body: "An interim power plant was installed in Viga in June 1979, further improving electricity access across Catanduanes.",
+    },
+    {
+        year: 1982,
+        title: "Development of Indigenous Power Sources",
+        image: second,
+        body: "Construction of the 1.8 MW Balongbong Mini-Hydro Plant began in June 1982, alongside the establishment of a 600-hectare ipil-ipil plantation to fuel the planned Buyo Dendro Thermal Plant.",
+    },
+    {
+        year: 1983,
+        title: "Power Shortage and Balongbong Hydro Inauguration",
+        body: "Despite limited generating capacity and high costs, the Balongbong Mini-Hydro Plant was inaugurated on June 27, 1983. Typhoon 'Warling' later that year severely damaged the facility, reducing power service and consumer confidence.",
+    },
+    {
+        year: 1984,
+        title: "Balongbong Rehabilitation and Recovery",
+        image: third,
+        body: "FICELCO partnered with local contractors to rehabilitate the Balongbong Mini-Hydro Plant. By November 1984, operations had stabilized and revenues began to recover.",
+    },
+    {
+        year: 1986,
+        title: "Provincial Government Support for Line Extensions",
+        body: "The Provincial Government led efforts to extend power lines to Pandan and Caramoran, linking them to the Balongbong hydro source.",
+    },
+    {
+        year: 1987,
+        title: "Management Assistance from NEA",
+        body: "The National Electrification Administration (NEA) sent a two-man Management Assistance Team to directly support FICELCO’s operations under PD 1645.",
+    },
+    {
+        year: 1988,
+        title: "NAPOCOR Power Integration and Collection Breakthrough",
+        image: fourth,
+        body: "Power generation duties were transferred to NAPOCOR, reducing FICELCO’s operating costs. The co-op achieved over 95% collection efficiency for the first time, marking a major milestone in performance.",
+    },
+    {
+        year: 1989,
+        title: "Recognition as a Viable Electric Cooperative",
+        body: "NEA reclassified FICELCO among the country’s most viable cooperatives. Electrification projects expanded, supported by a proposed total electrification agenda and a DANIDA-assisted development grant.",
+    },
+    {
+        year: 1990,
+        title: "Continued Electrification and Growth",
+        body: "Despite material shortages, FICELCO sustained electrification growth through community-based programs like Barangay Power Associations and Electricians Courses.",
+    },
+    {
+        year: 1998,
+        title: "Typhoon Loleng and Restoration Efforts",
+        body: "Typhoon 'Loleng' devastated the distribution system. Restoration was led by FICELCO with aid from CEBECO I–III and 'Task Force Catanduanes,' under GM Fr. Francisco G. Silva.",
+    },
+    {
+        year: 2002,
+        title: "Power Supply Crisis and Temporary Gensets",
+        image: fifth,
+        body: "Two rented gensets from Monark were commissioned, alleviating the island’s power shortage. FICELCO and the provincial government petitioned President Gloria Macapagal-Arroyo to retain them until NAPOCOR’s capacity improved.",
+    },
+    {
+        year: 2004,
+        title: "Unbundling of Rates and Consumer Orientation",
+        body: "In compliance with ERC regulations, FICELCO implemented unbundled rates and launched weekly consumer orientation seminars as part of the Magna Carta for Residential Consumers.",
+    },
+    {
+        year: 2006,
+        title: "Typhoon Reming Restoration",
+        body: "After Typhoon 'Reming' caused severe damage, FICELCO restored full power to the province within three months through coordinated efforts of its management, employees, and member-consumers.",
+    },
+    {
+        year: "Today",
+        title: "Sustained Growth and Full Electrification",
+        body: "After 36 years of service, FICELCO achieved 100% barangay energization, serving over 38,000 member-consumers across 11 municipalities, reaffirming its commitment to reliable and affordable electric service.",
+    },
+];
 
 const History = () => {
     return (
-        <GuestPage>
-            <div className="text-center mb-16">
-                <h1 className="text-4xl font-bold text-foreground mb-4">Our History</h1>
-                {/* <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                    Learn about FICELCO’s journey from its founding in 1971 to becoming Catanduanes’ trusted electric cooperative, dedicated to powering every community on the island.
-                </p> */}
+        <GuestPage title='Our History'>
+            <div className='flex flex-col gap-12'>
+                {timeline.map((item, index) => {
+                    return (
+                        <div className='grid md:grid-cols-9 items-center'>
+                            <span className='text-nowrap col-span-1 text-lg font-bold text-end'>
+                                {item.year}
+                            </span>
+                            <div className='col-span-1 hidden md:flex bg-foreground h-5 w-5 ms-14 rounded-full relative'>
+                                {/* {index !== 19 && <div className={`absolute ${item.image ? "h-96" : "h-40"} left-[9px] border-[1px] border-foreground`}></div>} */}
+                                {index !== 0 && <div className={`absolute left-[9px] h-[520px] bottom-0 border-[1px] border-foreground`}></div>}
+                            </div>
+                            <div className='col-span-7 space-y-4'>
+                                <h1 className='text-xl font-semibold'>{item.title}</h1>
+                                <img className='w-full' src={item.image} alt="" />
+                                <p className='text-muted-foreground'>{item.body}</p>
+                            </div>
+                        </div>
+                    )
+                })}
             </div>
-
-            <section className="mb-16">
-                <div className="bg-subtle-gradient rounded-lg">
-                    <div className="prose prose-lg max-w-none">
-                    <p className="text-muted-foreground mb-4">
-                        On October 28, 1971, the First Electric Cooperative, Inc. was established under PD 6 as amended. It was spearheaded by a team of Provincial Officers coming from the province’s different sectors.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        Being one of the first electric cooperatives to be organized in the country, FICELCO became a recipient of the initial shipment of power generating equipment from the USAID in 1972.On April 1, 1972, the Magsaysay Electric Distribution System owned by the Provincial Government was operating on the Municipalities of Virac and Bato.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        FICELCO entered into a lease agreement with the Province of Catanduanes to operate the electric system while expanding its service area. The experience during the transition period from leasing to final ownership of the system proved valuable to the Management of the Co-op, GM Amado M. Tacorda was then able to re-orient the consumers of their new responsibilities.
-                    </p>
-
-                    <p className="text-muted-foreground mb-4">
-                        For a few months, FICELCO was able to sustain the cost of operations then it was jolted by the fuel price hike in October, 1973. Expansion plans had to be reined back, priorities restructured and the use of alternative energy sources started to be conceptualized.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        In May, 1975, the construction of its power plant and headquarter was completed. FICELCO became ready to serve the power demands of its growing membership. New line extensions in the Municipalities of Virac, Bato, San Andres and San Miguel were inaugurated in August, 1976. Gigmoto was inaugurated in May, 1978 and an interim power plant was installed in Viga in June, 1979.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        Then, the First Lady Imelda Marcos the Chairperson of the National Electrification Administration signed a loan agreement for the construction and development of a hydro electric power plant in Balongbong, Bato; another hydroplant in Hitoma, Caramoran and the Dendro Therma Project in Buyo, Virac.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        Faced with the crunching effects of the escalating fuel prices and ever increasing maintenance costs of its power generating equipment, the cooperative embarked on an ambitious and rapid development of the energy potentials of the island. The construction of the 1.8 MW Balongbong Mini-Hydro Pant was started in June, 1982 meanwhile, the development of the 600-hectare ipil-ipil plantation was started to supply the fuel wood requirements of the proposed Buyo Dendro Thermal Plant.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        In June, 1983, the operational activities were greatly restricted due to acute shortage of power plant generating capacity and the high cost of selling power.While the peak demand went up to 1,00 KW, the generating capacity declined to 800 KW.On June 27, 1983, the Balongbong Mini-Hydro Plant was inaugurated despite pending 100 percent accomplishment of the balance of work.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        As power utilities in the Luzon grid strain under heavier rate burden imposed by NAPOCOR. FICELCO entered an era of de-escalating energy cost made possible by a renewed reliance on indigenous source of power.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        Typhoon “Warling” in 1983 destroyed the headrace, penstock and substation of the yet to be completed Balongbong Project. It literally brought down the Coop. Consumer confidence waned along with the Co-op credibility and goodwill when electric service schedules dwindled from a 12-hour to 4-hour periods on the driest months. As revenues became scarcer, collections suffered as cash for purchases, payment for salaries and salary differential became largely inadequate.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        The experience during the transition period from leasing to final ownership of the system proved valuable to the Management of the Co-op, GM Amado M. Tacorda was then able to re-orient the consumers of their new responsibilities. For a few months, FICELCO was able to sustain the cost of operations then it was jolted by the fuel price hike in October, 1973. Expansion plans had to be reined back, priorities restructured and the use of alternative energy sources started to be conceptualized. After a long search for solutions, the management finally secured a negotiated agreement with a consortium of local contractors to undertake immediate rehabilitation works on the Balongbong Project. Rehabilitation activities were completed in November 1984.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        The steady rebound of electric revenues helped prop-up Co-op operation. In 1986, the Provincial Government decided to play a lead role in the extension of power lines to Pandan and Caramoran to eventually link-up with the Hydro power source from Balongbong.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        The year 1987, ushered critical and important changes in the operation of the Co-op. NEA, acting in accordance with the provisions of P.D. 1645, decided to take direct hand in the operations of the Co-op by sending two-man Management Assistance Team.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        Faced with the formidable problems and operating in harsh socio-economic and political environment, the Co-op was able to overcome hurdles to set the stage from recovery and sustained growth in the years ahead following excellence schemes. The upswing of its physical performance enabled the Co-op to renew its amortization dues andsettle other financial obligations. The influence of exerted was likewise positively translated in all other areas of concern as system losses dropped and house connections substantially increased.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        The Presidential pronouncement on May 1, 1988, transferring all power generating chores of every self-generating electric cooperative to the National Power Corporation not only relieved FICELCO of the burden of costly power generation and maintenance but also provided the logical direction to the eventual operational take-off. The Co-op developed a tripartite with NAPOCOR and NEA for the smooth transition and productive co-existence.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        FICELCO finally achieved a breakthrough in collection efficiency when it surpassed the 90 percent psychological barrier to post an average of 96 percent in the last quarter of 1988, and 97 percent in the first quarter of 1989.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        Thus, for the first time, FICECO joined the elite rank of electric cooperatives which have attained more than 95 percent collection efficiency. NEA’s recent re-categorization of electric cooperatives nationwide proved FICELCO’s exemplary performance and laudable sense of achievement thereby elevating it among ranks of viable coops in the country.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        The total electrification agenda for Catanduanes proposed in 1989 by the Presidential pronouncement highlighted the priority programs during the year through 1990. Fund sourcing consequently delayed implementation as the project turned form an issue of technology and financing capability to one of moral and social obligation and commitment even as the Danish government thru its international agency for development (DANIDA) favourably project on an outright grant.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        Expansion and maintenance programs were largely hampered by the inadequacy of pole-line materials and KWH meters. However, the Co-ops status on electrification continued to grow through self-help efforts with intensification of putting up Barangay Power Associations and holding Barangay Electricians Courses.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        Despite the escalation of fuel prices, which resulted in mild rate increase for the first time, the 1M-Peso monthly revenue mark has been achieved.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        The consequent depreciation of Philippine Peso vis-à-vis US dollar and other currencies made FICELCO operations most costly considering that the Co-op uses mostly imported materials for its line maintenance, construction and operation. These factors were greatly instrumental in the Co-op’s decision to increase its rates.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        In 1998, typhoon “Loleng” brought devastating effects to the Co-op’s distribution system. The FICELCO restoration workforce was assisted by CEBECO I, II and III. “Task Force Catanduanes” was initiated by the General Manager of this Co-ops Fr. Francisco G. Silva and their Board of Directors.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        The Co-op’s clientele through the years as the Co-op continued to face challenges. More so, the Co-op employees continued to upgrade their knowledge and skills by attending selected seminars and trainings. The Co-op also continued implementation of its radio program, publication of information materials and pre-membership seminars.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        With the passage of the Electric Power Industry Reform Act, electric cooperatives faced new challenges and opportunities.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        In 2002, two rented gensets from Monark were commissioned and the remaining two rented genset which were stationed at the mooring site of Power Barge 110 were likewise commissioned using the sub-station transformer and control panels. The acute power supply crisis was temporarily resolved. Hence, the Management and the provincial government petitioned to Pres. Gloria Macapagal-Arroyo for the retention of the rented gensets until such time that NAPOCOR’s generating capability should have been augment.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        FICELCO continues to grow as information programs were conducted in different high schools in the province. The Co-op continued its energization of eight barangays in the island.Then in 2004, the Unbundling of Rates was implemented per compliance to ERC Memorandum. The Energy Regulatory Commission promulgated the Magna Carta for Residential Consumers to which new applicants gather every Friday for the orientation seminar at the FICELCO compound as a requirement for new connections.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        Typhoon “Reming” in 2006 caused tragic experience to the entire province. Restoration became the priority of the Co-op. with the combined enthusiasm and efforts of the Management, employees and the member-consumers; the energy was restored in the province within three months.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        The Annual General Membership Meeting continued to be held at the different districts of the province. FICELCO also joins festivities such as the annual Christmas Cheers and sports activities sponsored by the different sectors of the province.
-                    </p>
-                    <p className="text-muted-foreground mb-4">
-                        After 36 years of hard-earned endeavour, FICELCO having achieved 100 percent energization now continues its journey to achieve service excellence and be at part with the elite electric cooperatives. Being the sole franchise holder in Caatanduanes in terms of electric distribution it continues to serve 38,000 member-consumers of the 11 municipalities with the mission of taking major role in the socio-economic development of Catanduanes by delivering affordable, dependable, efficient and reliable electric service to its member-consumer.
-                    </p>
-                    </div>
-                </div>
-            </section>
         </GuestPage>
     )
 }

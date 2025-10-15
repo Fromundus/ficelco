@@ -212,8 +212,13 @@ const Navigation = () => {
         { name: "Mangement Team", path: "/about/mt" },
       ],
     },
-    { name: "Billing Inquiry", path: "/billing" },
-    { name: "Services", path: "/services" },
+    { 
+      name: "Consumer Services", 
+      path: "/services",
+      subItems: [
+        { name: "Billing Inquiry", path: "/services/billing" },
+      ]
+    },
     { name: "Biddings", path: "/biddings" },
     { name: "Downloads", path: "/downloads" },
     { name: "Contact Us", path: "/contact" },

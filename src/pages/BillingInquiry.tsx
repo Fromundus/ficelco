@@ -54,15 +54,7 @@ const BillingInquiry = () => {
   };
 
   return (
-    <GuestPage childrenMaxWidth="max-w-4xl">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Billing Inquiry</h1>
-          {/* <p className="text-xl text-muted-foreground">
-            Check your electricity bill and payment status
-          </p> */}
-        </div>
-
+    <GuestPage childrenMaxWidth="max-w-4xl" title="Billing Inquiry">
         <span className="flex w-full justify-center">Coming soon...</span>
 
         {/* <Card className="card-electric mb-8">

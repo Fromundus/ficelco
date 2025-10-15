@@ -64,14 +64,7 @@ const bods: Bod[] = [
 
 const BOD = () => {
     return (
-        <GuestPage>
-            <div className="text-center mb-16">
-                <h1 className="text-4xl font-bold text-foreground mb-4">Board of Directors</h1>
-                {/* <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                    Meet the elected representatives who provide leadership, policy direction, and governance to ensure FICELCO’s continued growth and accountability.
-                </p> */}
-            </div>
-
+        <GuestPage title='Board of Directors'>
             <div className='grid md:grid-cols-3 gap-6'>
                 {bods.map((item) => {
                     return (

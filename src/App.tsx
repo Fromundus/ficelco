@@ -71,8 +71,9 @@ const App = () => {
               <Route path="bod" element={<BOD />} />
               <Route path="mt" element={<ManagementTeam />} />
             </Route>
-            <Route path="billing" element={<BillingInquiry />} />
-            <Route path="services" element={<MemberServices />} />
+            <Route path="/services" element={<MemberServices />} >
+              <Route path="billing" element={<BillingInquiry />} />
+            </Route>
             <Route path="/news">
               <Route path="power-rate" element={<MonthlyPowerRates />} />
               <Route path="announcement-advisory" element={<AnnouncementsAndAdvisories />} />

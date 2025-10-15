@@ -105,16 +105,7 @@ const Biddings = () => {
   };
 
   return (
-    <GuestPage>
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Biddings & Procurement</h1>
-          {/* <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Current bidding opportunities and procurement notices from FICELCO. 
-            Qualified suppliers and contractors are invited to participate.
-          </p> */}
-        </div>
-
+    <GuestPage title="Biddings & Procurement">
         <span className="flex w-full justify-center">Coming soon...</span>
 
         {/* Quick Stats */}

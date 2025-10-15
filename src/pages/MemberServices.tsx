@@ -64,16 +64,7 @@ const MemberServices = () => {
   ];
 
   return (
-    <GuestPage>
-
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Member Services</h1>
-          {/* <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive services for our valued members. We're here to assist you 
-            with all your electrical service needs.
-          </p> */}
-        </div>
-
+    <GuestPage title="Member Services">
         <span className="flex w-full justify-center">Coming soon...</span>
 
         {/* <section className="mb-16">

@@ -1,10 +1,11 @@
+import GuestPage from '@/components/custom/GuestPage'
 import React from 'react'
 
 const MonthlyPowerRates = () => {
     return (
-        <div>
-            MonthlyPowerRates
-        </div>
+        <GuestPage title='Monthly Power Rates'>
+
+        </GuestPage>
     )
 }
 

@@ -1,10 +1,11 @@
+import GuestPage from '@/components/custom/GuestPage'
 import React from 'react'
 
 const JobVacancy = () => {
     return (
-        <div>
-            JobVacancy
-        </div>
+        <GuestPage title='Job Vacancy'>
+
+        </GuestPage>
     )
 }
 
