@@ -11,19 +11,19 @@ const Index = () => {
       title: "Billing Inquiry",
       description: "Check your electricity bill and payment status",
       icon: CreditCard,
-      link: "/billing",
+      link: "/billing-inquiry",
     },
     {
       title: "Announcements and Advisories",
       description: "Stay updated with announcements and advisories",
       icon: Newspaper,
-      link: "/news/announcement-advisory",
+      link: "/news/announcements-and-advisories",
     },
     {
-      title: "Member Services",
-      description: "Access member-exclusive services and support",
-      icon: Users,
-      link: "/services",
+      title: "New Connection Application",
+      description: "Apply for new connection",
+      icon: Zap,
+      link: "/services/electric-service-connection-application",
     },
     {
       title: "Contact Us",
@@ -68,10 +68,10 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild className="font-semibold p-6 text-lg">
-              <Link to="/billing">Check Your Bill</Link>
+              <Link to="/services/billing-inquiry">Check Your Bill</Link>
             </Button>
             <Button asChild className="bg-primary bg-blue-500 hover:bg-blue-600 text-white font-semibold p-6 text-lg">
-              <Link to="/services">Apply for New Connection</Link>
+              <Link to="/services/electric-service-connection-application">Apply for New Connection</Link>
             </Button>
           </div>
         </div>

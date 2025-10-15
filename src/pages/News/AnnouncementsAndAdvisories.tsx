@@ -3,7 +3,7 @@ import React from 'react'
 
 const AnnouncementsAndAdvisories = () => {
     return (
-        <GuestPage title='News and Advisories'>
+        <GuestPage title='Announcements and Advisories'>
 
         </GuestPage>
     )

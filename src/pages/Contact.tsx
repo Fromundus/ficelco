@@ -13,7 +13,8 @@ import {
   MessageSquare,
   User,
   Send,
-  Building
+  Building,
+  Calendar
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import GuestPage from "@/components/custom/GuestPage";
@@ -70,28 +71,39 @@ const Contact = () => {
       name: "SAN ANDRES",
       address: "Divino Rostro (Pob.), San Andres, Catanduanes",
       contact_number: "0929-550-1517",
+      business_hours: "Open every 23th day of the month to 4th day of the following month."
     },
     {
       name: "VIGA",
       address: "San Isidro, Viga, Catanduanes",
       contact_number: "0939-492-5015",
+      business_hours: "Open every 20th day of the month to 1st day of the following month."
     },
     {
       name: "DATAG",
       address: "Datag West, Caramoran, Catanduanes",
       contact_number: "0929-175-7156",
+      business_hours: "Open every 20th day of the month to 1st day of the following month."
     },
     {
       name: "PANDAN",
       address: "San Ignacio St. Pandan Del Norte, Pandan, Catanduanes",
       contact_number: "0929-550-1529",
+      business_hours: "Open every 20th day of the month to 1st day of the following month."
     },
     {
       name: "GIGMOTO",
       address: "Poblacion District II, Gigmoto, Catanduanes",
       contact_number: "0929-550-1546",
+      business_hours: "Open every 20th day of the month to 1st day of the following month."
     },
-  ]
+    {
+      name: "VIRAC",
+      address: "",
+      contact_number: "",
+      business_hours: "Open every 24th day of the month to 7th day of the following month."
+    },
+  ];
 
   return (
     <GuestPage title="Contact Us">
@@ -172,13 +184,15 @@ const Contact = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-6">
+                <span className="flex gap-2 items-center font-semibold"><Clock /> Business Hours - 8:00 AM to 12:00 Noon and 1:00 PM to 5:00 PM</span>
+                <div className="space-y-6 mt-4">
                   {serviceCenters.map((item) => {
                     return (
                       <div className="space-y-2" key={item.name}>
                         <h4 className="text-foreground font-semibold">{item.name}</h4>
                         <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><MapPin className="w-5 h-5" /> {item.address}</p>
                         <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> {item.contact_number}</p>
+                        <p className="text-sm flex items-center gap-2 text-muted-foreground"><Calendar className="w-5 h-5" /> {item.business_hours}</p>
                       </div>
                     )
                   })}

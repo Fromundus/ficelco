@@ -193,34 +193,42 @@ const Navigation = () => {
   /** MAIN NAVIGATION DEFINITION */
   const navItems: NavItem[] = [
     { name: "Home", path: "/" },
-    { 
-      name: "News & Advisories", 
-      path: "/news",
-      subItems: [
-        {name: "Monthly Power Rates", path: "/news/power-rate"},
-        {name: "Announcements and Advisories", path: "/news/announcement-advisory"},
-        {name: "Job Vacancy", path: "/news/job-vacancy"},
-      ]
-    },
     {
       name: "About",
       path: "/about",
       subItems: [
+        { name: "Cooperative Profile", path: "/about/cooperative-profile" },
         { name: "History", path: "/about/history" },
-        { name: "Vision, Mission, and Goal", path: "/about/vmg" },
-        { name: "Board of Directors", path: "/about/bod" },
-        { name: "Mangement Team", path: "/about/mt" },
+        { name: "Vision, Mission, and Goal", path: "/about/vission-mission-and-goal" },
+        { name: "Board of Directors", path: "/about/board-of-directors" },
+        { name: "Mangement Team", path: "/about/management-team" },
       ],
+    },
+    { 
+      name: "News & Advisories", 
+      path: "/news",
+      subItems: [
+        {name: "Announcements and Advisories", path: "/news/announcements-and-advisories"},
+        {name: "Monthly Power Rates", path: "/news/monthly-power-rates"},
+        {name: "Breakdown of Generation Charges", path: "/news/break-down-of-generation-charges"},
+        // {name: "Job Vacancy", path: "/news/job-vacancy"},
+      ]
     },
     { 
       name: "Consumer Services", 
       path: "/services",
       subItems: [
-        { name: "Billing Inquiry", path: "/services/billing" },
+        { name: "Billing Inquiry", path: "/services/billing-inquiry" },
+        { name: "Electric Service Connection Application", path: "/services/electric-service-connection-application" },
+        { name: "Transfer of Membership/Name", path: "/services/transfer-of-membership-or-name" },
+        { name: "Senior Citizen Discount", path: "/services/senior-citizen-discount" },
+        { name: "Lifeline Discount", path: "/services/lifeline-discount" },
+        { name: "Meter Reading/Billing, Collection & Disconnection Schedule", path: "/services/meter-reading-or-billing-connection-and-disconnection-schedule" },
+        { name: "Service Centers", path: "/services/service-centers" },
+        { name: "Downloads", path: "/services/downloads" },
       ]
     },
     { name: "Biddings", path: "/biddings" },
-    { name: "Downloads", path: "/downloads" },
     { name: "Contact Us", path: "/contact" },
   ];
 

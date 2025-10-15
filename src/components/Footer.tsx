@@ -31,11 +31,11 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <div className="space-y-2">
-              <a href="/billing" className="block text-sm hover:text-muted-foreground transition-colors">
+              <a href="/services/billing-inquiry" className="block text-sm hover:text-muted-foreground transition-colors">
                 Billing Inquiry
               </a>
-              <a href="/services" className="block text-sm hover:text-muted-foreground transition-colors">
-                Member Services
+              <a href="/services/electric-service-connection-application" className="block text-sm hover:text-muted-foreground transition-colors">
+                New Connection
               </a>
               <a href="/news/announcement-advisory" className="block text-sm hover:text-muted-foreground transition-colors">
                 Announcements and Advisories
@@ -54,14 +54,16 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="https://www.facebook.com/ficelco" 
+                href="https://www.facebook.com/ficelco"
+                target="_blank"
                 className="hover:text-muted-foreground transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a 
-                href="https" 
+                href="https://m.me/212869068836464"
+                target="_blank"
                 className="hover:text-muted-foreground transition-colors"
                 aria-label="Messenger"
               >

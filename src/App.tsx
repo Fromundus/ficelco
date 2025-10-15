@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import BillingInquiry from "./pages/BillingInquiry";
+import BillingInquiry from "./pages/Services/BillingInquiry";
 import MemberServices from "./pages/MemberServices";
 import News from "./pages/News";
 import Biddings from "./pages/Biddings";
@@ -44,6 +44,14 @@ import ManagementTeam from "./pages/About/ManagementTeam";
 import MonthlyPowerRates from "./pages/News/MonthlyPowerRates";
 import AnnouncementsAndAdvisories from "./pages/News/AnnouncementsAndAdvisories";
 import JobVacancy from "./pages/News/JobVacancy";
+import NewConnection from "./pages/Services/NewConnection";
+import CoopProfile from "./pages/About/CoopProfile";
+import BreakdownOfGenerationCharges from "./pages/News/BreakdownOfGenerationCharges";
+import TransferOfMembership from "./pages/Services/TransferOfMembership";
+import SeniorDiscount from "./pages/Services/SeniorDiscount";
+import LifelineDiscount from "./pages/Services/LifelineDiscount";
+import MRBCDSchedule from "./pages/Services/MRBCDSchedule";
+import ServiceCenters from "./pages/Services/ServiceCenters";
 
 const queryClient = new QueryClient();
 
@@ -66,21 +74,29 @@ const App = () => {
             <Route index element={<Index />} />
             {/* <Route path="about" element={<About />} /> */}
             <Route path="/about">
+              <Route path="cooperative-profile" element={<CoopProfile />} />
               <Route path="history" element={<History />} />
-              <Route path="vmg" element={<VisionMisionGoal />} />
-              <Route path="bod" element={<BOD />} />
-              <Route path="mt" element={<ManagementTeam />} />
-            </Route>
-            <Route path="/services" element={<MemberServices />} >
-              <Route path="billing" element={<BillingInquiry />} />
+              <Route path="vission-mission-and-goal" element={<VisionMisionGoal />} />
+              <Route path="board-of-directors" element={<BOD />} />
+              <Route path="management-team" element={<ManagementTeam />} />
             </Route>
             <Route path="/news">
-              <Route path="power-rate" element={<MonthlyPowerRates />} />
-              <Route path="announcement-advisory" element={<AnnouncementsAndAdvisories />} />
-              <Route path="job-vacancy" element={<JobVacancy />} />
+              <Route path="announcements-and-advisories" element={<AnnouncementsAndAdvisories />} />
+              <Route path="monthly-power-rates" element={<MonthlyPowerRates />} />
+              <Route path="break-down-of-generation-charges" element={<BreakdownOfGenerationCharges />} />
+              {/* <Route path="job-vacancy" element={<JobVacancy />} /> */}
+            </Route>
+            <Route path="/services" >
+              <Route path="billing-inquiry" element={<BillingInquiry />} />
+              <Route path="electric-service-connection-application" element={<NewConnection />} />
+              <Route path="transfer-of-membership-or-name" element={<TransferOfMembership />} />
+              <Route path="senior-citizen-discount" element={<SeniorDiscount />} />
+              <Route path="lifeline-discount" element={<LifelineDiscount />} />
+              <Route path="meter-reading-or-billing-connection-and-disconnection-schedule" element={<MRBCDSchedule />} />
+              <Route path="service-centers" element={<ServiceCenters />} />
+              <Route path="downloads" element={<Downloads />} />
             </Route>
             <Route path="biddings" element={<Biddings />} />
-            <Route path="downloads" element={<Downloads />} />
             <Route path="contact" element={<Contact />} />
 
             <Route path="login" element={<Login />} />
