@@ -238,7 +238,7 @@ const Posts = () => {
           </CardContent>
         </Card>
 
-        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+        <div className='grid grid-cols-1 gap-4'>
           {isLoading ? 
             <>
               <Skeleton className="h-48 w-full" />
@@ -248,7 +248,7 @@ const Posts = () => {
             : posts.length > 0 ?
             posts?.map((item) => {
               return (
-                <PostCard post={item} />
+                <PostCard key={item.id} post={item} />
               )
             })
             :
@@ -262,7 +262,6 @@ const Posts = () => {
                 <Skeleton className="h-48 w-full" />
             </>
           }
-
         </div>
         <div ref={loadMoreRef} className="flex justify-center items-center py-4">
             {!hasNextPage && !isFetchingNextPage && !isLoading && posts.length > 10 && (

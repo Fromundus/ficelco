@@ -95,10 +95,10 @@ const Contact = () => {
     <GuestPage>
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">Contact Us</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          {/* <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Get in touch with FICELCO. We're here to help with your electrical 
             service needs, questions, and concerns.
-          </p>
+          </p> */}
         </div>
 
         {/* <section className="mb-16">
@@ -124,6 +124,92 @@ const Contact = () => {
         </section> */}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Office Information */}
+          <div className="space-y-6">
+            {/* Main Office */}
+            <Card className="card-electric">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-primary" />
+                  Main Office
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-2">FICELCO Headquarters</h4>
+                    <p className="text-muted-foreground">
+                      Located in the heart of Virac, our main office serves as the 
+                      central hub for all FICELCO operations and customer services.
+                    </p>
+                  </div>
+                  <div className="border-t pt-4">
+                    <h5 className="font-medium text-foreground mb-2">Services Available:</h5>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Bill payment and inquiries</li>
+                      <li>• New connection applications</li>
+                      <li>• Technical support</li>
+                      <li>• Member services</li>
+                      <li>• Document requests</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Emergency Services */}
+            <Card className="card-electric bg-destructive/5 border-destructive/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-destructive">
+                  <Phone className="w-5 h-5" />
+                  Emergency Services
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div>
+                    <h4 className="font-semibold text-foreground">24/7 Emergency Hotline</h4>
+                    <p className="text-lg font-mono text-destructive">(052) 811-HELP (4357)</p>
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    <p className="mb-2">Call for:</p>
+                    <ul className="space-y-1">
+                      <li>• Power outages</li>
+                      <li>• Electrical emergencies</li>
+                      <li>• Downed power lines</li>
+                      <li>• Safety hazards</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Quick Tips */}
+            <Card className="card-electric">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <User className="w-5 h-5 text-accent" />
+                  Before You Visit
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-foreground">Please bring:</h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Valid government-issued ID</li>
+                    <li>• Account number (for billing inquiries)</li>
+                    <li>• Previous bills or receipts</li>
+                    <li>• Required documents for services</li>
+                  </ul>
+                  <div className="mt-4 p-3 bg-secondary rounded-lg">
+                    <p className="text-sm text-muted-foreground">
+                      💡 Tip: Call ahead to verify document requirements for your specific needs.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
           {/* Contact Form */}
           <div>
             <Card className="card-electric">
@@ -233,92 +319,6 @@ const Contact = () => {
             </Card>
           </div>
 
-          {/* Office Information */}
-          <div className="space-y-6">
-            {/* Main Office */}
-            <Card className="card-electric">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  Main Office
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">FICELCO Headquarters</h4>
-                    <p className="text-muted-foreground">
-                      Located in the heart of Virac, our main office serves as the 
-                      central hub for all FICELCO operations and customer services.
-                    </p>
-                  </div>
-                  <div className="border-t pt-4">
-                    <h5 className="font-medium text-foreground mb-2">Services Available:</h5>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>• Bill payment and inquiries</li>
-                      <li>• New connection applications</li>
-                      <li>• Technical support</li>
-                      <li>• Member services</li>
-                      <li>• Document requests</li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Emergency Services */}
-            <Card className="card-electric bg-destructive/5 border-destructive/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-destructive">
-                  <Phone className="w-5 h-5" />
-                  Emergency Services
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div>
-                    <h4 className="font-semibold text-foreground">24/7 Emergency Hotline</h4>
-                    <p className="text-lg font-mono text-destructive">(052) 811-HELP (4357)</p>
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    <p className="mb-2">Call for:</p>
-                    <ul className="space-y-1">
-                      <li>• Power outages</li>
-                      <li>• Electrical emergencies</li>
-                      <li>• Downed power lines</li>
-                      <li>• Safety hazards</li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Quick Tips */}
-            <Card className="card-electric">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5 text-accent" />
-                  Before You Visit
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-foreground">Please bring:</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
-                    <li>• Valid government-issued ID</li>
-                    <li>• Account number (for billing inquiries)</li>
-                    <li>• Previous bills or receipts</li>
-                    <li>• Required documents for services</li>
-                  </ul>
-                  <div className="mt-4 p-3 bg-secondary rounded-lg">
-                    <p className="text-sm text-muted-foreground">
-                      💡 Tip: Call ahead to verify document requirements for your specific needs.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
     </GuestPage>
   );

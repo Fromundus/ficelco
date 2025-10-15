@@ -147,14 +147,14 @@ const Downloads = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">Downloads</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          {/* <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Access important documents, forms, and resources from FICELCO. 
             Download what you need for membership, services, and compliance.
-          </p>
+          </p> */}
         </div>
 
         {/* Categories Filter */}
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <Card className="card-electric">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -179,10 +179,10 @@ const Downloads = () => {
               </div>
             </CardContent>
           </Card>
-        </section>
+        </section> */}
 
         {/* Download Stats */}
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Card className="card-electric">
               <CardContent className="p-6 text-center">
@@ -228,12 +228,12 @@ const Downloads = () => {
               </CardContent>
             </Card>
           </div>
-        </section>
+        </section> */}
 
         {/* Downloads List */}
         <section>
           <h2 className="text-3xl font-bold text-foreground mb-8">Available Downloads</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             {downloadItems.map((item) => (
               <Card key={item.id} className="card-electric">
                 <CardHeader>
@@ -280,7 +280,7 @@ const Downloads = () => {
         </section>
 
         {/* Help Section */}
-        <section className="mt-16">
+        {/* <section className="mt-16">
           <Card className="card-electric bg-hero-gradient">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Need Help with Downloads?</CardTitle>
@@ -311,7 +311,7 @@ const Downloads = () => {
               </Button>
             </CardContent>
           </Card>
-        </section>
+        </section> */}
     </GuestPage>
   );
 };

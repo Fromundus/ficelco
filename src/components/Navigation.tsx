@@ -193,6 +193,15 @@ const Navigation = () => {
   /** MAIN NAVIGATION DEFINITION */
   const navItems: NavItem[] = [
     { name: "Home", path: "/" },
+    { 
+      name: "News & Advisories", 
+      path: "/news",
+      subItems: [
+        {name: "Monthly Power Rates", path: "/news/power-rate"},
+        {name: "Announcements and Advisories", path: "/news/announcement-advisory"},
+        {name: "Job Vacancy", path: "/news/job-vacancy"},
+      ]
+    },
     {
       name: "About",
       path: "/about",
@@ -205,7 +214,6 @@ const Navigation = () => {
     },
     { name: "Billing Inquiry", path: "/billing" },
     { name: "Services", path: "/services" },
-    { name: "News & Advisories", path: "/news" },
     { name: "Biddings", path: "/biddings" },
     { name: "Downloads", path: "/downloads" },
     { name: "Contact Us", path: "/contact" },

@@ -22,10 +22,6 @@ const Footer = () => {
               </div> */}
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5" />
-                <span className="text-sm">ficelco01@yahoo.com</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5" />
                 <span className="text-sm">ficelco01@gmail.com</span>
               </div>
             </div>
@@ -41,8 +37,8 @@ const Footer = () => {
               <a href="/services" className="block text-sm hover:text-muted-foreground transition-colors">
                 Member Services
               </a>
-              <a href="/news" className="block text-sm hover:text-muted-foreground transition-colors">
-                Latest News
+              <a href="/news/announcement-advisory" className="block text-sm hover:text-muted-foreground transition-colors">
+                Announcements and Advisories
               </a>
               <a href="/contact" className="block text-sm hover:text-muted-foreground transition-colors">
                 Contact Us

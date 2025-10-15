@@ -90,7 +90,7 @@ const News = () => {
 
         <section>
           <h2 className="text-3xl font-bold text-foreground mb-8">Latest Updates</h2>
-          <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+          <div className='grid grid-cols-1 gap-4'>
             {isLoading ? 
               <>
                 <Skeleton className="h-48 w-full" />
@@ -100,7 +100,7 @@ const News = () => {
               : posts.length > 0 ?
               posts?.map((item) => {
                 return (
-                  <PostCard post={item} />
+                  <PostCard key={item.id} post={item} />
                 )
               })
               :

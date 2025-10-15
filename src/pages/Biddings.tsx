@@ -109,14 +109,14 @@ const Biddings = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">Biddings & Procurement</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          {/* <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Current bidding opportunities and procurement notices from FICELCO. 
             Qualified suppliers and contractors are invited to participate.
-          </p>
+          </p> */}
         </div>
 
         {/* Quick Stats */}
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Card className="card-electric">
               <CardContent className="p-6 text-center">
@@ -162,9 +162,8 @@ const Biddings = () => {
               </CardContent>
             </Card>
           </div>
-        </section>
+        </section> */}
 
-        {/* Current Biddings */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold text-foreground mb-8">Current Opportunities</h2>
           <div className="space-y-6">
@@ -226,7 +225,7 @@ const Biddings = () => {
         </section>
 
         {/* Guidelines */}
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <Card className="card-electric">
             <CardHeader>
               <CardTitle className="text-2xl">Bidding Guidelines</CardTitle>
@@ -254,29 +253,7 @@ const Biddings = () => {
               </div>
             </CardContent>
           </Card>
-        </section>
-
-        {/* Contact Information */}
-        <section>
-          <Card className="card-electric bg-hero-gradient">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Need More Information?</CardTitle>
-              <p className="opacity-90">
-                Contact our Procurement Office for questions about bidding opportunities
-              </p>
-            </CardHeader>
-            <CardContent className="text-center">
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="secondary" size="lg">
-                  Download Bid Documents
-                </Button>
-                <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  Contact Procurement Office
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
+        </section> */}
     </GuestPage>
   );
 };

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreditCard, FileText, Newspaper, Users, Zap, Shield, Phone } from "lucide-react";
 import heroImage from "@/assets/hero-electric.jpg";
-import bghero from "@/assets/bghero.jfif";
+import bghero from "@/assets/bghero.jpg";
 
 const Index = () => {
   const quickLinks = [
@@ -68,10 +68,10 @@ const Index = () => {
             affordable electricity for homes and businesses.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild className="font-semibold">
+            <Button asChild className="font-semibold p-6 text-lg">
               <Link to="/billing">Check Your Bill</Link>
             </Button>
-            <Button asChild className="bg-primary bg-blue-500 hover:bg-blue-600 text-white font-semibold">
+            <Button asChild className="bg-primary bg-blue-500 hover:bg-blue-600 text-white font-semibold p-6 text-lg">
               <Link to="/services">Apply for New Connection</Link>
             </Button>
           </div>
@@ -130,7 +130,7 @@ const Index = () => {
       </section> */}
 
       {/* Call to Action */}
-      <section className="py-16 bg-hero-gradient">
+      {/* <section className="py-16 bg-hero-gradient">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Need Assistance?</h2>
           <p className="text-xl mb-8 opacity-90">
@@ -140,7 +140,7 @@ const Index = () => {
             <Link to="/contact">Contact Us Today</Link>
           </Button>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

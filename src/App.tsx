@@ -41,6 +41,9 @@ import History from "./pages/About/History";
 import VisionMisionGoal from "./pages/About/VisionMisionGoal";
 import BOD from "./pages/About/BOD";
 import ManagementTeam from "./pages/About/ManagementTeam";
+import MonthlyPowerRates from "./pages/News/MonthlyPowerRates";
+import AnnouncementsAndAdvisories from "./pages/News/AnnouncementsAndAdvisories";
+import JobVacancy from "./pages/News/JobVacancy";
 
 const queryClient = new QueryClient();
 
@@ -70,7 +73,11 @@ const App = () => {
             </Route>
             <Route path="billing" element={<BillingInquiry />} />
             <Route path="services" element={<MemberServices />} />
-            <Route path="news" element={<News />} />
+            <Route path="/news">
+              <Route path="power-rate" element={<MonthlyPowerRates />} />
+              <Route path="announcement-advisory" element={<AnnouncementsAndAdvisories />} />
+              <Route path="job-vacancy" element={<JobVacancy />} />
+            </Route>
             <Route path="biddings" element={<Biddings />} />
             <Route path="downloads" element={<Downloads />} />
             <Route path="contact" element={<Contact />} />

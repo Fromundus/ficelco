@@ -58,9 +58,9 @@ const BillingInquiry = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4">Billing Inquiry</h1>
-          <p className="text-xl text-muted-foreground">
+          {/* <p className="text-xl text-muted-foreground">
             Check your electricity bill and payment status
-          </p>
+          </p> */}
         </div>
 
         <span className="flex w-full justify-center">Coming soon...</span>
