@@ -197,9 +197,10 @@ const History = () => {
                             <span className='text-nowrap col-span-1 text-lg font-bold text-end'>
                                 {item.year}
                             </span>
-                            <div className='col-span-1 hidden md:flex bg-foreground h-5 w-5 md:ms-10 rounded-full relative'>
-                                {index !== 19 && <div className={`absolute ${item.image ? "h-96" : "h-40"} left-[9px] border-[1px] border-foreground`}></div>}
-                                {index !== 0 && <div className={`absolute left-[9px] h-[400px] bottom-0 border-[1px] border-foreground`}></div>}
+                            <div className='col-span-1 hidden md:flex justify-center relative'>
+                                {index !== 19 && <div className={`absolute ${item.image ? "h-96" : "h-40"} border-[1px] border-foreground`}></div>}
+                                {index !== 0 && <div className={`absolute h-[400px] bottom-0 border-[1px] border-foreground`}></div>}
+                                <div className="w-5 h-5 bg-foreground rounded-full"></div>
                             </div>
                             <div className='col-span-7 space-y-4'>
                                 <h1 className='text-xl font-semibold'>{item.title}</h1>
