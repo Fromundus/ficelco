@@ -158,18 +158,18 @@ const Contact = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div>
+                <div className="space-y-6">
+                  <div className="space-y-2">
                     <h4 className="font-semibold text-foreground">FICELCO Consumer Complaints and Request Hotline</h4>
-                    <p className="text-lg font-mono">09506791798</p>
+                    <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0950-679-1798</p>
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <h4 className="font-semibold text-foreground">Meter Reading & Billing</h4>
-                    <p className="text-lg font-mono">09494282140</p>
+                    <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0949-428-2140</p>
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <h4 className="font-semibold text-foreground">Email us</h4>
-                    <p className="text-lg font-mono">ficelco01@gmail.com</p>
+                    <p className="text-sm flex items-center gap-2 text-muted-foreground"><Mail className="w-5 h-5" /> ficelco01@gmail.com</p>
                   </div>
                 </div>
               </CardContent>
@@ -186,10 +186,10 @@ const Contact = () => {
                 <div className="space-y-6">
                   {serviceCenters.map((item) => {
                     return (
-                      <div className="space-y-1" key={item.name}>
+                      <div className="space-y-2" key={item.name}>
                         <h4 className="text-foreground font-semibold">{item.name}</h4>
-                        <p className="font-mono pt-2 flex items-center gap-2"><MapPin className="w-5 h-5" /> {item.address}</p>
-                        <p className="text-lg font-mono flex items-center gap-2"><Phone className="w-5 h-5" /> {item.contact_number}</p>
+                        <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><MapPin className="w-5 h-5" /> {item.address}</p>
+                        <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> {item.contact_number}</p>
                       </div>
                     )
                   })}
