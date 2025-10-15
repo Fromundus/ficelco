@@ -65,32 +65,33 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const contactInfo = [
+  const serviceCenters = [
     {
-      icon: MapPin,
-      title: "Address",
-      details: ["Virac, Catanduanes", "Philippines 4800"],
-      color: "text-primary"
+      name: "SAN ANDRES",
+      address: "DIVINO ROSTRO (POB.), SAN ANDRES, CATANDUANES",
+      contact_number: "0929-550-1517",
     },
     {
-      icon: Phone,
-      title: "Phone Numbers",
-      details: ["Main: (052) 811-1234", "Emergency: (052) 811-HELP"],
-      color: "text-accent"
+      name: "VIGA",
+      address: "SAN ISIDRO, VIGA, CATANDUANES",
+      contact_number: "0939-492-5015",
     },
     {
-      icon: Mail,
-      title: "Email Addresses",
-      details: ["info@ficelco.coop", "support@ficelco.coop"],
-      color: "text-primary"
+      name: "DATAG",
+      address: "DATAG WEST, CARAMORAN, CATANDUANES",
+      contact_number: "0929-175-7156",
     },
     {
-      icon: Clock,
-      title: "Office Hours",
-      details: ["Mon-Fri: 8:00 AM - 5:00 PM", "Sat: 8:00 AM - 12:00 PM"],
-      color: "text-accent"
-    }
-  ];
+      name: "PANDAN",
+      address: "SAN IGNACIO ST. PANDAN DEL NORTE, PANDAN, CATANDUANES",
+      contact_number: "0929-550-1529",
+    },
+    {
+      name: "GIGMOTO",
+      address: "POBLACIO DISTRICT II, GIGMOTO, CATANDUANES",
+      contact_number: "0929-550-1546",
+    },
+  ]
 
   return (
     <GuestPage>
@@ -157,7 +158,7 @@ const Contact = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-foreground">FICELCO Consumer Complaints and Request Hotline</h4>
                     <p className="text-lg font-mono">09506791798</p>
@@ -170,36 +171,28 @@ const Contact = () => {
                     <h4 className="font-semibold text-foreground">Email us</h4>
                     <p className="text-lg font-mono">ficelco01@gmail.com</p>
                   </div>
-                  <div className="border-t pt-4">
-                    <h5 className="font-bold text-foreground mb-2 flex items-center gap-2"><Building /> SERVICE CENTERS</h5>
-                    <div className="space-y-3 pt-4">
-                      <div className="space-y-1">
-                        <h4 className="text-foreground font-semibold">SAN ANDRES</h4>
-                        <p className="font-mono pt-2">DIVINO ROSTRO (POB.), SAN ANDRES, CATANDUANES</p>
-                        <p className="text-lg font-mono">09295501517</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="card-electric">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building className="w-5 h-5" />
+                  Service Centers
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {serviceCenters.map((item) => {
+                    return (
+                      <div className="space-y-1" key={item.name}>
+                        <h4 className="text-foreground font-semibold">{item.name}</h4>
+                        <p className="font-mono pt-2 flex items-center gap-2"><MapPin className="w-5 h-5" /> {item.address}</p>
+                        <p className="text-lg font-mono flex items-center gap-2"><Phone className="w-5 h-5" /> {item.contact_number}</p>
                       </div>
-                      <div className="space-y-1">
-                        <h4 className="text-foreground font-semibold">VIGA</h4>
-                        <p className="font-mono pt-2">SAN ISIDRO, VIGA, CATANDUANES</p>
-                        <p className="text-lg font-mono">09394925015</p>
-                      </div>
-                      <div className="space-y-1">
-                        <h4 className="text-foreground font-semibold">DATAG</h4>
-                        <p className="font-mono pt-2">DATAG WEST, CARAMORAN, CATANDUANES</p>
-                        <p className="text-lg font-mono">09291757156</p>
-                      </div>
-                      <div className="space-y-1">
-                        <h4 className="text-foreground font-semibold">PANDAN</h4>
-                        <p className="font-mono pt-2">SAN IGNACIO ST. PANDAN DEL NORTE, PANDAN, CATANDUANES</p>
-                        <p className="text-lg font-mono">09295501529</p>
-                      </div>
-                      <div className="space-y-1">
-                        <h4 className="text-foreground font-semibold">GIGMOTO</h4>
-                        <p className="font-mono pt-2">POBLACIO DISTRICT II, GIGMOTO, CATANDUANES</p>
-                        <p className="text-lg font-mono">09295501546</p>
-                      </div>
-                    </div>
-                  </div>
+                    )
+                  })}
                 </div>
               </CardContent>
             </Card>
