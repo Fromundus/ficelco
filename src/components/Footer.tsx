@@ -1,4 +1,5 @@
-import { Mail, Phone, MapPin, Facebook, Twitter, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, MessageCircle, Zap } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 const Footer = () => {
   return (
@@ -22,7 +23,7 @@ const Footer = () => {
               </div> */}
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5" />
-                <span className="text-sm">ficelco01@gmail.com</span>
+                <span className="text-sm">ficelcocsd01@gmail.com</span>
               </div>
             </div>
           </div>
@@ -53,22 +54,54 @@ const Footer = () => {
               Powering communities in Catanduanes with reliable, affordable electricity.
             </p>
             <div className="flex space-x-4">
-              <a 
-                href="https://www.facebook.com/ficelco"
-                target="_blank"
-                className="hover:text-muted-foreground transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://m.me/212869068836464"
-                target="_blank"
-                className="hover:text-muted-foreground transition-colors"
-                aria-label="Messenger"
-              >
-                <MessageCircle className="w-5 h-5" />
-              </a>
+              <Tooltip>
+                <TooltipTrigger>
+                  <a 
+                    href="https://www.facebook.com/ficelco"
+                    target="_blank"
+                    className="hover:text-muted-foreground transition-colors"
+                    aria-label="Facebook"
+                  >
+                    <Facebook className="w-5 h-5" />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Facebook
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger>
+                  <a 
+                    href="https://m.me/212869068836464"
+                    target="_blank"
+                    className="hover:text-muted-foreground transition-colors"
+                    aria-label="Messenger"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Messenger
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <a 
+                    href="https://www.messenger.com/channel/ficelco"
+                    target="_blank"
+                    className="hover:text-muted-foreground transition-colors"
+                    aria-label="Messenger"
+                  >
+                    <Zap className="w-5 h-5" />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Power Advisories
+                </TooltipContent>
+              </Tooltip>
+
+
             </div>
           </div>
         </div>

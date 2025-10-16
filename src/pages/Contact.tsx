@@ -149,32 +149,36 @@ const Contact = () => {
                   <div className="space-y-6">
                     <div className="space-y-2">
                       <h4 className="font-semibold text-foreground">FICELCO Consumer Complaints and Request Hotline</h4>
-                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0950-679-1798</p>
+                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" />0950-679-1798</p>
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-semibold text-foreground">Meter Reading & Billing</h4>
-                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> 0949-428-2140</p>
+                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" />0949-428-2140</p>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-foreground">Contact Number</h4>
+                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Mail className="w-5 h-5" />0950-679-1798</p>
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-semibold text-foreground">Email us</h4>
-                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Mail className="w-5 h-5" /> ficelco01@gmail.com</p>
+                      <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><Mail className="w-5 h-5" />ficelcocsd01@gmail.com</p>
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Emergency Services */}
-            {/* <Card className="card-electric">
+            <Card className="card-electric">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  Our Contacts
+                  {/* <MapPin className="w-5 h-5" /> */}
+                  Business Hours
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                
+                <span className="flex gap-2 items-center font-semibold"><Clock /> Business Hours - 8:00 AM to 12:00 Noon and 1:00 PM to 5:00 PM</span>
               </CardContent>
-            </Card> */}
+            </Card>
 
             <Card className="card-electric">
               <CardHeader>
@@ -184,7 +188,6 @@ const Contact = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <span className="flex gap-2 items-center font-semibold"><Clock /> Business Hours - 8:00 AM to 12:00 Noon and 1:00 PM to 5:00 PM</span>
                 <div className="space-y-6 mt-4">
                   {serviceCenters.map((item) => {
                     return (
@@ -192,7 +195,7 @@ const Contact = () => {
                         <h4 className="text-foreground font-semibold">{item.name}</h4>
                         <p className="text-sm pt-2 flex items-center gap-2 text-muted-foreground"><MapPin className="w-5 h-5" /> {item.address}</p>
                         <p className="text-sm flex items-center gap-2 text-muted-foreground"><Phone className="w-5 h-5" /> {item.contact_number}</p>
-                        <p className="text-sm flex items-center gap-2 text-muted-foreground"><Calendar className="w-5 h-5" /> {item.business_hours}</p>
+                        {/* <p className="text-sm flex items-center gap-2 text-muted-foreground"><Calendar className="w-5 h-5" /> {item.business_hours}</p> */}
                       </div>
                     )
                   })}
